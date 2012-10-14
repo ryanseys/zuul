@@ -28,6 +28,11 @@ public class Game
         createRooms();
         parser = new Parser();
     }
+    
+    public static void main(String[] args) {
+    	Game g = new Game();
+    	g.play();
+    }
 
     /**
      * Create all the rooms and link their exits together.
