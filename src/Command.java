@@ -6,8 +6,8 @@
 
 public class Command
 {
-    private String firstWord;
-    private String secondWord;
+    private CommandWords firstWord;
+    private Object secondWord;
 
     /**
      * Create a command object. First and second word must be supplied, but
@@ -16,7 +16,7 @@ public class Command
      *                  was not recognised.
      * @param secondWord The second word of the command.
      */
-    public Command(String firstWord, String secondWord)
+    public Command(CommandWords firstWord, Object secondWord)
     {
         this.firstWord = firstWord;
         this.secondWord = secondWord;
@@ -27,7 +27,7 @@ public class Command
      * command was not understood, the result is null.
      * @return The command word.
      */
-    public String getFirstWord()
+    public CommandWords getFirstWord()
     {
         return firstWord;
     }
@@ -37,7 +37,7 @@ public class Command
      * command was not understood, the result is null.
      * @return The command word.
      */
-    public String getCommandWord()
+    public CommandWords getCommandWord()
     {
         return firstWord; //basically the same as getFirstWord
     }
@@ -75,7 +75,23 @@ public class Command
     }
     
     public Command getOpposite() {
-    	return new Command("help", null); // TODO: implement this
+    	if(firstWord == CommandWords.FIGHT ||
+    		firstWord == CommandWords.HELP ||
+    		firstWord == CommandWords.QUIT) {
+    		return null;
+    	}
+    	else {
+    		if(firstWord == CommandWords.GO) {
+    			return new Command(CommandWords.GO, ((Direction) secondWord).getOpposite());
+    		}
+    		else if(firstWord == CommandWords.PICKUP) {
+    			return new Command(CommandWords.DROP, secondWord);
+    		}
+    		else if(firstWord == CommandWords.DROP) {
+    			return new Command(CommandWords.PICKUP, secondWord);
+    		}
+    	return null;
+    	}
     }
 }
 
