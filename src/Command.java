@@ -63,7 +63,14 @@ public class Command
      * @return whether the command is undoable
      */
     public boolean isUndoable() {
-    	return true; // TODO: implement this
+    	if(firstWord == CommandWords.FIGHT ||
+        		firstWord == CommandWords.HELP ||
+        		firstWord == CommandWords.QUIT) {
+        		return false;
+        }
+    	else {
+    		return true;
+    	}
     }
     
     /**
@@ -75,9 +82,7 @@ public class Command
     }
     
     public Command getOpposite() {
-    	if(firstWord == CommandWords.FIGHT ||
-    		firstWord == CommandWords.HELP ||
-    		firstWord == CommandWords.QUIT) {
+    	if(!isUndoable()) {
     		return null;
     	}
     	else {
@@ -92,6 +97,33 @@ public class Command
     		}
     	return null;
     	}
+    }
+    
+    public static Command parse(String command) {
+    	if(command == "" || command == null) return null;
+    	command = command.toLowerCase().trim();
+    	String[] commands = command.split(" ");
+    	String first = commands[0];
+    	String second = commands[1];
+    	CommandWords cmdword = CommandWords.valueOf(first); //get the first word for the command
+    	if(cmdword != null) {
+	    	if(second == null ) {
+	    		return new Command(cmdword, null);
+	    	}
+	    	else {
+	    		if(cmdword == CommandWords.GO) {
+	    			Direction dir = Direction.valueOf(second); //get direction
+	    			if(dir != null) return new Command(cmdword, dir);
+	    		}
+	    		else if (cmdword == CommandWords.DROP || cmdword == CommandWords.PICKUP) {
+	    			//TODO:
+	    			//command for picking up an item, right now misunderstood because you cannot have reference to an item in the string.
+	    			//must know about player or room or something, doesn't seem correct.
+	    			//shouldn't make a new item because we know nothing else about it (value/weight)
+	    		}
+	    	}
+    	}
+    	return null;
     }
 }
 
