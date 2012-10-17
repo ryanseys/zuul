@@ -48,6 +48,11 @@ public class Room
     	monsters.add(m);
     }
 
+    public Monster getMonster() {
+        if(monsters.isEmpty()) return null;
+        return monsters.get(0);
+    }
+
     /**
      * Remove a monster from the room
      *
