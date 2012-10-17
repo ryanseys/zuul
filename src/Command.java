@@ -49,7 +49,7 @@ public class Command
      * @return The second word of this command. Returns null if there was no
      * second word.
      */
-    public String getSecondWord()
+    public Object getSecondWord()
     {
         return secondWord;
     }
