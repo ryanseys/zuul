@@ -1,6 +1,6 @@
 /**
  * Command class.
- * 
+ *
  * @author  Ryan Seys
  */
 
@@ -27,16 +27,6 @@ public class Command
      * command was not understood, the result is null.
      * @return The command word.
      */
-    public CommandWords getFirstWord()
-    {
-        return firstWord;
-    }
-    
-    /**
-     * Return the command word (the first word) of this command. If the
-     * command was not understood, the result is null.
-     * @return The command word.
-     */
     public CommandWords getCommandWord()
     {
         return firstWord; //basically the same as getFirstWord
@@ -58,7 +48,7 @@ public class Command
     {
         return (firstWord == null);
     }
-    
+
     /**
      * @return whether the command is undoable
      */
@@ -72,7 +62,7 @@ public class Command
     		return true;
     	}
     }
-    
+
     /**
      * @return true if the command has a second word.
      */
@@ -80,7 +70,7 @@ public class Command
     {
         return (secondWord != null);
     }
-    
+
     public Command getOpposite() {
     	if(!isUndoable()) {
     		return null;
@@ -98,7 +88,7 @@ public class Command
     	return null;
     	}
     }
-    
+
     public static Command parse(String command) {
     	if(command == "" || command == null) return null;
     	command = command.toLowerCase().trim();
@@ -120,6 +110,7 @@ public class Command
 	    			//command for picking up an item, right now misunderstood because you cannot have reference to an item in the string.
 	    			//must know about player or room or something, doesn't seem correct.
 	    			//shouldn't make a new item because we know nothing else about it (value/weight)
+                    new Command(cmdword, new Item(second, 0, 0)); //assume weight and value to be zero
 	    		}
 	    	}
     	}

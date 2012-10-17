@@ -7,11 +7,11 @@ import java.util.HashMap;
 /**
  * Room class for representing a room
  * that a Player or Monsters can be in.
- * 
+ *
  * There could be items in the room as well.
  */
 
-public class Room 
+public class Room
 {
     private String description;
     private List<Item> items;
@@ -24,14 +24,14 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description) 
+    public Room(String description)
     {
         this.description = description;
         exits = new HashMap<Direction, Room>();
         monsters = new ArrayList<Monster>();
         items = new ArrayList<Item>();
     }
-    
+
     /**
      * Adds an item to the room
      * @param i Item to add to the room
@@ -39,7 +39,7 @@ public class Room
     public void addItem(Item i) {
     	items.add(i);
     }
-    
+
     /**
      * Add a monster to the room
      * @param m Monster to add to the room
@@ -47,28 +47,36 @@ public class Room
     public void addMonster(Monster m) {
     	monsters.add(m);
     }
-    
+
+    /**
+     * Remove a monster from the room
+     *
+     */
+    public void removeMonster(Monster m) {
+        //TODO
+    }
+
     /**
      * Define an exit from this room.
      * @param direction The direction of the exit.
      * @param neighbor  The room to which the exit leads.
      */
-    public void setExit(Direction direction, Room neighbor) 
+    public void setExit(Direction direction, Room neighbor)
     {
         exits.put(direction, neighbor);
     }
-    
+
     /**
      * @return whether the room has any monsters
      */
     public boolean hasMonsters() {
     	return !monsters.isEmpty();
     }
-    
+
     public List<Direction> getExitDirections() {
     	return new ArrayList<Direction>(exits.keySet());
     }
-    
+
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).
@@ -110,7 +118,7 @@ public class Room
      * @param direction The exit's direction.
      * @return The room in the given direction.
      */
-    public Room getExit(Direction direction) 
+    public Room getExit(Direction direction)
     {
         return exits.get(direction);
     }
