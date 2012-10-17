@@ -5,17 +5,10 @@ import java.util.Set;
 import java.util.HashMap;
 
 /**
- * Class Room - a room in an adventure game.
- *
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
- *
- * A "Room" represents one location in the scenery of the game.  It is 
- * connected to other rooms via exits.  For each existing exit, the room 
- * stores a reference to the neighboring room.
+ * Room class for representing a room
+ * that a Player or Monsters can be in.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2011.08.08
+ * There could be items in the room as well.
  */
 
 public class Room 
@@ -24,7 +17,6 @@ public class Room
     private List<Item> items;
     private List<Monster> monsters;
     private Map<Direction, Room> exits;
-    
 
     /**
      * Create a room described "description". Initially, it has
@@ -36,33 +28,47 @@ public class Room
     {
         this.description = description;
         exits = new HashMap<Direction, Room>();
+        monsters = new ArrayList<Monster>();
+        items = new ArrayList<Item>();
     }
-
+    
+    /**
+     * Adds an item to the room
+     * @param i Item to add to the room
+     */
+    public void addItem(Item i) {
+    	items.add(i);
+    }
+    
+    /**
+     * Add a monster to the room
+     * @param m Monster to add to the room
+     */
+    public void addMonster(Monster m) {
+    	monsters.add(m);
+    }
+    
     /**
      * Define an exit from this room.
      * @param direction The direction of the exit.
      * @param neighbor  The room to which the exit leads.
      */
-    public void setExit(String direction, Room neighbor) 
+    public void setExit(Direction direction, Room neighbor) 
     {
-    	/*
         exits.put(direction, neighbor);
-        */
     }
     
+    /**
+     * @return whether the room has any monsters
+     */
     public boolean hasMonsters() {
-    	return false; // TODO: implement this
+    	return !monsters.isEmpty();
     }
     
     public List<Direction> getExitDirections() {
-    	return new ArrayList<Direction>();
-    	//TODO
+    	return new ArrayList<Direction>(exits.keySet());
     }
     
-    public void removeMonster(Monster m) {
-    	//TODO
-    }
-
     /**
      * @return The short description of the room
      * (the one that was defined in the constructor).
@@ -90,15 +96,12 @@ public class Room
      */
     private String getExitString()
     {
-    	/*
         String returnString = "Exits:";
-        Set<String> keys = exits.keySet();
-        for(String exit : keys) {
-            returnString += " " + exit;
+        Set<Direction> directions = exits.keySet();
+        for(Direction exit : directions) {
+            returnString += " " + exit.name();
         }
         return returnString;
-        */
-    	return "";
     }
 
     /**
@@ -107,7 +110,7 @@ public class Room
      * @param direction The exit's direction.
      * @return The room in the given direction.
      */
-    public Room getExit(String direction) 
+    public Room getExit(Direction direction) 
     {
         return exits.get(direction);
     }
