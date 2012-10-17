@@ -29,7 +29,6 @@ public class Humanoid {
 		this(MAX_HEALTH);
 	}
 	
-	
 	public int getHealth(){
 		return health;
 	}
@@ -38,7 +37,7 @@ public class Humanoid {
 		inventory.add(i);
 	}
 	
-	public ArrayList<Item> getInventory(Humanoid h){
+	public ArrayList<Item> getInventory(){
 		return inventory;
 	}
 	
@@ -46,4 +45,26 @@ public class Humanoid {
 		return inventory.remove(i);
 	}
 	
+	public Item getBestItem(){
+		Item tempItem;
+		tempItem = inventory.get(0);
+		//TODO if inventory is empty
+		for(Item i: inventory){
+			if(i.getValue()>tempItem.getValue()){
+				tempItem = i;
+			}
+		}
+		return tempItem;
+	}
+	
+	public void updateHealth(int h){
+		health = health - h;
+	}
+	
+	public boolean equals(Object o){
+		if(o instanceof Humanoid){
+			return (this.health == ((Humanoid) o).health) && (this.inventory.equals(((Humanoid) o).inventory));
+		}
+		return false;
+	}
 }

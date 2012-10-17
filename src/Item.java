@@ -7,7 +7,7 @@
  * For weapons, this value will decide which item is stronger.
  * For food, this value will decide how much the health of the player will increment.
  * The weight of the item will possibly later be used to have an item limit for the player. 
- *
+ * 
  */
 
 
@@ -23,6 +23,10 @@ public class Item implements Comparable<Item> {
 		this.description = description;
 		this.value = value;
 		this.weight = weight;
+	}
+	
+	public Item(String description) {
+		this(description, 0, 0);
 	}
 
 
@@ -56,10 +60,16 @@ public class Item implements Comparable<Item> {
 			return 1;	//this item is of greater value than the parameter item
 		} else if (this.value == i.value){
 			return 0;	//the items have the same value (tie)
-		}
+		} 
 		//otherwise, this.value < i.value
 		return -1;		//this item is of less value than the parameter item
 	}
 
+	public boolean equals(Object o){
+		if(o instanceof Item){
+			return (this.description.equals(((Item) o).getDescription()));
+		}
+		return false;
+	}
 
 }

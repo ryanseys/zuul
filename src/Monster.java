@@ -18,5 +18,11 @@ public class Monster extends Humanoid {
 		this.level = level;
 	}
 	
+	public boolean equals(Object o){
+		if(o instanceof Monster){
+			return (this.level == ((Monster) o).level  && super.equals(o));
+		}
+		return false;
+	}
 	
 }
