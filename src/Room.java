@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
 
@@ -18,7 +21,10 @@ import java.util.HashMap;
 public class Room 
 {
     private String description;
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    private List<Item> items;
+    private List<Monster> monsters;
+    private Map<Direction, Room> exits;
+    
 
     /**
      * Create a room described "description". Initially, it has
@@ -29,7 +35,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
-        exits = new HashMap<String, Room>();
+        exits = new HashMap<Direction, Room>();
     }
 
     /**
@@ -39,7 +45,22 @@ public class Room
      */
     public void setExit(String direction, Room neighbor) 
     {
+    	/*
         exits.put(direction, neighbor);
+        */
+    }
+    
+    public boolean hasMonsters() {
+    	return false; // TODO: implement this
+    }
+    
+    public List<Direction> getExitDirections() {
+    	return new ArrayList<Direction>();
+    	//TODO
+    }
+    
+    public void removeMonster(Monster m) {
+    	//TODO
     }
 
     /**
@@ -69,12 +90,15 @@ public class Room
      */
     private String getExitString()
     {
+    	/*
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;
         }
         return returnString;
+        */
+    	return "";
     }
 
     /**

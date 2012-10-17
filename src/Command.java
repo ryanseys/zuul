@@ -1,25 +1,12 @@
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
- *
- * This class holds information about a command that was issued by the user.
- * A command currently consists of two strings: a command word and a second
- * word (for example, if the command was "take map", then the two strings
- * obviously are "take" and "map").
+ * Command class.
  * 
- * The way this is used is: Commands are already checked for being valid
- * command words. If the user entered an invalid command (a word that is not
- * known) then the command word is <null>.
- *
- * If the command had only one word, then the second word is <null>.
- * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2011.08.08
+ * @author  Ryan Seys
  */
 
 public class Command
 {
-    private String commandWord;
+    private String firstWord;
     private String secondWord;
 
     /**
@@ -31,7 +18,7 @@ public class Command
      */
     public Command(String firstWord, String secondWord)
     {
-        commandWord = firstWord;
+        this.firstWord = firstWord;
         this.secondWord = secondWord;
     }
 
@@ -40,9 +27,19 @@ public class Command
      * command was not understood, the result is null.
      * @return The command word.
      */
+    public String getFirstWord()
+    {
+        return firstWord;
+    }
+    
+    /**
+     * Return the command word (the first word) of this command. If the
+     * command was not understood, the result is null.
+     * @return The command word.
+     */
     public String getCommandWord()
     {
-        return commandWord;
+        return firstWord; //basically the same as getFirstWord
     }
 
     /**
@@ -59,15 +56,26 @@ public class Command
      */
     public boolean isUnknown()
     {
-        return (commandWord == null);
+        return (firstWord == null);
     }
-
+    
+    /**
+     * @return whether the command is undoable
+     */
+    public boolean isUndoable() {
+    	return true; // TODO: implement this
+    }
+    
     /**
      * @return true if the command has a second word.
      */
     public boolean hasSecondWord()
     {
         return (secondWord != null);
+    }
+    
+    public Command getOpposite() {
+    	return new Command("help", null); // TODO: implement this
     }
 }
 
