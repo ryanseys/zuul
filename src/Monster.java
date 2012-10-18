@@ -13,8 +13,8 @@ public class Monster extends Humanoid {
 	private final int level;
 	
 	
-	public Monster(int health, int level){
-		super(health);
+	public Monster(int health, int level, String name){
+		super(health, name);
 		this.level = level;
 	}
 	

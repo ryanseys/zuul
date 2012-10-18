@@ -13,14 +13,16 @@ public class Player extends Humanoid {
 	private PlayerHistory playerHistory;
 	private Room currentRoom;
 	
-	public Player(int health, Room r){
-		super(health);
+	public Player(int health, Room r, String name){
+		super(health, name);
 		currentRoom = r;
+		playerHistory = new PlayerHistory();
 	}
 	
 	public Player(Room r){
 		super();
 		currentRoom = r;
+		playerHistory = new PlayerHistory();
 	}
 
 

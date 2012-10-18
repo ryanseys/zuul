@@ -15,18 +15,21 @@ import java.util.ArrayList;
 public class Humanoid {
 
 	private int health;
+	private String name;
 	private static int MAX_HEALTH = 100;
+	private static String NO_NAME_GIVEN = "NO_NAME";
 	private ArrayList<Item> inventory;
 
 	
-	public Humanoid(int maxHealth){
+	public Humanoid(int maxHealth, String name){
 		health = maxHealth;
 		inventory = new ArrayList<Item>();
+		this.name = name;
 	}
 	
 	
 	public Humanoid(){
-		this(MAX_HEALTH);
+		this(MAX_HEALTH, NO_NAME_GIVEN);
 	}
 	
 	public int getHealth(){
