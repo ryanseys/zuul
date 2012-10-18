@@ -116,7 +116,7 @@ public class Room
         for(Direction exit : directions) {
             returnString += " " + exit.name();
         }
-        return returnString + ".\n";
+        return returnString + "\n";
     }
 
     private String getMonsterString() {
@@ -125,7 +125,7 @@ public class Room
         for(Monster m: monsters) {
             returnString += " " + m;
         }
-        return returnString + ".\n";
+        return returnString + "\n";
     }
 
     private String getItemString() {
@@ -134,7 +134,7 @@ public class Room
         for(Item i: items) {
             returnString += " " + i;
         }
-        return returnString + ".\n";
+        return returnString + "\n";
     }
 
     public boolean hasItem(Item i) {
