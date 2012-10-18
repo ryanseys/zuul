@@ -91,10 +91,13 @@ public class Command
 
     public static Command parse(String command) {
     	if(command == "" || command == null) return null;
-    	command = command.toLowerCase().trim();
+    	command = command.toUpperCase().trim();
     	String[] commands = command.split(" ");
     	String first = commands[0];
-    	String second = commands[1];
+        String second = null;
+        if(commands.length == 2) {
+            second = commands[1];
+        }
     	CommandWords cmdword = CommandWords.valueOf(first); //get the first word for the command
     	if(cmdword != null) {
 	    	if(second == null ) {
