@@ -70,4 +70,8 @@ public class Humanoid {
 		}
 		return false;
 	}
+	
+	public String toString(){
+		return name;
+	}
 }
