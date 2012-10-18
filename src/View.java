@@ -13,7 +13,7 @@ public class View {
 			System.out.println(item.getDescription());
 		}
 		
-		System.out.println("The player is in room " + player.getCurrentRoom().getLongDescription());
+		System.out.println(player.getCurrentRoom().getLongDescription());
 		
 		
 	}

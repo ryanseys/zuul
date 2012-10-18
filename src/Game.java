@@ -25,9 +25,27 @@ public class Game
         
     
     public static void main(String[] args) throws IOException {
-    	Player p = new Player (100, null); //TODO
+    	Room startRoom = new Room("StartRoom");
+    	Room northRoom = new Room("northRoom");
+    	Room southRoom = new Room("southRoom");
+    	Room eastRoom = new Room("eastRoom");
+    	Room westRoom = new Room("westRoom");
+    	startRoom.addItem(new Item("GoldPiece"));
+    	startRoom.setExit(Direction.NORTH, new Room("North Room"));
+    	startRoom.setExit(Direction.SOUTH, new Room("South Room"));
+    	startRoom.setExit(Direction.EAST, new Room("East Room"));
+    	startRoom.setExit(Direction.WEST, new Room("West Room"));
+    	
+    	eastRoom.setExit(Direction.WEST, startRoom);
+    	westRoom.setExit(Direction.EAST, startRoom);
+    	northRoom.setExit(Direction.SOUTH, startRoom);
+    	southRoom.setExit(Direction.NORTH, startRoom);
+    	
+    	Player p = new Player (startRoom); 
     	view = new View(p); 
+    	view.update();
     	InputStreamReader converter = new InputStreamReader(System.in);
+    	System.out.println("SDS");
     	BufferedReader in = new BufferedReader(converter);
     	String input = in.readLine();
     	while (true) {
@@ -38,6 +56,8 @@ public class Game
     		if (p.getHealth()<0)
     			break;
     		view.update();
+    		input = in.readLine();
+        	
     	}
     }
 
