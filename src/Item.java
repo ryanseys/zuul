@@ -71,5 +71,9 @@ public class Item implements Comparable<Item> {
 		}
 		return false;
 	}
+	
+	public String toString(){
+		return description;
+	}
 
 }
