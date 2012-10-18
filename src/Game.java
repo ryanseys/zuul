@@ -32,7 +32,7 @@ public class Game
     	String input = in.readLine();
     	while (true) {
     		Command c = Command.parse(input);
-    		if (c.getFirstWord().equals (CommandWords.QUIT))
+    		if (c.getCommandWord().equals (CommandWords.QUIT))
     			break;
     		p.doCommand(c);
     		if (p.getHealth()<0)
