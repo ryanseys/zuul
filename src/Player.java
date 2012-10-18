@@ -74,11 +74,15 @@ public class Player extends Humanoid {
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
 			addItem(i);
-			playerHistory.addStep(c);
+			if(b == false){
+				playerHistory.addStep(c);
+			}
 		} else if (c.getCommandWord().equals(CommandWords.DROP)){
 			Item i = (Item) c.getSecondWord();
 			removeItem(i);
-			playerHistory.addStep(c);
+			if(b == false){
+				playerHistory.addStep(c);
+			}
 		} else {
 			//TODO some sort of extraneous error checking
 		}//QUIT command does not get passed to the player
