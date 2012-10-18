@@ -73,13 +73,17 @@ public class Player extends Humanoid {
 	        
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
-			addItem(i);
+			if(currentRoom.hasItem(i)){
+				addItem(i);
+			}
 			if(b == false){
 				playerHistory.addStep(c);
 			}
 		} else if (c.getCommandWord().equals(CommandWords.DROP)){
 			Item i = (Item) c.getSecondWord();
-			removeItem(i);
+			if(currentRoom.hasItem(i)){
+				removeItem(i);
+			}
 			if(b == false){
 				playerHistory.addStep(c);
 			}
