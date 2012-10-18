@@ -100,7 +100,8 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are in " + description + ".\n" + getExitString();
+        return "You are in " + description + ".\n" + getExitString() + ".\n" +
+        getMonsterString() + ".\n" + getItemString();
     }
 
     /**
@@ -114,6 +115,22 @@ public class Room
         Set<Direction> directions = exits.keySet();
         for(Direction exit : directions) {
             returnString += " " + exit.name();
+        }
+        return returnString;
+    }
+
+    private String getMonsterString() {
+        String returnString = "Monsters:";
+        for(Monster m: monsters) {
+            returnString += " " + m;
+        }
+        return returnString;
+    }
+
+    private String getItemString() {
+        String returnString = "Items:";
+        for(Item i: items) {
+            returnString += " " + i;
         }
         return returnString;
     }
