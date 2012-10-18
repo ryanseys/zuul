@@ -11,11 +11,16 @@
 public class Monster extends Humanoid {
 
 	private final int level;
-	
+	private static int DEFAULT_LEVEL = 1;
 	
 	public Monster(int health, int level, String name){
 		super(health, name);
 		this.level = level;
+	}
+	
+	public Monster(){
+		super();
+		this.level = DEFAULT_LEVEL;
 	}
 	
 	public boolean equals(Object o){
