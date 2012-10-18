@@ -98,14 +98,29 @@ public class Command
         if(commands.length == 2) {
             second = commands[1];
         }
-    	CommandWords cmdword = CommandWords.valueOf(first); //get the first word for the command
+        CommandWords cmdword;
+        //try to get the enum for that word
+        try {
+            cmdword = CommandWords.valueOf(first); //get the first word for the command
+        }
+        catch(e) {
+            return null;
+        }
+
     	if(cmdword != null) {
 	    	if(second == null ) {
 	    		return new Command(cmdword, null);
 	    	}
 	    	else {
 	    		if(cmdword == CommandWords.GO) {
-	    			Direction dir = Direction.valueOf(second); //get direction
+	    			Direction dir;
+                    //try to get the enum for that
+                    try {
+                        dir = Direction.valueOf(second); //get direction
+                    }
+                    catch(e) {
+                        return null;
+                    }
 	    			if(dir != null) return new Command(cmdword, dir);
 	    		}
 	    		else if (cmdword == CommandWords.DROP || cmdword == CommandWords.PICKUP) {

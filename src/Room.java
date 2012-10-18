@@ -118,6 +118,15 @@ public class Room
         return returnString;
     }
 
+    public boolean hasItem(Item i) {
+        for(Item item : items) {
+            if(i.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Return the room that is reached if we go from this room in direction
      * "direction". If there is no room in that direction, return null.
