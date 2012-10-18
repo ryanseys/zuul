@@ -27,11 +27,17 @@ public class Player extends Humanoid {
 
 
 	public void doCommand(Command c){
+		boolean b = false;
 		
 		if (c.getCommandWord().equals(CommandWords.UNDO)){
 			c = playerHistory.undo();
+			b = true;
 		} else if (c.getCommandWord().equals(CommandWords.REDO)){
 			c = playerHistory.redo();
+			b = true;
+		}
+		if(c==null){
+			return; //TODO tell view about it
 		}
 		
 		
@@ -41,6 +47,9 @@ public class Player extends Humanoid {
 			if(r!=null){
 				currentRoom = r;
 			} // else error TODO
+			if(b == false){
+				playerHistory.addStep(c);
+			}
 
 		} else if (c.getCommandWord().equals(CommandWords.FIGHT)){
 			Monster m = currentRoom.getMonster();
