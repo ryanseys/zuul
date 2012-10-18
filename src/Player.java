@@ -22,7 +22,7 @@ public class Player extends Humanoid {
 		super();
 		currentRoom = r;
 	}
-	
+	/*
 	public void undo(){
 		Command c = playerHistory.undo();
 		doCommand(c);
@@ -32,8 +32,13 @@ public class Player extends Humanoid {
 		Command c = playerHistory.redo();
 		doCommand(c);
 	}
-	
+	*/
 	public void doCommand(Command c){
+		
+		if(!c.getCommandWord().equals("UNDO")){
+			playerHistory.clearRedoStack();
+		}
+		
 		
 		if (c.getCommandWord().equals("GO")){
 			Direction d = (Direction) c.getSecondWord();
@@ -41,17 +46,22 @@ public class Player extends Humanoid {
 			if(r!=null){
 				currentRoom = r;
 			} // else error TODO
-			playerHistory.addStep(c);
-			
+			if(playerHistory.getRedoStack().isEmpty()){
+				playerHistory.addStep(c);
+			}
 		} else if (c.getCommandWord().equals("FIGHT")){
 			Monster m = currentRoom.getMonster();
+			if(m==null){
+				System.out.println("Nothing to Fight!");
+				//should probably call the view here..shouldn't be a system.out in this class
+			} else {
 			//if(this.getBestItem().compareTo(m.getBestItem()) == 1){
 				m.updateHealth(this.getBestItem().getValue());
 				this.updateHealth(m.getBestItem().getValue());
 				if(m.getHealth()<=0){
 					currentRoom.removeMonster(m);
 				}
-			//}
+			}
 			
 		} else if (c.getCommandWord().equals("HELP")){
 	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
