@@ -103,7 +103,7 @@ public class Command
         try {
             cmdword = CommandWords.valueOf(first); //get the first word for the command
         }
-        catch(e) {
+        catch( Exception e) {
             return null;
         }
 
@@ -118,7 +118,7 @@ public class Command
                     try {
                         dir = Direction.valueOf(second); //get direction
                     }
-                    catch(e) {
+                    catch(Exception e) {
                         return null;
                     }
 	    			if(dir != null) return new Command(cmdword, dir);

@@ -27,14 +27,16 @@ public class Game
     public static void main(String[] args) throws IOException {
     	Room startRoom = new Room("StartRoom");
     	Room northRoom = new Room("northRoom");
+    	northRoom.addItem(new Item("Bread"));
     	Room southRoom = new Room("southRoom");
     	Room eastRoom = new Room("eastRoom");
     	Room westRoom = new Room("westRoom");
     	startRoom.addItem(new Item("GoldPiece"));
-    	startRoom.setExit(Direction.NORTH, new Room("North Room"));
-    	startRoom.setExit(Direction.SOUTH, new Room("South Room"));
-    	startRoom.setExit(Direction.EAST, new Room("East Room"));
-    	startRoom.setExit(Direction.WEST, new Room("West Room"));
+    	startRoom.addItem(new Item("SilverPiece"));
+    	startRoom.setExit(Direction.NORTH, northRoom);
+    	startRoom.setExit(Direction.SOUTH, southRoom);
+    	startRoom.setExit(Direction.EAST, eastRoom);
+    	startRoom.setExit(Direction.WEST, westRoom);
     	
     	eastRoom.setExit(Direction.WEST, startRoom);
     	westRoom.setExit(Direction.EAST, startRoom);
@@ -45,11 +47,17 @@ public class Game
     	view = new View(p); 
     	view.update();
     	InputStreamReader converter = new InputStreamReader(System.in);
-    	System.out.println("SDS");
     	BufferedReader in = new BufferedReader(converter);
     	String input = in.readLine();
     	while (true) {
     		Command c = Command.parse(input);
+    		if (c == null) {
+    			//TODO update in view
+    			view.update();
+        		input = in.readLine();
+            	continue;
+    		}
+    		
     		if (c.getCommandWord().equals (CommandWords.QUIT))
     			break;
     		p.doCommand(c);
