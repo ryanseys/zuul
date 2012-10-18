@@ -22,34 +22,25 @@ public class Player extends Humanoid {
 		super();
 		currentRoom = r;
 	}
-	/*
-	public void undo(){
-		Command c = playerHistory.undo();
-		doCommand(c);
-	}
-	
-	public void redo(){
-		Command c = playerHistory.redo();
-		doCommand(c);
-	}
-	*/
+
+
 	public void doCommand(Command c){
 		
-		if(!c.getCommandWord().equals("UNDO")){
-			playerHistory.clearRedoStack();
+		if (c.getCommandWord().equals(CommandWords.UNDO)){
+			c = playerHistory.undo();
+		} else if (c.getCommandWord().equals(CommandWords.REDO)){
+			c = playerHistory.redo();
 		}
 		
 		
-		if (c.getCommandWord().equals("GO")){
+		if (c.getCommandWord().equals(CommandWords.GO)){
 			Direction d = (Direction) c.getSecondWord();
 			Room r = currentRoom.getExit(d);
 			if(r!=null){
 				currentRoom = r;
 			} // else error TODO
-			if(playerHistory.getRedoStack().isEmpty()){
-				playerHistory.addStep(c);
-			}
-		} else if (c.getCommandWord().equals("FIGHT")){
+
+		} else if (c.getCommandWord().equals(CommandWords.FIGHT)){
 			Monster m = currentRoom.getMonster();
 			if(m==null){
 				System.out.println("Nothing to Fight!");
@@ -63,29 +54,24 @@ public class Player extends Humanoid {
 				}
 			}
 			
-		} else if (c.getCommandWord().equals("HELP")){
+		} else if (c.getCommandWord().equals(CommandWords.HELP)){
 	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
 	        System.out.println("Your command words are:");
 	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT");
 	        //HELP may be implemented in another class.
 	        
-		} else if (c.getCommandWord().equals("PICKUP")){
+		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
 			addItem(i);
 			playerHistory.addStep(c);
-		} else if (c.getCommandWord().equals("DROP")){
+		} else if (c.getCommandWord().equals(CommandWords.DROP)){
 			Item i = (Item) c.getSecondWord();
 			removeItem(i);
 			playerHistory.addStep(c);
-			
-		} else if (c.getCommandWord().equals("UNDO")){
-			Command c1 = playerHistory.undo();
-			doCommand(c1);//TODO recursive add to stack
-		} else if (c.getCommandWord().equals("REDO")){
-			Command c2 = playerHistory.redo();
-			doCommand(c2);
-			
-		} //QUIT command does not get passed to the player
+		} else {
+			//TODO some sort of extraneous error checking
+		}//QUIT command does not get passed to the player
+		
 		
 	}
 	
