@@ -73,6 +73,7 @@ public class Player extends Humanoid {
 	        
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
+			//TODO use getRealItem(Item) to get the real item in the room, not a copy
 			if(currentRoom.hasItem(i)){
 				addItem(i);
 				currentRoom.removeItem(i);

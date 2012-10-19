@@ -33,6 +33,7 @@ public class Game
     	Room westRoom = new Room("westRoom");
     	startRoom.addItem(new Item("GoldPiece"));
     	startRoom.addItem(new Item("SilverPiece"));
+    	startRoom.addItem(new Item("Sword", 50, 0));
     	startRoom.setExit(Direction.NORTH, northRoom);
     	startRoom.setExit(Direction.SOUTH, southRoom);
     	startRoom.setExit(Direction.EAST, eastRoom);

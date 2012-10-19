@@ -51,7 +51,7 @@ public class Humanoid {
 			return new Item("NO_ITEM");
 		}
 		tempItem = inventory.get(0);
-		//TODO if inventory is empty
+
 		for(Item i: inventory){
 			if(i.getValue()>tempItem.getValue()){
 				tempItem = i;
@@ -74,4 +74,14 @@ public class Humanoid {
 	public String toString(){
 		return name;
 	}
+	
+	public String getInventoryString(){
+		String s = "The player has the following items:\n";
+		for(Item i: inventory){
+			s+= i.getDescription();
+			s+= "\n";
+		}
+		return s;
+	}
+	
 }
