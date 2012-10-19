@@ -22,8 +22,9 @@ public abstract class Humanoid{
 	public Humanoid(int maxHealth, String name){
 		if(name == null) {
 			this.name = getClass().getName();
+		} else {
+			this.name = name;
 		}
-		else this.name = name;
 		health = maxHealth;
 		inventory = new ArrayList<Item>();
 	}
