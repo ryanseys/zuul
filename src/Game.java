@@ -39,6 +39,7 @@ public class Game
     	startRoom.setExit(Direction.WEST, westRoom);
     	
     	eastRoom.setExit(Direction.WEST, startRoom);
+    	eastRoom.addMonster(new Monster());
     	westRoom.setExit(Direction.EAST, startRoom);
     	northRoom.setExit(Direction.SOUTH, startRoom);
     	southRoom.setExit(Direction.NORTH, startRoom);
