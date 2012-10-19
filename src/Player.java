@@ -13,6 +13,7 @@ public class Player extends Humanoid  {
 
 	private PlayerHistory playerHistory;
 	private Room currentRoom;
+	private View v;
 	
 	public Player(int health, Room r, String name){
 		super(health, name);
@@ -55,8 +56,9 @@ public class Player extends Humanoid  {
 		} else if (c.getCommandWord().equals(CommandWords.FIGHT)){
 			Monster m = currentRoom.getMonster();
 			if(m==null){
-				System.out.println("Nothing to Fight!");
+//				System.out.println("Nothing to Fight!");
 				//TODO should probably call the view here..shouldn't be a system.out in this class
+				v.monsterMissing();
 			} else {
 				m.updateHealth(this.getBestItem().getValue());
 				this.updateHealth(m.getBestItem().getValue());
@@ -66,11 +68,11 @@ public class Player extends Humanoid  {
 			}
 			
 		} else if (c.getCommandWord().equals(CommandWords.HELP)){
-	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
-	        System.out.println("Your command words are:");
-	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT\n");
-	        //TODO HELP should be implemented in view class.
-
+//	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
+//	        System.out.println("Your command words are:");
+//	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT\n");
+//	        //TODO HELP should be implemented in view class.
+			v.displayHelp();
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
 			i = currentRoom.getRealItem(i);
@@ -103,4 +105,7 @@ public class Player extends Humanoid  {
 		return currentRoom;
 	}
 	
+	public void setView(View v){
+		this.v = v;
+	}
 }
