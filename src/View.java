@@ -11,6 +11,7 @@ public class View {
 		System.out.println(player + " has a health of " + player.getHealth());//TODO
 		System.out.println(player.getInventoryString());
 		System.out.println(player.getCurrentRoom().getLongDescription());
+		System.out.print("> ");
 		
 		
 	}
