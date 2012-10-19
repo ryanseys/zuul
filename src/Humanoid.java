@@ -78,9 +78,9 @@ public class Humanoid {
 	public String getInventoryString(){
 		String s;
 		if(inventory.isEmpty()){
-			s = "The " + this.getClass() + " has no items";
+			s = "The " + this.getClass().getName() + " has no items";
 		} else {
-			s = "The " + this.getClass() + " has the following items:\n";
+			s = "The " + this.getClass().getName() + " has the following items:\n";
 			for(Item i: inventory){
 				s+= i.getDescription();
 				s+= "\n";
