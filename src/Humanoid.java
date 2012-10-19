@@ -15,8 +15,8 @@ public abstract class Humanoid{
 
 	private int health;
 	private String name;
-	private static int MAX_HEALTH = 100;
-	private static String NO_NAME_GIVEN = "NO_NAME";
+	public static final int MAX_HEALTH = 100;
+	public static final String NO_NAME_GIVEN = "NO_NAME";
 	private ArrayList<Item> inventory;
 
 	public Humanoid(int maxHealth, String name){
