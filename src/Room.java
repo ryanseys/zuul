@@ -6,9 +6,9 @@ import java.util.HashMap;
 
 /**
  * Room class for representing a room
- * that a Player or Monsters can be in.
+ * that a Player can be in.
  *
- * There could be items in the room as well.
+ * The room can also contain items and monsters.
  */
 
 public class Room
@@ -48,18 +48,29 @@ public class Room
     	monsters.add(m);
     }
 
+    /**
+     * Returns the first monster found in the room
+     * @return The first monster found in the room
+     */
     public Monster getMonster() {
         if(monsters.isEmpty()) return null;
         return monsters.get(0);
     }
 
     /**
+     * Removes a specific item from the room
+     * @param i The Item object to remove
+     */
+    public void removeItem(Item i) {
+        items.remove(i);
+    }
+
+    /**
      * Remove a monster from the room
-     *
+     * @param m The Monster to remove from the room
      */
     public void removeMonster(Monster m) {
-        //TODO
-
+        monsters.remove(m);
     }
 
     /**
@@ -94,8 +105,8 @@ public class Room
 
     /**
      * Return a description of the room in the form:
-     *     You are in the kitchen.
-     *     Exits: north west
+     * You are in the kitchen.
+     * Exits: north west
      * @return A long description of this room
      */
     public String getLongDescription()
@@ -119,6 +130,9 @@ public class Room
         return returnString + "\n";
     }
 
+    /**
+     * @return A string listing all the monsters in the room
+     */
     private String getMonsterString() {
         if(monsters.isEmpty()) return "";
         String returnString = "Monsters:";
@@ -128,6 +142,9 @@ public class Room
         return returnString + "\n";
     }
 
+    /**
+     * @return A string listing all the items in the room
+     */
     private String getItemString() {
         if(items.isEmpty()) return "";
         String returnString = "Items:";
@@ -137,13 +154,14 @@ public class Room
         return returnString + "\n";
     }
 
+    /**
+     * Uses the .equals method on items to determine if the list
+     * contains the specific item or not. Returns the result as boolean
+     *
+     * @return true if the room has the specific item, false if not.
+     */
     public boolean hasItem(Item i) {
-        for(Item item : items) {
-            if(i.equals(item)) {
-                return true;
-            }
-        }
-        return false;
+        return items.contains(i);
     }
 
     /**
