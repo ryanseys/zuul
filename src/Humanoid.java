@@ -10,9 +10,8 @@
  */
 
 import java.util.ArrayList;
-import java.util.Observable;
 
-public abstract class Humanoid extends Observable{
+public abstract class Humanoid{
 
 	private int health;
 	private String name;
@@ -90,11 +89,6 @@ public abstract class Humanoid extends Observable{
 		return s;
 	}
 	
-	@Override 
-	public boolean hasChanged() {
-		return true;
-	
-	}
 	
 	
 }

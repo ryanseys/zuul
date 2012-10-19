@@ -66,11 +66,11 @@ public class Player extends Humanoid  {
 			}
 			
 		} else if (c.getCommandWord().equals(CommandWords.HELP)){
-//	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
-//	        System.out.println("Your command words are:");
-//	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT\n");
-//	        //TODO HELP should be implemented in view class.
-	        notifyObservers(View.HELP);
+	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
+	        System.out.println("Your command words are:");
+	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT\n");
+	        //TODO HELP should be implemented in view class.
+
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
 			i = currentRoom.getRealItem(i);

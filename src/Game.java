@@ -47,8 +47,7 @@ public class Game
     	
     	Player p = new Player (startRoom); 
     	view = new View(p); 
-    	p.addObserver(view);
-//    	view.update(null,2);
+    	view.update();
     	InputStreamReader converter = new InputStreamReader(System.in);
     	BufferedReader in = new BufferedReader(converter);
     	String input = in.readLine();
@@ -56,7 +55,7 @@ public class Game
     		Command c = Command.parse(input);
     		if (c == null) {
     			//TODO update in view
-    			view.update(null, 2);
+    			view.update();
         		input = in.readLine();
             	continue;
     		}
@@ -66,7 +65,7 @@ public class Game
     		p.doCommand(c);
     		if (p.getHealth()<0)
     			break;
-    		view.update(null, 2);
+    		view.update();
     		input = in.readLine();
         	
     	}
