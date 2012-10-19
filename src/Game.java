@@ -55,7 +55,7 @@ public class Game
     	while (true) {
     		Command c = Command.parse(input);
     		if (c == null) {
-    			//TODO update in view
+    			view.garbageCommand();
     			view.update();
         		input = in.readLine();
             	continue;
