@@ -10,8 +10,9 @@
  */
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class Humanoid {
+public abstract class Humanoid extends Observable{
 
 	private int health;
 	private String name;

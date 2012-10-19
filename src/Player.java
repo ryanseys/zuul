@@ -8,7 +8,8 @@
  */
 
 
-public class Player extends Humanoid {
+
+public class Player extends Humanoid  {
 
 	private PlayerHistory playerHistory;
 	private Room currentRoom;
@@ -46,7 +47,7 @@ public class Player extends Humanoid {
 			Room r = currentRoom.getExit(d);
 			if(r!=null){
 				currentRoom = r;
-			} // else error TODO
+			} // else error TODO tell view "NO EXIT THERE"
 			if(b == false){
 				playerHistory.addStep(c);
 			}
@@ -55,9 +56,8 @@ public class Player extends Humanoid {
 			Monster m = currentRoom.getMonster();
 			if(m==null){
 				System.out.println("Nothing to Fight!");
-				//should probably call the view here..shouldn't be a system.out in this class
+				//TODO should probably call the view here..shouldn't be a system.out in this class
 			} else {
-			//if(this.getBestItem().compareTo(m.getBestItem()) == 1){
 				m.updateHealth(this.getBestItem().getValue());
 				this.updateHealth(m.getBestItem().getValue());
 				if(m.getHealth()<=0){
@@ -66,14 +66,13 @@ public class Player extends Humanoid {
 			}
 			
 		} else if (c.getCommandWord().equals(CommandWords.HELP)){
-	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
-	        System.out.println("Your command words are:");
-	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT");
-	        //HELP may be implemented in another class.
-	        
+//	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
+//	        System.out.println("Your command words are:");
+//	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT\n");
+//	        //TODO HELP should be implemented in view class.
+	        notifyObservers(View.HELP);
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
-			//TODO use getRealItem(Item) to get the real item in the room, not a copy
 			i = currentRoom.getRealItem(i);
 			if(currentRoom.hasItem(i)){
 				addItem(i);
@@ -94,7 +93,7 @@ public class Player extends Humanoid {
 				playerHistory.addStep(c);
 			}
 		} else {
-			//TODO some sort of extraneous error checking
+			//TODO some sort of extraneous error checking, WORD DOESN'T EXIST
 		}//QUIT command does not get passed to the player
 		
 		
