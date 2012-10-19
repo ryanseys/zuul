@@ -58,7 +58,9 @@ public class Room
   }
 
   public Item getRealItem(Item item) {
-    return items.get(items.indexOf(item));
+    int index = items.indexOf(item);
+    if(index != -1) return items.get(index);
+    else return null;
   }
 
   /**
@@ -141,7 +143,7 @@ public class Room
       if(monsters.isEmpty()) return "";
       String returnString = "Monsters:";
       for(Monster m: monsters) {
-          returnString += " " + m + " " + m.getInventoryString();
+          returnString += " " + m + " " + m.getInventoryString() + "\nHealth:" + m.getHealth();
       }
       return returnString + "\n";
   }
