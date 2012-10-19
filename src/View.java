@@ -7,12 +7,7 @@ public class View {
 	
 	public void update() {
 		System.out.println(player + " has a health of " + player.getHealth());//TODO
-		System.out.println("The player has the following items");
-		
-		for (Item item : player.getInventory()) {
-			System.out.println(item.getDescription());
-		}
-		
+		System.out.println(player.getInventoryString());
 		System.out.println(player.getCurrentRoom().getLongDescription());
 		
 		
