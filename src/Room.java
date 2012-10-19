@@ -13,166 +13,170 @@ import java.util.HashMap;
 
 public class Room
 {
-    private String description;
-    private List<Item> items;
-    private List<Monster> monsters;
-    private Map<Direction, Room> exits;
+  private String description;
+  private List<Item> items;
+  private List<Monster> monsters;
+  private Map<Direction, Room> exits;
 
-    /**
-     * Create a room described "description". Initially, it has
-     * no exits. "description" is something like "a kitchen" or
-     * "an open court yard".
-     * @param description The room's description.
-     */
-    public Room(String description)
-    {
-        this.description = description;
-        exits = new HashMap<Direction, Room>();
-        monsters = new ArrayList<Monster>();
-        items = new ArrayList<Item>();
-    }
+  /**
+   * Create a room described "description". Initially, it has
+   * no exits. "description" is something like "a kitchen" or
+   * "an open court yard".
+   * @param description The room's description.
+   */
+  public Room(String description)
+  {
+      this.description = description;
+      exits = new HashMap<Direction, Room>();
+      monsters = new ArrayList<Monster>();
+      items = new ArrayList<Item>();
+  }
 
-    /**
-     * Adds an item to the room
-     * @param i Item to add to the room
-     */
-    public void addItem(Item i) {
-    	items.add(i);
-    }
+  /**
+   * Adds an item to the room
+   * @param i Item to add to the room
+   */
+  public void addItem(Item i) {
+  	items.add(i);
+  }
 
-    /**
-     * Add a monster to the room
-     * @param m Monster to add to the room
-     */
-    public void addMonster(Monster m) {
-    	monsters.add(m);
-    }
+  /**
+   * Add a monster to the room
+   * @param m Monster to add to the room
+   */
+  public void addMonster(Monster m) {
+  	monsters.add(m);
+  }
 
-    /**
-     * Returns the first monster found in the room
-     * @return The first monster found in the room
-     */
-    public Monster getMonster() {
-        if(monsters.isEmpty()) return null;
-        return monsters.get(0);
-    }
+  /**
+   * Returns the first monster found in the room
+   * @return The first monster found in the room
+   */
+  public Monster getMonster() {
+      if(monsters.isEmpty()) return null;
+      return monsters.get(0);
+  }
 
-    /**
-     * Removes a specific item from the room
-     * @param i The Item object to remove
-     */
-    public void removeItem(Item i) {
-        items.remove(i);
-    }
+  public Item getRealItem(Item item) {
+    return items.get(items.indexOf(item));
+  }
 
-    /**
-     * Remove a monster from the room
-     * @param m The Monster to remove from the room
-     */
-    public void removeMonster(Monster m) {
-        monsters.remove(m);
-    }
+  /**
+   * Removes a specific item from the room
+   * @param i The Item object to remove
+   */
+  public void removeItem(Item i) {
+      items.remove(i);
+  }
 
-    /**
-     * Define an exit from this room.
-     * @param direction The direction of the exit.
-     * @param neighbor  The room to which the exit leads.
-     */
-    public void setExit(Direction direction, Room neighbor)
-    {
-        exits.put(direction, neighbor);
-    }
+  /**
+   * Remove a monster from the room
+   * @param m The Monster to remove from the room
+   */
+  public void removeMonster(Monster m) {
+      monsters.remove(m);
+  }
 
-    /**
-     * @return whether the room has any monsters
-     */
-    public boolean hasMonsters() {
-    	return !monsters.isEmpty();
-    }
+  /**
+   * Define an exit from this room.
+   * @param direction The direction of the exit.
+   * @param neighbor  The room to which the exit leads.
+   */
+  public void setExit(Direction direction, Room neighbor)
+  {
+      exits.put(direction, neighbor);
+  }
 
-    public List<Direction> getExitDirections() {
-    	return new ArrayList<Direction>(exits.keySet());
-    }
+  /**
+   * @return whether the room has any monsters
+   */
+  public boolean hasMonsters() {
+  	return !monsters.isEmpty();
+  }
 
-    /**
-     * @return The short description of the room
-     * (the one that was defined in the constructor).
-     */
-    public String getShortDescription()
-    {
-        return description;
-    }
+  public List<Direction> getExitDirections() {
+  	return new ArrayList<Direction>(exits.keySet());
+  }
 
-    /**
-     * Return a description of the room in the form:
-     * You are in the kitchen.
-     * Exits: north west
-     * @return A long description of this room
-     */
-    public String getLongDescription()
-    {
-        return "You are in " + description + ".\n" + getExitString() +
-        getMonsterString() + getItemString();
-    }
+  /**
+   * @return The short description of the room
+   * (the one that was defined in the constructor).
+   */
+  public String getShortDescription()
+  {
+      return description;
+  }
 
-    /**
-     * Return a string describing the room's exits, for example
-     * "Exits: north west".
-     * @return Details of the room's exits.
-     */
-    private String getExitString()
-    {
-        String returnString = "Exits:";
-        Set<Direction> directions = exits.keySet();
-        for(Direction exit : directions) {
-            returnString += " " + exit.name();
-        }
-        return returnString + "\n";
-    }
+  /**
+   * Return a description of the room in the form:
+   * You are in the kitchen.
+   * Exits: north west
+   * @return A long description of this room
+   */
+  public String getLongDescription()
+  {
+      return "You are in " + description + ".\n" + getExitString() +
+      getMonsterString() + getItemString();
+  }
 
-    /**
-     * @return A string listing all the monsters in the room
-     */
-    private String getMonsterString() {
-        if(monsters.isEmpty()) return "";
-        String returnString = "Monsters:";
-        for(Monster m: monsters) {
-            returnString += " " + m;
-        }
-        return returnString + "\n";
-    }
+  /**
+   * Return a string describing the room's exits, for example
+   * "Exits: north west".
+   * @return Details of the room's exits.
+   */
+  private String getExitString()
+  {
+      String returnString = "Exits:";
+      Set<Direction> directions = exits.keySet();
+      for(Direction exit : directions) {
+          returnString += " " + exit.name();
+      }
+      return returnString + "\n";
+  }
 
-    /**
-     * @return A string listing all the items in the room
-     */
-    private String getItemString() {
-        if(items.isEmpty()) return "";
-        String returnString = "Items:";
-        for(Item i: items) {
-            returnString += " " + i;
-        }
-        return returnString + "\n";
-    }
+  /**
+   * @return A string listing all the monsters in the room
+   */
+  private String getMonsterString() {
+      if(monsters.isEmpty()) return "";
+      String returnString = "Monsters:";
+      for(Monster m: monsters) {
+          returnString += " " + m;
+      }
+      return returnString + "\n";
+  }
 
-    /**
-     * Uses the .equals method on items to determine if the list
-     * contains the specific item or not. Returns the result as boolean
-     *
-     * @return true if the room has the specific item, false if not.
-     */
-    public boolean hasItem(Item i) {
-        return items.contains(i);
-    }
+  /**
+   * @return A string listing all the items in the room
+   */
+  private String getItemString() {
+      if(items.isEmpty()) return "";
+      String returnString = "Items:";
+      for(Item i: items) {
+          returnString += " " + i;
+      }
+      return returnString + "\n";
+  }
 
-    /**
-     * Return the room that is reached if we go from this room in direction
-     * "direction". If there is no room in that direction, return null.
-     * @param direction The exit's direction.
-     * @return The room in the given direction.
-     */
-    public Room getExit(Direction direction)
-    {
-        return exits.get(direction);
-    }
+  /**
+   * Uses the .equals method on items to determine if the list
+   * contains the specific item or not. Returns the result as boolean
+   *
+   * @return true if the room has the specific item, false if not.
+   */
+  public boolean hasItem(Item i) {
+      return items.contains(i);
+  }
+
+  /**
+   * Return the room that is reached if we go from this room in direction
+   * "direction". If there is no room in that direction, return null.
+   * @param direction The exit's direction.
+   * @return The room in the given direction.
+   */
+  public Room getExit(Direction direction)
+  {
+      return exits.get(direction);
+  }
 }
 
