@@ -25,6 +25,14 @@ public class View {
 	public void monsterMissing() {
 		System.out.println("Nothing to Fight!");
 	}
+	
+	public void garbageCommand() {
+		System.out.println("Type better! Try again!");
+	}
+	
+	public void invalidRoom() {
+		System.out.println("Do you really want to walk into a wall?! Try again!");
+	}
 
 
 }
