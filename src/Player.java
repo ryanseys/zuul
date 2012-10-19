@@ -82,10 +82,12 @@ public class Player extends Humanoid {
 			}
 		} else if (c.getCommandWord().equals(CommandWords.DROP)){
 			Item i = (Item) c.getSecondWord();
-			//if(inventory.hasItem(i)){
+			
+			if(getInventory().contains(i)){
+				
+				currentRoom.addItem(i);
 				removeItem(i);
-			//}
-			currentRoom.addItem(i);
+			}
 			if(b == false){
 				playerHistory.addStep(c);
 			}

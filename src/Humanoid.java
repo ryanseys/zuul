@@ -47,6 +47,9 @@ public class Humanoid {
 
 	public Item getBestItem(){
 		Item tempItem;
+		if(inventory.isEmpty()){
+			return new Item("NO_ITEM");
+		}
 		tempItem = inventory.get(0);
 		//TODO if inventory is empty
 		for(Item i: inventory){

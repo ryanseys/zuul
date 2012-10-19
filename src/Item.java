@@ -20,7 +20,7 @@ public class Item implements Comparable<Item> {
 		
 	public Item(String description, int value, int weight) {
 		//Constructor assigning the variables
-		this.description = description;
+		this.description = description.toUpperCase();
 		this.value = value;
 		this.weight = weight;
 	}
@@ -67,7 +67,7 @@ public class Item implements Comparable<Item> {
 
 	public boolean equals(Object o){
 		if(o instanceof Item){
-			return (this.description.toLowerCase().equals(((Item) o).getDescription().toLowerCase()));
+			return (this.description.equals(((Item) o).getDescription()));
 		}
 		return false;
 	}
