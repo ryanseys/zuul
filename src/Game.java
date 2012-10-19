@@ -40,14 +40,15 @@ public class Game
     	startRoom.setExit(Direction.WEST, westRoom);
     	
     	eastRoom.setExit(Direction.WEST, startRoom);
-    	eastRoom.addMonster(new Monster());
+    	eastRoom.addMonster(new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1"));
     	westRoom.setExit(Direction.EAST, startRoom);
     	northRoom.setExit(Direction.SOUTH, startRoom);
     	southRoom.setExit(Direction.NORTH, startRoom);
     	
-    	Player p = new Player (startRoom); 
+    	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player"); 
     	view = new View(p); 
     	view.update();
+    	p.setView(view);
     	InputStreamReader converter = new InputStreamReader(System.in);
     	BufferedReader in = new BufferedReader(converter);
     	String input = in.readLine();
