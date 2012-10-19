@@ -38,8 +38,9 @@ public class Player extends Humanoid  {
 			c = playerHistory.redo();
 			b = true;
 		}
+		
 		if(c==null){
-			return; //TODO tell view about it
+			v.garbageCommand();
 		}
 		
 		
@@ -48,7 +49,9 @@ public class Player extends Humanoid  {
 			Room r = currentRoom.getExit(d);
 			if(r!=null){
 				currentRoom = r;
-			} // else error TODO tell view "NO EXIT THERE"
+			} else {
+				v.invalidRoom();
+			}
 			if(b == false){
 				playerHistory.addStep(c);
 			}
@@ -56,8 +59,6 @@ public class Player extends Humanoid  {
 		} else if (c.getCommandWord().equals(CommandWords.FIGHT)){
 			Monster m = currentRoom.getMonster();
 			if(m==null){
-//				System.out.println("Nothing to Fight!");
-				//TODO should probably call the view here..shouldn't be a system.out in this class
 				v.monsterMissing();
 			} else {
 				m.updateHealth(this.getBestItem().getValue());
@@ -68,10 +69,6 @@ public class Player extends Humanoid  {
 			}
 			
 		} else if (c.getCommandWord().equals(CommandWords.HELP)){
-//	        System.out.println("You are lost. You are alone. You wander around in a cave.\n");
-//	        System.out.println("Your command words are:");
-//	        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT\n");
-//	        //TODO HELP should be implemented in view class.
 			v.displayHelp();
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
@@ -94,9 +91,7 @@ public class Player extends Humanoid  {
 			if(b == false){
 				playerHistory.addStep(c);
 			}
-		} else {
-			//TODO some sort of extraneous error checking, WORD DOESN'T EXIST
-		}//QUIT command does not get passed to the player
+		} 
 		
 		
 	}
