@@ -75,6 +75,7 @@ public class Player extends Humanoid {
 			Item i = (Item) c.getSecondWord();
 			if(currentRoom.hasItem(i)){
 				addItem(i);
+				currentRoom.removeItem(i);
 			}
 			if(b == false){
 				playerHistory.addStep(c);
@@ -83,6 +84,7 @@ public class Player extends Humanoid {
 			Item i = (Item) c.getSecondWord();
 			if(currentRoom.hasItem(i)){
 				removeItem(i);
+				currentRoom.addItem(i);
 			}
 			if(b == false){
 				playerHistory.addStep(c);
