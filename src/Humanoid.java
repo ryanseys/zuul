@@ -88,7 +88,7 @@ public abstract class Humanoid{
 		}
 		return s;
 	}
-	
+
 	
 	
 }
