@@ -90,4 +90,11 @@ public abstract class Humanoid extends Observable{
 		return s;
 	}
 	
+	@Override 
+	public boolean hasChanged() {
+		return true;
+	
+	}
+	
+	
 }
