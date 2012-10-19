@@ -11,7 +11,7 @@
 public class Monster extends Humanoid {
 
 	private final int level;
-	private static int DEFAULT_LEVEL = 1;
+	public static final int DEFAULT_LEVEL = 1;
 	
 	public Monster(int health, int level, String name){
 		super(health, name);
