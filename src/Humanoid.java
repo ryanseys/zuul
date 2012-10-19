@@ -20,13 +20,16 @@ public abstract class Humanoid{
 	private ArrayList<Item> inventory;
 
 	public Humanoid(int maxHealth, String name){
+		if(name == null) {
+			this.name = getClass().getName();
+		}
+		else this.name = name;
 		health = maxHealth;
 		inventory = new ArrayList<Item>();
-		this.name = name;
 	}
 
 	public Humanoid(){
-		this(MAX_HEALTH, NO_NAME_GIVEN);
+		this(MAX_HEALTH, null);
 	}
 
 	public int getHealth(){
@@ -74,7 +77,7 @@ public abstract class Humanoid{
 	public String toString(){
 		return name;
 	}
-	
+
 	public String getInventoryString(){
 		String s;
 		if(inventory.isEmpty()){
@@ -89,6 +92,6 @@ public abstract class Humanoid{
 		return s;
 	}
 
-	
-	
+
+
 }
