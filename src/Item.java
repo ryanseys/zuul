@@ -7,7 +7,7 @@
  * For weapons, this value will decide which item is stronger.
  * For food, this value will decide how much the health of the player will increment.
  * The weight of the item will possibly later be used to have an item limit for the player. 
- * 
+ * The isWeapon boolean refers to whether or not the item is a weapon
  * Not all setters and getters are used at this point, but will probably be useful for later milestones.
  */
 
@@ -17,27 +17,30 @@ public class Item implements Comparable<Item> {
 	private String name;
 	private int value;
 	private int weight;
-	
+	private boolean isWeapon;
 		
 	/**
 	 * Constructor for the item.
 	 * @param name : The name of the item being created.
 	 * @param value : The value of the item.
 	 * @param weight : The weight of the item.
+	 * @param isWeapon : Whether or not it is a weapon
 	 */
-	public Item(String name, int value, int weight) {
+	public Item(String name, int value, int weight, boolean isWeapon) {
 		//Constructor assigning the variables
 		this.name = name.toUpperCase();
 		this.value = value;
 		this.weight = weight;
+		this.isWeapon = isWeapon;
 	}
 	
 	/**
 	 * Default constructor. Creates an item with a name with no value or weight
 	 * @param name : The name of the item.
+	 * @param isWeapon : Whether or not it is a weapon
 	 */
-	public Item(String name) {
-		this(name, 0, 0);
+	public Item(String name, boolean isWeapon) {
+		this(name, 0, 0, isWeapon);
 	}
 
 	/**
@@ -127,6 +130,14 @@ public class Item implements Comparable<Item> {
 	@Override
 	public String toString(){
 		return name;
+	}
+	
+	/**
+	 * Query for the item.
+	 * @return : Whether is not the item is a weapon.
+	 */
+	public boolean isWeapon(){
+		return isWeapon;
 	}
 
 }

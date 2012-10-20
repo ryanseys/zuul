@@ -80,8 +80,8 @@ public class Player extends Humanoid  {
 			if(m==null){
 				v.monsterMissing();
 			} else {
-				m.updateHealth(this.getBestItem().getValue());
-				this.updateHealth((m.getBestItem().getValue()) * m.getLevel());
+				m.removeHealth(this.getBestItem().getValue());
+				this.removeHealth((m.getBestItem().getValue()) * m.getLevel());
 				if(m.getHealth()<=0){
 					m.dropItems();
 					currentRoom.removeMonster(m);
@@ -114,7 +114,23 @@ public class Player extends Humanoid  {
 			if(b == false){
 				playerHistory.addStep(c);
 			}
-		} 
+		} else if (c.getCommandWord().equals(CommandWords.EAT)){
+			Item i = (Item) c.getSecondWord();
+			for(Item in: inventory){
+				if(in.getName().equals(i.getName())){
+						i=in;
+				}	
+			}
+			if(!i.isWeapon()){
+			
+				this.addHealth(i.getValue());
+				if(this.getHealth() > MAX_HEALTH){
+					setHealth(MAX_HEALTH);
+				}
+				removeItem(i);
+			}
+
+		}
 		
 		return;
 	}

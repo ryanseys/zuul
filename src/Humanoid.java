@@ -17,7 +17,7 @@ public abstract class Humanoid{
 	private int health;
 	private String name;
 	public static final int MAX_HEALTH = 100;
-	private ArrayList<Item> inventory;
+	protected ArrayList<Item> inventory;
 
 	/**
 	 * This is the constructor for the Humanoid.
@@ -45,19 +45,36 @@ public abstract class Humanoid{
 	}
 
 	/**
-	 * Health getter.
+	 * Getter for health.
 	 * @return : The current health of the Humanoid.
 	 */
 	public int getHealth(){
 		return health;
+	}
+	
+	/**
+	 * Setter for health.
+	 * @param health : The new health of the Humanoid.
+	 */
+	public void setHealth(int health){
+		this.health = health;
 	}
 
 	/**
 	 * Update the Humanoid's health during a fight.
 	 * @param damage : The damage done to the humanoid.
 	 */
-	public void updateHealth(int damage){
+	public void removeHealth(int damage){
 		health = health - damage;
+	}
+	
+	/**
+	 * Update the Humanoid's health during a fight.
+	 * Could put removeHealth and addHealth into one method, but this way is less error-prone
+	 * @param recovery : The recovery of health for the humanoid
+	 */
+	public void addHealth(int recovery){
+		health = health + recovery;
 	}
 	
 	/**
@@ -92,14 +109,15 @@ public abstract class Humanoid{
 	 */
 	public Item getBestItem(){
 		Item tempItem;
-		if(inventory.isEmpty()){
-			return new Item("NO_ITEM, 0, 0");
-		}
-		tempItem = inventory.get(0);
-
+	//	if(inventory.isEmpty()){
+	//		return new Item("NO_ITEM", 0, 0, false);
+	//	}
+		tempItem = new Item("NO_ITEM", 0, 0, false);
 		for(Item i: inventory){
-			if(i.getValue()>tempItem.getValue()){
-				tempItem = i;
+			if(i.isWeapon()){
+				if(i.getValue()>tempItem.getValue()){
+					tempItem = i;
+				}
 			}
 		}
 		return tempItem;

@@ -129,7 +129,7 @@ public class Command
 	    			//command for picking up an item, right now misunderstood because you cannot have reference to an item in the string.
 	    			//must know about player or room or something, doesn't seem correct.
 	    			//shouldn't make a new item because we know nothing else about it (value/weight)
-                    return new Command(cmdword, new Item(second, 0, 0)); //assume weight and value to be zero
+                    return new Command(cmdword, new Item(second, 0, 0, false)); //assume weight and value to be zero
 	    		}
 	    	}
     	}

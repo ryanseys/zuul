@@ -27,27 +27,30 @@ public class Game
     public static void main(String[] args) throws IOException {
     	Room startRoom = new Room("StartRoom");
     	Room northRoom = new Room("northRoom");
-    	northRoom.addItem(new Item("Bread"));
+    	northRoom.addItem(new Item("Bread", 30, 0, false));
     	Room southRoom = new Room("southRoom");
     	Room eastRoom = new Room("eastRoom");
     	Room westRoom = new Room("westRoom");
-    	startRoom.addItem(new Item("GoldPiece"));
-    	startRoom.addItem(new Item("SilverPiece"));
-    	startRoom.addItem(new Item("Sword", 50, 0));
+    	startRoom.addItem(new Item("GoldPiece", false));
+    	startRoom.addItem(new Item("SilverPiece", false));
+    	startRoom.addItem(new Item("Sword", 50, 0, true));
     	startRoom.setExit(Direction.NORTH, northRoom);
     	startRoom.setExit(Direction.SOUTH, southRoom);
     	startRoom.setExit(Direction.EAST, eastRoom);
     	startRoom.setExit(Direction.WEST, westRoom);
+    	westRoom.addItem(new Item("Apple", 10, 0, false));
+    	westRoom.addItem(new Item("Orange", 15, 0, false));
+    	westRoom.addItem(new Item("Pear", 20, 0, false));
     	
     	eastRoom.setExit(Direction.WEST, startRoom);
     	
     	Monster Monster1 = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1", eastRoom);
     	eastRoom.addMonster(Monster1);
-    	Monster1.addItem(new Item("Claws", 10, 0));
+    	Monster1.addItem(new Item("Claws", 10, 0, true));
     	
     	Monster Boss = new Monster(100, 2, "Boss", southRoom);
     	southRoom.addMonster(Boss);
-    	Boss.addItem(new Item("Flamethrower", 30, 0));
+    	Boss.addItem(new Item("Flamethrower", 30, 0, true));
     	
     	
     	westRoom.setExit(Direction.EAST, startRoom);
