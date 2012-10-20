@@ -40,7 +40,16 @@ public class Game
     	startRoom.setExit(Direction.WEST, westRoom);
     	
     	eastRoom.setExit(Direction.WEST, startRoom);
-    	eastRoom.addMonster(new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1"));
+    	
+    	Monster Monster1 = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1", eastRoom);
+    	eastRoom.addMonster(Monster1);
+    	Monster1.addItem(new Item("Claws", 10, 0));
+    	
+    	Monster Boss = new Monster(100, 2, "Boss", southRoom);
+    	southRoom.addMonster(Boss);
+    	Boss.addItem(new Item("Flamethrower", 30, 0));
+    	
+    	
     	westRoom.setExit(Direction.EAST, startRoom);
     	northRoom.setExit(Direction.SOUTH, startRoom);
     	southRoom.setExit(Direction.NORTH, startRoom);
@@ -64,8 +73,10 @@ public class Game
     		if (c.getCommandWord().equals (CommandWords.QUIT))
     			break;
     		p.doCommand(c);
-    		if (p.getHealth()<0)
+    		if (p.getHealth() <= 0) {
+    			//TODO should be something better here than just breaking.
     			break;
+    		}
     		view.update();
     		input = in.readLine();
         	
