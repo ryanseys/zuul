@@ -84,6 +84,7 @@ public class Game
     		input = in.readLine();
         	
     	}
+    	view.gameDone();
     }
 
 }

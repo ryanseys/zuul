@@ -83,6 +83,7 @@ public class Player extends Humanoid  {
 				m.removeHealth(this.getBestItem().getValue());
 				this.removeHealth((m.getBestItem().getValue()) * m.getLevel());
 				if(m.getHealth()<=0){
+					v.monsterDead(m);
 					m.dropItems();
 					currentRoom.removeMonster(m);
 				}

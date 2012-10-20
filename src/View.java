@@ -34,5 +34,13 @@ public class View {
 		System.out.println("Do you really want to walk into a wall?! Try again!");
 	}
 
+	public void gameDone() {
+		System.out.println("Sorry you lost. The game is over");
+		
+	}
+	public void monsterDead(Monster m) {
+		System.out.println("The following monster has died: \n" + m);
+	}
+
 
 }
