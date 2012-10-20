@@ -77,7 +77,6 @@ public class Game
     			break;
     		p.doCommand(c);
     		if (p.getHealth() <= 0) {
-    			//TODO should be something better here than just breaking.
     			break;
     		}
     		view.update();

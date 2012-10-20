@@ -88,7 +88,6 @@ public class Player extends Humanoid  {
 					currentRoom.removeMonster(m);
 				}
 				if(this.getHealth()<=0){
-					//TODO player death
 				}
 			}
 			
