@@ -143,7 +143,7 @@ public class Room
       if(monsters.isEmpty()) return "";
       String returnString = "Monsters:";
       for(Monster m: monsters) {
-          returnString += " " + m + " " + m.getInventoryString() + "\nHealth:" + m.getHealth();
+          returnString += " " + m + "\n" + m.getInventoryString() + "\nHealth:" + m.getHealth();
       }
       return returnString + "\n";
   }
