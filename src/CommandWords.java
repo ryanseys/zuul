@@ -4,5 +4,5 @@
 
 public enum CommandWords
 {
-    GO, PICKUP, DROP, FIGHT, HELP, QUIT, UNDO, REDO;
+    GO, PICKUP, DROP, FIGHT, HELP, QUIT, UNDO, REDO, EAT;
 }

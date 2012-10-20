@@ -55,7 +55,8 @@ public class Command
     public boolean isUndoable() {
     	if(firstWord == CommandWords.FIGHT ||
         		firstWord == CommandWords.HELP ||
-        		firstWord == CommandWords.QUIT) {
+        		firstWord == CommandWords.QUIT ||
+                firstWord == CommandWords.EAT) {
         		return false;
         }
     	else {
@@ -123,7 +124,7 @@ public class Command
                     }
 	    			if(dir != null) return new Command(cmdword, dir);
 	    		}
-	    		else if (cmdword == CommandWords.DROP || cmdword == CommandWords.PICKUP) {
+	    		else if (cmdword == CommandWords.DROP || cmdword == CommandWords.PICKUP || cmdword == CommandWords.EAT) {
 	    			//TODO:
 	    			//command for picking up an item, right now misunderstood because you cannot have reference to an item in the string.
 	    			//must know about player or room or something, doesn't seem correct.
