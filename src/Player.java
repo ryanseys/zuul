@@ -116,6 +116,10 @@ public class Player extends Humanoid  {
 			}
 		} else if (c.getCommandWord().equals(CommandWords.EAT)){
 			Item i = (Item) c.getSecondWord();
+			if (!inventory.contains(i)) {
+				v.noItem(i);
+				return;
+			}
 			for(Item in: inventory){
 				if(in.getName().equals(i.getName())){
 						i=in;
@@ -128,6 +132,9 @@ public class Player extends Humanoid  {
 					setHealth(MAX_HEALTH);
 				}
 				removeItem(i);
+			}
+			else {
+				v.eatingWeapon(i);
 			}
 
 		}

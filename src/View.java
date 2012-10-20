@@ -42,5 +42,15 @@ public class View {
 		System.out.println("The following monster has died: \n" + m);
 	}
 
+	public void eatingWeapon(Item i) {
+		System.out.println("You cannot eat a weapon named " + i.getName());
+		
+	}
+
+	public void noItem(Item i) {
+		System.out.println("You do not have an item named " + i.getName() + ". Therefore you cannot eat it.");
+		
+	}
+
 
 }
