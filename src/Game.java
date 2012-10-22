@@ -8,15 +8,15 @@ import java.io.InputStreamReader;
  *  can walk around some scenery. That's all. It should really be extended 
  *  to make it more interesting!
  * 
- *  To play this game, create an instance of this class and call the "play"
- *  method.
+ *  To play this game, invoke the static main method with no string 
+ *  parameters.
  * 
  *  This main class creates and initialises all the others: it creates all
  *  rooms, creates the parser and starts the game.  It also evaluates and
  *  executes the commands that the parser returns.
  * 
- * @author  Michael Kölling and David J. Barnes
- * @version 2011.08.08
+ * @author  Vinayak Bansal
+ * @version 2012.10.22
  */
 
 public class Game 
@@ -61,29 +61,38 @@ public class Game
     	view = new View(p); 
     	view.update();
     	p.setView(view);
+    	
+    	
     	InputStreamReader converter = new InputStreamReader(System.in);
     	BufferedReader in = new BufferedReader(converter);
-    	String input = in.readLine();
-    	while (true) {
+    	String input = in.readLine(); //priming the loop
+    	
+    	while (true) { // keep playing until the player quits or he is killed by a monster
     		Command c = Command.parse(input);
-    		if (c == null) {
+    		if (c == null) { //parse returns null if the input command from the user could not be passed
     			view.garbageCommand();
     			view.update();
         		input = in.readLine();
             	continue;
     		}
     		
-    		if (c.getCommandWord().equals (CommandWords.QUIT))
+    		if (c.getCommandWord().equals (CommandWords.QUIT)) {
     			break;
-    		p.doCommand(c);
-    		if (p.getHealth() <= 0) {
+    		}
+    			
+    		p.doCommand(c); //making the player eat, fight, pickup, drop, go, etc
+    		if (p.getHealth() <= 0) { //what if the player died as a result of doing that command.
     			break;
     		}
     		view.update();
     		input = in.readLine();
         	
     	}
-    	view.gameDone();
+    	if (p.getHealth() <= 0)
+    		view.gameDone(); //telling the user that the game is over.
+    	else {
+    		view.quit();
+    	}
     }
 
 }
