@@ -46,7 +46,7 @@ public class Player extends Humanoid  {
 	 */
 	public void doCommand(Command c){
 		boolean b = false;	//boolean variable, used to keep undo/redo off of the stack when not wanted.
-		
+		Command temp = c;
 		if (c.getCommandWord().equals(CommandWords.UNDO)){
 			c = playerHistory.undo();
 			b = true;
@@ -55,16 +55,19 @@ public class Player extends Humanoid  {
 			b = true;
 		}
 		
-		//if there is nothing to undo or redo, there will be an error
-		if(c==null){
-			//TODO change this garbage command to something more meaningful in view
-			v.garbageCommand();
+		if (b == true && c == null) { // case where there is nothing on the stack
+			v.undoRedoUnavailable(temp.getCommandWord());
 			return;
 		}
 		
 		
 		if (c.getCommandWord().equals(CommandWords.GO)){
 			Direction d = (Direction) c.getSecondWord();
+			if (d == null) {
+				v.inCompleteCommand();
+				return;
+			}
+			
 			Room r = currentRoom.getExit(d);
 			if(r!=null){
 				currentRoom = r;
@@ -95,6 +98,10 @@ public class Player extends Humanoid  {
 			v.displayHelp();
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){
 			Item i = (Item) c.getSecondWord();
+			if (i == null) {
+				v.inCompleteCommand();
+				return;
+			}
 			i = currentRoom.getRealItem(i);
 			if(currentRoom.hasItem(i)){
 				addItem(i);
@@ -105,6 +112,10 @@ public class Player extends Humanoid  {
 			}
 		} else if (c.getCommandWord().equals(CommandWords.DROP)){
 			Item i = (Item) c.getSecondWord();
+			if (i == null) {
+				v.inCompleteCommand();
+				return;
+			}
 			
 			if(getInventory().contains(i)){
 				
@@ -116,6 +127,11 @@ public class Player extends Humanoid  {
 			}
 		} else if (c.getCommandWord().equals(CommandWords.EAT)){
 			Item i = (Item) c.getSecondWord();
+			if (i == null) {
+				v.inCompleteCommand();
+				return;
+			}
+			
 			if (!inventory.contains(i)) {
 				v.noItem(i);
 				return;

@@ -18,7 +18,11 @@ public class View {
 	public void displayHelp() {
 		System.out.println("You are lost. You are alone. You wander around in a cave.\n");
         System.out.println("Your command words are:");
-        System.out.println("GO, PICKUP, DROP, UNDO, REDO, FIGHT, HELP, QUIT\n");
+        for (CommandWords commandWord : CommandWords.values()) {
+        	System.out.print(commandWord + " ");
+        }
+        System.out.println("\n");
+        
         
 	}
 	
@@ -49,6 +53,16 @@ public class View {
 
 	public void noItem(Item i) {
 		System.out.println("You do not have an item named " + i.getName() + ". Therefore you cannot eat it.");
+		
+	}
+
+	public void inCompleteCommand() {
+		System.out.println( "You typed in a correct command, but one that expects a second piece of info. Please try again");
+	}
+
+	public void undoRedoUnavailable(CommandWords commandWord) {
+		System.out.println( "There is nothing to " + commandWord + " right now.");
+		
 		
 	}
 
