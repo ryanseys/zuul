@@ -5,10 +5,13 @@ import java.util.Set;
 import java.util.HashMap;
 
 /**
- * Room class for representing a room
- * that a Player can be in.
- *
+ * Room class for representing a room that a Player can be in.
  * The room can also contain items and monsters.
+ * The room also has a specific set of exits which lead to another
+ * room as well as have a specific direction.
+ *
+ * @author Ryan Seys
+ * @version 2012.08.23
  */
 
 public class Room
@@ -172,4 +175,3 @@ public class Room
       return exits.get(direction);
   }
 }
-
