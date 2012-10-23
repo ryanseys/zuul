@@ -6,17 +6,19 @@ import java.util.ArrayList;
  * The level of the monster refers to how tough the monster is.
  * This level will act as a sort of multiplier with the items that the monster has in order to calculate damage to player.
  * Everything else is handled in the super class.
- * 
+ *
  * For now, monsters are passive and will only attack a player if the player chooses to fight them.
+ *
+ * @author  Jarred Linthorne-Shaw
+ * @version 2012.10.23
  */
-
 
 public class Monster extends Humanoid {
 
 	private final int level;
 	public static final int DEFAULT_LEVEL = 1;
 	private Room currentRoom;
-	
+
 	/**
 	 * The Constructor for the monster.
 	 * Sets the level of the monster.
@@ -29,7 +31,7 @@ public class Monster extends Humanoid {
 		this.level = level;
 		currentRoom = room;
 	}
-	
+
 	/**
 	 * The default Constructor for the monster.
 	 * Sets the monsters level to the default level.
@@ -39,7 +41,7 @@ public class Monster extends Humanoid {
 		this.level = DEFAULT_LEVEL;
 		currentRoom = room;
 	}
-	
+
 	/**
 	 * This method compares this monster to the object passed.
 	 * @param o : The object passed into the method.
@@ -50,7 +52,7 @@ public class Monster extends Humanoid {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * This method drops all of the items that the monster is carrying into the room it is in.
 	 */
@@ -60,7 +62,7 @@ public class Monster extends Humanoid {
 			currentRoom.addItem(i);
 		}
 	}
-	
+
 	/**
 	 * Getter for the monster's level.
 	 * @return The level of the monster.

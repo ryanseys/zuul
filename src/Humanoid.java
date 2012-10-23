@@ -1,5 +1,6 @@
 /**
  * Humanoid Class.
+ *
  * This is a super class of the player and monster classes
  * This class has the health variable, a name variable, an inventory list and a MAX_HEALTH static variable.
  * The health represents the remaining health of the player or monster.
@@ -8,6 +9,8 @@
  * The inventory is a list of the items that the player/monster have.
  * Items can be added or removed from the inventory.
  *
+ * @author  Jarred Linthorne-Shaw
+ * @version 2012.10.23
  */
 
 import java.util.ArrayList;
@@ -51,7 +54,7 @@ public abstract class Humanoid{
 	public int getHealth(){
 		return health;
 	}
-	
+
 	/**
 	 * Setter for health.
 	 * @param health : The new health of the Humanoid.
@@ -67,7 +70,7 @@ public abstract class Humanoid{
 	public void removeHealth(int damage){
 		health = health - damage;
 	}
-	
+
 	/**
 	 * Update the Humanoid's health during a fight.
 	 * Could put removeHealth and addHealth into one method, but this way is less error-prone
@@ -76,7 +79,7 @@ public abstract class Humanoid{
 	public void addHealth(int recovery){
 		health = health + recovery;
 	}
-	
+
 	/**
 	 * Adds an item to the Humanoid's inventory.
 	 * @param i : The item to be added.
@@ -93,7 +96,7 @@ public abstract class Humanoid{
 	public boolean removeItem(Item i){
 		return inventory.remove(i);
 	}
-	
+
 	/**
 	 * Get the inventory of the Humanoid.
 	 * @return : The list of items in the Humanoid's inventory.
@@ -104,7 +107,7 @@ public abstract class Humanoid{
 
 	/**
 	 * Get the best item in the Humanoid's inventory.
-	 * @return : The item with the highest value in the Humanoid's inventory. 
+	 * @return : The item with the highest value in the Humanoid's inventory.
 	 * If the Humanoid has no items, an item with no values is returned.
 	 */
 	public Item getBestItem(){
@@ -122,7 +125,7 @@ public abstract class Humanoid{
 		}
 		return tempItem;
 	}
-	
+
 	/**
 	 * An equals method used to compare two Humanoids.
 	 * @return : True if the Humanoid are the same, false if not.
@@ -134,7 +137,6 @@ public abstract class Humanoid{
 		}
 		return false;
 	}
-
 
 	/**
 	 * A method to return the name of the Humanoid.
