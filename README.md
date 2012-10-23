@@ -46,13 +46,13 @@ Milestone 1
 
 ## How to Run
 
-1. Clone the repo
+Clone the repo
 
 ```
 git clone https://github.com/ryanseys/zuul.git
 ```
 
-2. Compile and Run Game.java (or run the Makefile)
+Compile and Run Game.java (or run the Makefile)
 
 ```
 cd src
