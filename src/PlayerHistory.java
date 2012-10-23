@@ -1,10 +1,15 @@
 import java.util.Stack;
 
-/*
+/**
  * This class keeps track of the history of a player. Where
  * all it has been currently, where all to go when the user 
  * hits the undo or the redo button.
+ * 
+ * @author  Vinayak Bansal
+ * @version 2012.10.22
  */
+
+
 public class PlayerHistory {
 
 	private Stack<Command> undoStack; // top contains what the last move of the player was
@@ -14,7 +19,7 @@ public class PlayerHistory {
 		undoStack = new Stack<Command>();
 		redoStack = new Stack<Command>();
 	}
-	/*
+	/**
 	 * This method is called when the player makes a move
 	 * 
 	 * @Return <code>true</code> if command was undoable, 
@@ -30,11 +35,11 @@ public class PlayerHistory {
 		
 	}
 	
-	/*
+	/**
 	 * Calculates and returns the command that needs to be 
 	 * executed to get back to state
 	 * where the player was one move ago.
-	 * Can return <code>null </code>. Will do it in the case where the player
+	 * Can return <code>null</code>. Will do it in the case where the player
 	 * has not even made its first move.
 	 * 
 	 */
@@ -49,7 +54,7 @@ public class PlayerHistory {
 		return null;
 	}
 	
-	/*
+	/**
 	 * Calculates and returns the Command to be executed
 	 * in case the player changed his mind about changing his
 	 * mind.
@@ -68,7 +73,7 @@ public class PlayerHistory {
 		return null;
 	}
 	
-	/*
+	/**
 	 * Wipes the player history clean, in case the player dies
 	 * or decides to start over again.
 	 */

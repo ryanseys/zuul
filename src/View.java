@@ -1,4 +1,15 @@
-
+ /**
+ * 
+ * This class is intended to display the current state of the model
+ * In fact it is only one way to represent the View
+ * Later we will look at other views - 2D, 3D etc
+ * So then we can have a IView interface that will have all the 
+ * necessary methods, and this class will implement that interface.
+ * 
+ * 
+ * @author  Vinayak Bansal
+ * @version 2012.10.22
+ */
 
 public class View {
 	private Player player;
@@ -101,10 +112,19 @@ public class View {
 		
 	}
 	
+	/**
+	 * This method is called when you try to do something with an item that does not exist
+	 * @param i: The item that you are trying to perform an operation on.
+	 */
 	public void itemInvalid(Item i) {
 		System.out.println("The item " + i.getName() + " does not exist!");
 	}
 
+	/**
+	 * This method is called when you try to perform an operation on a real item
+	 * its just that the player does not have it currently.
+	 * @param i
+	 */
 	public void itemError(Item i){
 		System.out.println("You don't have the item " + i.getName() + " in your inventory");
 	}
