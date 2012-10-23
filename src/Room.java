@@ -101,21 +101,12 @@ public class Room
   }
 
   /**
-   * @return The short description of the room
-   * (the one that was defined in the constructor).
-   */
-  public String getShortDescription()
-  {
-      return description;
-  }
-
-  /**
    * Return a description of the room in the form:
    * You are in the kitchen.
    * Exits: north west
    * @return A long description of this room
    */
-  public String getLongDescription()
+  public String getDescription()
   {
       return "You are in " + description + ".\n" + getExitString() +
       getMonsterString() + getItemString();
