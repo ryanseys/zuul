@@ -26,7 +26,7 @@ public class View {
 	public void update() {
 		System.out.println(player + " has a health of " + player.getHealth());
 		System.out.println(player.getInventoryString());
-		System.out.println(player.getCurrentRoom().getLongDescription());
+		System.out.println(player.getCurrentRoom().getDescription());
 		System.out.print("> ");
 	}
 
