@@ -23,11 +23,13 @@ Milestone 1
 
 ## Authors and Their Roles
 
-*Ryan Seys*
+**Ryan Seys**
   Responsible for Command.java, CommandWords.java, Direction.java, and Room.java classes
-*Vinayak Bansal*
+
+**Vinayak Bansal**
   Responsible for Game.java, PlayerHistory.java and View.java classes
-*Jarred Linthorne-Shaw*
+
+**Jarred Linthorne-Shaw**
   Responsble for Humanoid.java, Item.java, Monster.java and Player.java classes
 
 ## Changes made for Milestone 1
