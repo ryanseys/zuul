@@ -1,4 +1,4 @@
-zuul
+zuul ( Github : http://github.com/ryanseys/zuul )
 ====
 
 Authors: Ryan Seys, Vinayak Bansal, Jarred Linthorne-Shaw
@@ -51,7 +51,7 @@ Milestone 1
 **Jarred Linthorne-Shaw**
   Responsble for Humanoid.java, Item.java, Monster.java and Player.java classes, UML Diagram
 
-** All **
+**All**
   Responsible for reporting issues/bugs to Github
 
 ## Changes made for Milestone 1
