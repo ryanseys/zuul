@@ -43,3 +43,19 @@ Milestone 1
 * Added items which can be picked up, eaten (food items only) or used as a weapon to fight (weapon items only)
 * Added a player inventory (support for the player to hold a number of items)
 * Added documentation which conforms to JavaDoc specifications
+
+## How to Run
+
+1. Clone the repo
+
+```
+git clone https://github.com/ryanseys/zuul.git
+```
+
+2. Compile and Run Game.java (or run the Makefile)
+
+```
+cd src
+javac Game.java
+java Game
+```
