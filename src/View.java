@@ -100,7 +100,15 @@ public class View {
 		System.out.println("You do not have an item named " + i.getName() + ". Therefore you cannot eat it.");
 		
 	}
+	
+	public void itemInvalid(Item i) {
+		System.out.println("The item " + i.getName() + " does not exist!");
+	}
 
+	public void itemError(Item i){
+		System.out.println("You don't have the item " + i.getName() + " in your inventory");
+	}
+	
 	/**
 	 * The case where the user types a valid first command (as defined
 	 * by the CommandWords interface), but we need more information to execute
