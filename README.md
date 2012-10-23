@@ -59,3 +59,9 @@ cd src
 javac Game.java
 java Game
 ```
+
+OR
+
+```
+make
+```
