@@ -26,6 +26,9 @@ public class PlayerHistory {
 	 * <code>false</code> otherwise
 	 */
 	public boolean addStep(Command c) {
+		if (c == null) { // then we should not add it to our stacks
+			return false;
+		}
 		if (c.isUndoable()) {
 			undoStack.push(c);
 			redoStack.clear(); //you have decided to go on a new path.

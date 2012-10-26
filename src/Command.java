@@ -156,4 +156,10 @@ public class Command {
     }
     return null;
   }
+  
+  @Override
+  public boolean equals(Object o) {
+	  Command c = (Command)o;
+	  return c.firstWord.equals(firstWord) && c.secondWord.equals(secondWord);
+  }
 }
