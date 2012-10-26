@@ -21,7 +21,7 @@ import java.io.InputStreamReader;
 
 public class Game {
 
-  private static View view;
+  private static IView view;
 
   public static void main(String[] args) throws IOException {
   	Room startRoom = new Room("StartRoom");
@@ -57,7 +57,7 @@ public class Game {
   	southRoom.setExit(Direction.NORTH, startRoom);
 
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
-  	view = new View(p);
+  	view = new TextView(p);
   	view.update();
   	p.setView(view);
 

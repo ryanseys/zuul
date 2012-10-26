@@ -15,7 +15,7 @@ public class Player extends Humanoid  {
 
 	private PlayerHistory playerHistory;
 	private Room currentRoom;
-	private View v;
+	private IView v;
 
 	/**
 	 * The Constructor for the player.
@@ -177,7 +177,7 @@ public class Player extends Humanoid  {
 	 * Setter for the view.
 	 * @param v : The view.
 	 */
-	public void setView(View v){
+	public void setView(IView v){
 		this.v = v;
 	}
 
