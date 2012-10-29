@@ -124,7 +124,9 @@ public class Player extends Humanoid  {
 				return;
 			}
 			Item temp2 = i;
-			i = currentRoom.getRealItem(i);							//Determine if the item is real or not
+
+			i = getRealItem(i);										//Determine if the item is real or not
+
 			if ( i == null) {										//If the item is null, it is not a real item
 				v.itemInvalid(temp2);								//Print an error accordingly
 				return;

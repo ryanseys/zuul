@@ -104,6 +104,16 @@ public abstract class Humanoid{
 	public ArrayList<Item> getInventory(){
 		return inventory;
 	}
+	
+	/**
+	 * TODO
+	 */
+	 public Item getRealItem(Item item) {
+		    int index = inventory.indexOf(item);
+		    if(index != -1) return inventory.get(index);
+		    else return null;
+	 }
+
 
 	/**
 	 * Get the best item in the Humanoid's inventory.
