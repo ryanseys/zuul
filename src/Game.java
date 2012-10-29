@@ -57,9 +57,11 @@ public class Game {
   	southRoom.setExit(Direction.NORTH, startRoom);
 
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
-  	view = new TextView(p);
+  	view = new TwoDView(p);
   	view.update();
   	p.setView(view);
+  	((TwoDView)view).setSize(400, 300);
+  	((TwoDView)view).setVisible(true);
 
 
   	InputStreamReader converter = new InputStreamReader(System.in);

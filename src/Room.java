@@ -174,4 +174,12 @@ public class Room
   {
       return exits.get(direction);
   }
+  
+  /**
+   * TODO
+   */
+  
+  public List<Item> getItems() {
+	  return items;
+  }
 }

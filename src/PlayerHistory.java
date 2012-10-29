@@ -83,4 +83,20 @@ public class PlayerHistory {
 		undoStack.clear();
 		redoStack.clear();
 	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public boolean canUndo() {
+		return !undoStack.isEmpty();
+	}
+	
+	/**
+	 * TODO
+	 * @return
+	 */
+	public boolean canRedo() {
+		return !redoStack.isEmpty();
+	}
 }
