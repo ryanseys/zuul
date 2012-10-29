@@ -26,7 +26,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	private Player p;
 	private JList inventoryList;
 	private DefaultListModel inventoryModel;
-	
+
 	public TwoDView (Player p) {
 		this.p = p;
 		p.addItem(new Item("Gold", false));
@@ -34,7 +34,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
 	    setLayout(new GridLayout(3,3));
-	    
+
 	    undo = new JButton("UNDO");
 	    redo = new JButton("REDO");
 	    northRoom = new JButton("North Room");
@@ -42,7 +42,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    westRoom = new JButton("West Room");
 	    southRoom = new JButton("South Room");
 	    currentRoom = new JButton("You are Here");
-	    
+
 	    undo.addActionListener(this);
 	    redo.addActionListener(this);
 	    northRoom.addActionListener(this);
@@ -50,7 +50,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    westRoom.addActionListener(this);
 	    southRoom.addActionListener(this);
 	    currentRoom.addActionListener(this);
-	    
+
 	    consolePanel = new JPanel();
 	    inventoryPanel = new JPanel();
 //	    inventoryPanel.setLayout(new FlowLayout());
@@ -59,7 +59,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    JScrollPane pane = new JScrollPane(inventoryList);
 	    inventoryPanel.add(pane);
 //	    pane.setBounds(inventoryPanel.getBounds());
-	    
+
 	    add(undo);
 	    add(northRoom);
 	    add(redo);
@@ -72,24 +72,24 @@ public class TwoDView extends JFrame implements IView, ActionListener
 
 	    JMenu addressMenu = new JMenu( "File" );
 	    menuBar.add( addressMenu );
-	    
-	    
+
+
 	    newGame = new JMenuItem ( "New" );
 	    addressMenu.add( newGame );
 	    newGame.addActionListener(this);
-	    
-	    help = new JMenuItem ( "Help" ); 
+
+	    help = new JMenuItem ( "Help" );
 	    addressMenu.add( help );
 	    help.addActionListener(this);
-	    
+
 	    quit = new JMenuItem ( "Quit" );
 	    addressMenu.add( quit );
 	    quit.addActionListener(this);
-	    
+
 	    update();
 	}
-	
-	
+
+
 	@Override
 	public void update() {
 		Room currentRoom = p.getCurrentRoom();
@@ -113,7 +113,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		} else {
 			westRoom.setEnabled(true);
 		}
-		
+
 		if (p.canUndo()) {
 			undo.setEnabled(true);
 		} else {
@@ -124,77 +124,75 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		} else {
 			redo.setEnabled(false);
 		}
-		
+
 		inventoryModel.removeAllElements();
 		for (Item i :p.getInventory())
 			inventoryModel.addElement(i);
-		
-		
 	}
 	@Override
 	public void displayHelp() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void monsterMissing() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void garbageCommand() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void invalidRoom() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void gameDone() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void monsterDead(Monster m) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void eatingWeapon(Item i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void noItem(Item i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void itemInvalid(Item i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void itemError(Item i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void inCompleteCommand() {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void undoRedoUnavailable(CommandWords commandWord) {
 		// TODO Auto-generated method stub
-		
+
 	}
 	@Override
 	public void quit() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
@@ -205,19 +203,19 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		}
 		else if (e.getActionCommand().equals("Help")) {
 			//TODO
-		} 
+		}
 		else if (e.getActionCommand().equals("North Room")) {
 			p.doCommand(Command.parse("Go North"));
-		} 
+		}
 		else if (e.getActionCommand().equals("East Room")) {
 			p.doCommand(Command.parse("Go East"));
-		} 
+		}
 		else if (e.getActionCommand().equals("West Room")) {
 			p.doCommand(Command.parse("Go West"));
-		} 
+		}
 		else if (e.getActionCommand().equals("South Room")) {
 			p.doCommand(Command.parse("Go South"));
-		} 
+		}
 		else if (e.getActionCommand().equals("You are Here")) {
 			JDialog abc = new JDialog();
 			int def = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -225,18 +223,18 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			if (def != JOptionPane.CLOSED_OPTION) {
 				p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(def)));
 			}
-		} 
+		}
 		else if (e.getActionCommand().equals("UNDO")) {
 			p.doCommand(Command.parse("UNDO"));
-		} 
+		}
 		else if (e.getActionCommand().equals("REDO")) {
 			p.doCommand(Command.parse("REDO"));
-		} 
+		}
 		else if (e.getActionCommand().equals("Quit")) {
 			System.exit(0);
 		}
 		update();
-		
-		
+
+
 	}
 }
