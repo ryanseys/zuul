@@ -188,4 +188,18 @@ public class Player extends Humanoid  {
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
+	/**
+	 * TODO
+	 * @return
+	 */
+	public boolean canUndo() {
+		return playerHistory.canUndo();
+	}
+	/**
+	 * TODO
+	 * @return
+	 */
+	public boolean canRedo() {
+		return playerHistory.canRedo();
+	}
 }
