@@ -20,22 +20,24 @@ import javax.swing.JTextField;
 
 public class TwoDView extends JFrame implements IView, ActionListener
 {
-	private JMenuItem newGame, help, quit, add;
+	private JMenuItem resetGame, help, quit, add;
 	private JMenuBar menuBar;
 	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
-	private JTextField currentRoom;
-	private JPanel consolePanel, inventoryPanel, centralPanel;
-	private Player p;
+	private JTextField currentRoom, consoleField;
+	private JPanel consolePanel, inventoryPanel, centralPanel, undoRedoPanel, emptyPanel;
+	private Player p, reset;
 	private JList inventoryList;
 	private DefaultListModel inventoryModel;
 
 	public TwoDView (Player p) {
 		this.p = p;
+		reset = p;
 		p.addItem(new Item("Gold", false));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
 	    setLayout(new GridLayout(3,3));
+	    this.setExtendedState(this.MAXIMIZED_BOTH);
 
 	    undo = new JButton("UNDO");
 	    redo = new JButton("REDO");
@@ -61,6 +63,8 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    consolePanel = new JPanel();
 	    inventoryPanel = new JPanel();
 	    centralPanel = new JPanel();
+	    undoRedoPanel = new JPanel();
+	    emptyPanel = new JPanel();
 	    currentRoom = new JTextField("Current Room Actions:");
 	    centralPanel.add(currentRoom);
 	    centralPanel.add(pickup);
@@ -73,10 +77,15 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    inventoryPanel.add(eat);
 	    inventoryPanel.add(drop);
 	    inventoryPanel.add(inspect);
+	    undoRedoPanel.add(undo);
+	    undoRedoPanel.add(redo);
+	    consoleField = new JTextField();
+		consolePanel.add(consoleField);
+		//consolePanel.setSize(defaultCloseOperation, defaultCloseOperation);
 
-	    add(undo);
+	    add(undoRedoPanel);
 	    add(northRoom);
-	    add(redo);
+	    add(emptyPanel);
 	    add(westRoom);
 	    add(centralPanel);
 	    add(eastRoom);
@@ -88,9 +97,9 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    menuBar.add( addressMenu );
 
 
-	    newGame = new JMenuItem ( "New" );
-	    addressMenu.add( newGame );
-	    newGame.addActionListener(this);
+	    resetGame = new JMenuItem ( "Reset" );
+	    addressMenu.add( resetGame );
+	    resetGame.addActionListener(this);
 
 	    help = new JMenuItem ( "Help" );
 	    addressMenu.add( help );
@@ -138,6 +147,13 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		} else {
 			redo.setEnabled(false);
 		}
+		
+
+		if(!p.getCurrentRoom().getItems().isEmpty()){
+			pickup.setEnabled(true);
+		} else {
+			pickup.setEnabled(false);
+		}
 
 		inventoryModel.removeAllElements();
 		for (Item i :p.getInventory())
@@ -148,12 +164,32 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		} else {
 			fight.setEnabled(false);
 		}
+		
+		consoleField.setText(updateConsole());
+		
+		
 	}
 	@Override
 	public void displayHelp() {
-		// TODO Auto-generated method stub
-
+//		System.out.println("You are lost. You are alone. You wander around in a cave.\n");
+//		System.out.println("Your command words are:");
+//		for (CommandWords commandWord : CommandWords.values()) {
+//			System.out.print(commandWord + " ");
+//		}
+//		System.out.println("\n");
 	}
+	
+	public String getHelp(){
+		String str = "";
+		str+="Welcome to the World of Zuul.\n Can you conquer the obstacles and beat the monsters?\n";
+		str+="Your command words are: ";
+		for (CommandWords commandWord : CommandWords.values()) {
+			str+= commandWord + " ";
+		}
+		str+="\n";
+		return str;
+	}
+
 	@Override
 	public void monsterMissing() {
 		// TODO Auto-generated method stub
@@ -209,19 +245,41 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		// TODO Auto-generated method stub
 
 	}
+	
+	public String updateConsole(){
+		String s = "";
+		s += ("Player Health: " + p.getHealth() + "\n");
+		if(p.getCurrentRoom().getMonster()!=null){
+			s+= ("Monster Health: " + p.getCurrentRoom().getMonster().getHealth());
+		}
+		return s;
+	}
+	
+	
+	
 	@Override
 	public void quit() {
 		System.exit(0);
+	}
+	
+	public void reset(){
+		while(p.canUndo()){
+			p.doCommand(Command.parse("Undo"));
+		}
+		p = reset;
+		p.getPlayerHistory().clear();
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("New")) {
-			//TODO
+		if (e.getActionCommand().equals("Reset")) {
+			reset();
 		}
 		else if (e.getActionCommand().equals("Help")) {
-			//TODO
+			JOptionPane.showMessageDialog(this, getHelp());
+			
+//			p.doCommand(Command.parse("Help"));
 		}
 		else if (e.getActionCommand().equals("North Room")) {
 			p.doCommand(Command.parse("Go North"));
@@ -237,11 +295,12 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		}
 		else if (e.getActionCommand().equals("Pickup")) {
 			JDialog abc = new JDialog();
-			int def = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+				pickup.setEnabled(true);
+				int def = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
-			if (def != JOptionPane.CLOSED_OPTION) {
-				p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(def)));
-			}
+				if (def != JOptionPane.CLOSED_OPTION) {
+					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(def)));
+				}
 		}
 		else if (e.getActionCommand().equals("Fight")) {
 			p.doCommand(Command.parse("Fight"));

@@ -202,4 +202,9 @@ public class Player extends Humanoid  {
 	public boolean canRedo() {
 		return playerHistory.canRedo();
 	}
+	
+	public PlayerHistory getPlayerHistory(){
+		return playerHistory;
+	}
+
 }
