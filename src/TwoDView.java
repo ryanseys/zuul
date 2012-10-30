@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
@@ -23,7 +24,8 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	private JMenuItem resetGame, help, quit, add;
 	private JMenuBar menuBar;
 	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
-	private JTextField currentRoom, consoleField;
+	private JTextField currentRoom;
+	private JTextArea consoleField;
 	private JPanel consolePanel, inventoryPanel, centralPanel, undoRedoPanel, emptyPanel;
 	private Player p, reset;
 	private JList inventoryList;
@@ -61,7 +63,9 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    pickup.addActionListener(this);
 
 	    consolePanel = new JPanel();
+	    consolePanel.setLayout(new GridLayout(3, 2));
 	    inventoryPanel = new JPanel();
+	    inventoryPanel.setLayout(new GridLayout(1, 2));
 	    centralPanel = new JPanel();
 	    undoRedoPanel = new JPanel();
 	    emptyPanel = new JPanel();
@@ -73,15 +77,24 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    inventoryModel = new DefaultListModel();
 	    inventoryList = new JList(inventoryModel);
 	    JScrollPane pane = new JScrollPane(inventoryList);
-	    inventoryPanel.add(pane);
-	    inventoryPanel.add(eat);
-	    inventoryPanel.add(drop);
-	    inventoryPanel.add(inspect);
+
+	    JPanel inventoryLeftPanel = new JPanel();
+	    inventoryLeftPanel.setLayout(new GridLayout(1, 1));
+	    JPanel inventoryRightPanel = new JPanel();
+	    inventoryRightPanel.setLayout(new GridLayout(3, 1));
+	    inventoryPanel.add(inventoryLeftPanel);
+	    inventoryPanel.add(inventoryRightPanel); 
+	    inventoryLeftPanel.add(pane);
+	    inventoryRightPanel.add(eat);
+	    inventoryRightPanel.add(drop);
+	    inventoryRightPanel.add(inspect);
+
 	    undoRedoPanel.add(undo);
 	    undoRedoPanel.add(redo);
-	    consoleField = new JTextField();
+	    consoleField = new JTextArea();
+	    consoleField.setEditable(false);
 		consolePanel.add(consoleField);
-		//consolePanel.setSize(defaultCloseOperation, defaultCloseOperation);
+		
 
 	    add(undoRedoPanel);
 	    add(northRoom);
