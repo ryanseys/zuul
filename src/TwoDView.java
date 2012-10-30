@@ -1,4 +1,4 @@
-import java.awt.FlowLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +14,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
 
 
@@ -21,8 +22,9 @@ public class TwoDView extends JFrame implements IView, ActionListener
 {
 	private JMenuItem newGame, help, quit, add;
 	private JMenuBar menuBar;
-	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, currentRoom;
-	private JPanel consolePanel, inventoryPanel;
+	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
+	private JTextField currentRoom;
+	private JPanel consolePanel, inventoryPanel, centralPanel;
 	private Player p;
 	private JList inventoryList;
 	private DefaultListModel inventoryModel;
@@ -41,7 +43,12 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    eastRoom = new JButton("East Room");
 	    westRoom = new JButton("West Room");
 	    southRoom = new JButton("South Room");
-	    currentRoom = new JButton("You are Here");
+	    pickup = new JButton("Pickup");
+	    fight = new JButton ("Fight");
+	    eat = new JButton ("Eat");
+	    drop = new JButton ("Drop");
+	    inspect = new JButton ("Inspect");
+	    
 
 	    undo.addActionListener(this);
 	    redo.addActionListener(this);
@@ -49,22 +56,29 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    eastRoom.addActionListener(this);
 	    westRoom.addActionListener(this);
 	    southRoom.addActionListener(this);
-	    currentRoom.addActionListener(this);
+	    pickup.addActionListener(this);
 
 	    consolePanel = new JPanel();
 	    inventoryPanel = new JPanel();
-//	    inventoryPanel.setLayout(new FlowLayout());
+	    centralPanel = new JPanel();
+	    currentRoom = new JTextField("Current Room Actions:");
+	    centralPanel.add(currentRoom);
+	    centralPanel.add(pickup);
+	    centralPanel.add(fight);
+	    centralPanel.setBackground(new Color(255, 0, 0));
 	    inventoryModel = new DefaultListModel();
 	    inventoryList = new JList(inventoryModel);
 	    JScrollPane pane = new JScrollPane(inventoryList);
 	    inventoryPanel.add(pane);
-//	    pane.setBounds(inventoryPanel.getBounds());
+	    inventoryPanel.add(eat);
+	    inventoryPanel.add(drop);
+	    inventoryPanel.add(inspect);
 
 	    add(undo);
 	    add(northRoom);
 	    add(redo);
 	    add(westRoom);
-	    add(currentRoom);
+	    add(centralPanel);
 	    add(eastRoom);
 	    add(consolePanel);
 	    add(southRoom);
@@ -128,6 +142,12 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		inventoryModel.removeAllElements();
 		for (Item i :p.getInventory())
 			inventoryModel.addElement(i);
+		
+		if(p.getCurrentRoom().hasMonsters()) {
+			fight.setEnabled(true);
+		} else {
+			fight.setEnabled(false);
+		}
 	}
 	@Override
 	public void displayHelp() {
@@ -191,8 +211,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	}
 	@Override
 	public void quit() {
-		// TODO Auto-generated method stub
-
+		System.exit(0);
 	}
 
 
@@ -216,13 +235,16 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		else if (e.getActionCommand().equals("South Room")) {
 			p.doCommand(Command.parse("Go South"));
 		}
-		else if (e.getActionCommand().equals("You are Here")) {
+		else if (e.getActionCommand().equals("Pickup")) {
 			JDialog abc = new JDialog();
 			int def = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
 			if (def != JOptionPane.CLOSED_OPTION) {
 				p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(def)));
 			}
+		}
+		else if (e.getActionCommand().equals("Fight")) {
+			p.doCommand(Command.parse("Fight"));
 		}
 		else if (e.getActionCommand().equals("UNDO")) {
 			p.doCommand(Command.parse("UNDO"));
@@ -231,7 +253,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			p.doCommand(Command.parse("REDO"));
 		}
 		else if (e.getActionCommand().equals("Quit")) {
-			System.exit(0);
+			quit();
 		}
 		update();
 

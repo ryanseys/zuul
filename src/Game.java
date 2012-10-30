@@ -60,7 +60,7 @@ public class Game {
   	view = new TwoDView(p);
   	view.update();
   	p.setView(view);
-  	((TwoDView)view).setSize(400, 300);
+  	((TwoDView)view).setSize(500, 300);
   	((TwoDView)view).setVisible(true);
 
 
