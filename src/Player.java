@@ -134,10 +134,8 @@ public class Player extends Humanoid  {
 			if(getInventory().contains(i)){							//If the item is in the player's inventory
 				currentRoom.addItem(i);								//Add the item to the room
 				removeItem(i);										//Remove the item from the player's inventory
-			} else {												//Otherwise, the item is real, but not in the inventory
-				v.itemError(temp2);									//Print an error accordingly
-				return;
-			}
+			} 
+			
 			if(b == false){											//If b is false, the command is not an undo or a redo
 				playerHistory.addStep(c);							//Only add the step if this is the case, to prevent stack problems
 			}
