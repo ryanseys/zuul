@@ -134,6 +134,10 @@ public class Item implements Comparable<Item> {
 	public String toString(){
 		return name;
 	}
+	
+	public String getDescription() {
+		return name + ": " + value; 
+	}
 
 	/**
 	 * Query for the item.
