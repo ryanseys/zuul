@@ -2,11 +2,16 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -24,7 +29,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	private JMenuItem resetGame, help, quit, add;
 	private JMenuBar menuBar;
 	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
-	private JTextField currentRoom;
+	private JLabel currentRoom;
 	private JTextArea consoleField;
 	private JPanel consolePanel, inventoryPanel, centralPanel, undoRedoPanel, emptyPanel;
 	private Player p, reset;
@@ -63,6 +68,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    pickup.addActionListener(this);
 	    fight.addActionListener(this);
 	    drop.addActionListener(this);
+	    eat.addActionListener(this);
 
 	    consolePanel = new JPanel();
 	    consolePanel.setLayout(new GridLayout(3, 2));
@@ -71,15 +77,58 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    centralPanel = new JPanel();
 	    undoRedoPanel = new JPanel();
 	    emptyPanel = new JPanel();
-	    currentRoom = new JTextField("Current Room Actions:");
+	    currentRoom = new JLabel("Current Room Actions:");
 	    centralPanel.add(currentRoom);
 	    centralPanel.add(pickup);
 	    centralPanel.add(fight);
 	    centralPanel.setBackground(new Color(255, 0, 0));
 	    inventoryModel = new DefaultListModel();
 	    inventoryList = new JList(inventoryModel);
+	    
 	    JScrollPane pane = new JScrollPane(inventoryList);
+	    inventoryList.addMouseListener(new MouseListener() {
 
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				Item selectedItem = (Item) inventoryList.getSelectedValue();
+				if(selectedItem == null) {
+					drop.setEnabled(false);
+					eat.setEnabled(false);
+				}
+				else {
+					drop.setEnabled(true);
+					if(!selectedItem.isWeapon()) {
+						eat.setEnabled(true);
+					}
+					else eat.setEnabled(false);
+				}
+			}
+	    	
+	    });
 	    JPanel inventoryLeftPanel = new JPanel();
 	    inventoryLeftPanel.setLayout(new GridLayout(1, 1));
 	    JPanel inventoryRightPanel = new JPanel();
@@ -179,10 +228,9 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		} else {
 			fight.setEnabled(false);
 		}
-		
+		drop.setEnabled(false);
+		eat.setEnabled(false);
 		consoleField.setText(updateConsole());
-		
-		
 	}
 	@Override
 	public void displayHelp() {
@@ -270,8 +318,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		return s;
 	}
 	
-	
-	
 	@Override
 	public void quit() {
 		System.exit(0);
@@ -284,7 +330,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		p = reset;
 		p.getPlayerHistory().clear();
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -316,7 +361,10 @@ public class TwoDView extends JFrame implements IView, ActionListener
 				}
 		}
 		else if (e.getActionCommand().equals("Drop")) {
-			//p.doCommand(Command.parse("Drop"));
+			Item selectedItem = ((Item) inventoryList.getSelectedValue());
+			if(selectedItem != null) {
+				p.doCommand(new Command(CommandWords.DROP, selectedItem));
+			}
 		}
 		else if (e.getActionCommand().equals("Fight")) {
 			p.doCommand(Command.parse("Fight"));
@@ -325,7 +373,10 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			}
 		}
 		else if (e.getActionCommand().equals("Eat")) {
-			//p.doCommand(Command.parse("Eat"));
+			Item selectedItem = ((Item) inventoryList.getSelectedValue());
+			if(selectedItem != null) {
+				p.doCommand(new Command(CommandWords.EAT, selectedItem));
+			}
 		}
 		else if (e.getActionCommand().equals("Inspect")) {
 			
