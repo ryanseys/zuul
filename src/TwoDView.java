@@ -69,6 +69,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    fight.addActionListener(this);
 	    drop.addActionListener(this);
 	    eat.addActionListener(this);
+	    inspect.addActionListener(this);
 
 	    consolePanel = new JPanel();
 	    consolePanel.setLayout(new GridLayout(3, 2));
@@ -89,28 +90,16 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    inventoryList.addMouseListener(new MouseListener() {
 
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseClicked(MouseEvent arg0) {}
 
 			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseEntered(MouseEvent arg0) {}
 
 			@Override
-			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseExited(MouseEvent arg0) {}
 
 			@Override
-			public void mousePressed(MouseEvent arg0) {
-				
-				
-			}
+			public void mousePressed(MouseEvent arg0) {}
 
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -118,9 +107,11 @@ public class TwoDView extends JFrame implements IView, ActionListener
 				if(selectedItem == null) {
 					drop.setEnabled(false);
 					eat.setEnabled(false);
+					inspect.setEnabled(false);
 				}
 				else {
 					drop.setEnabled(true);
+					inspect.setEnabled(true);
 					if(!selectedItem.isWeapon()) {
 						eat.setEnabled(true);
 					}
@@ -230,6 +221,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		}
 		drop.setEnabled(false);
 		eat.setEnabled(false);
+		inspect.setEnabled(false);
 		consoleField.setText(updateConsole());
 	}
 	@Override
@@ -379,7 +371,10 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			}
 		}
 		else if (e.getActionCommand().equals("Inspect")) {
-			
+			Item selectedItem = ((Item) inventoryList.getSelectedValue());
+			if(selectedItem != null) {
+				JOptionPane.showMessageDialog(this, selectedItem.getDescription());
+			}
 		}
 		else if (e.getActionCommand().equals("UNDO")) {
 			p.doCommand(Command.parse("UNDO"));
