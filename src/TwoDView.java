@@ -61,6 +61,8 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    westRoom.addActionListener(this);
 	    southRoom.addActionListener(this);
 	    pickup.addActionListener(this);
+	    fight.addActionListener(this);
+	    drop.addActionListener(this);
 
 	    consolePanel = new JPanel();
 	    consolePanel.setLayout(new GridLayout(3, 2));
@@ -220,8 +222,8 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	}
 	@Override
 	public void gameDone() {
-		// TODO Auto-generated method stub
-
+		JOptionPane.showMessageDialog(this, "You have been defeated!");
+		quit();
 	}
 	@Override
 	public void monsterDead(Monster m) {
@@ -291,8 +293,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		}
 		else if (e.getActionCommand().equals("Help")) {
 			JOptionPane.showMessageDialog(this, getHelp());
-			
-//			p.doCommand(Command.parse("Help"));
 		}
 		else if (e.getActionCommand().equals("North Room")) {
 			p.doCommand(Command.parse("Go North"));
@@ -315,8 +315,20 @@ public class TwoDView extends JFrame implements IView, ActionListener
 					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(def)));
 				}
 		}
+		else if (e.getActionCommand().equals("Drop")) {
+			//p.doCommand(Command.parse("Drop"));
+		}
 		else if (e.getActionCommand().equals("Fight")) {
 			p.doCommand(Command.parse("Fight"));
+			if(p.getHealth()<=0){
+				this.gameDone();
+			}
+		}
+		else if (e.getActionCommand().equals("Eat")) {
+			//p.doCommand(Command.parse("Eat"));
+		}
+		else if (e.getActionCommand().equals("Inspect")) {
+			
 		}
 		else if (e.getActionCommand().equals("UNDO")) {
 			p.doCommand(Command.parse("UNDO"));
