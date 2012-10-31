@@ -232,17 +232,12 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	}
 	@Override
 	public void displayHelp() {
-//		System.out.println("You are lost. You are alone. You wander around in a cave.\n");
-//		System.out.println("Your command words are:");
-//		for (CommandWords commandWord : CommandWords.values()) {
-//			System.out.print(commandWord + " ");
-//		}
-//		System.out.println("\n");
+		//String is needed, so getHelp method is used instead.
 	}
 	
 	public String getHelp(){
 		String str = "";
-		str+="Welcome to the World of Zuul.\n Can you conquer the obstacles and beat the monsters?\n";
+		str+="Welcome to the World of Zuul.\nCan you conquer the obstacles and beat the monsters?\n";
 		str+="Your command words are: ";
 		for (CommandWords commandWord : CommandWords.values()) {
 			str+= commandWord + " ";
@@ -250,61 +245,41 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		str+="\n";
 		return str;
 	}
-
-	@Override
-	public void monsterMissing() {
-		// Checked by disabling the button, this will never be called
-
+	
+	public void fightPopUp(){
+		Monster m = p.getCurrentRoom().getMonster();
+		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
+				 + m.getName() + " attacked " + p.getName() + " and did " + m.getBestItem().getValue()*m.getLevel()  + " Damage\n"); 
 	}
-	@Override
-	public void garbageCommand() {
-		// checked by using buttons, no way to enter garbage
 
-	}
-	@Override
-	public void invalidRoom() {
-		// Checked by disabling buttons
-
-	}
 	@Override
 	public void gameDone() {
 		JOptionPane.showMessageDialog(this, "You have been defeated!");
 		quit();
 	}
+	
 	@Override
 	public void monsterDead(Monster m) {
-		// TODO Auto-generated method stub
+		String s = ("You defeated " + m.getName() + "!\n");
+		if(!m.getInventory().isEmpty()){
+			s+= m.getName() + " dropped the following item(s):\n" ;
+			for(Item i: m.getInventory()){
+				s+= i.getName() + "\n";
+			}
+		}
+		JOptionPane.showMessageDialog(this, s);
+	}
+	
 
-	}
-	@Override
-	public void eatingWeapon(Item i) {
-		// Checked by disabling buttons
-
-	}
-	@Override
-	public void noItem(Item i) {
-		// Checked by disabling button
-
-	}
-	@Override
-	public void itemInvalid(Item i) {
-		// Checked by disabling button
-
-	}
-	@Override
-	public void itemError(Item i) {
-		// Checked by disabling button
-
-	}
-	@Override
-	public void inCompleteCommand() {
-		// Impossible with GUI
-
-	}
-	@Override
-	public void undoRedoUnavailable(CommandWords commandWord) {
-		// Disabling buttons when appropriate
-	}
+	@Override	public void monsterMissing() {/* Checked by disabling the button, this will never be called*/}
+	@Override	public void garbageCommand() {/* checked by using buttons, no way to enter garbage*/}
+	@Override	public void invalidRoom() {	/* Checked by disabling buttons*/}
+	@Override	public void eatingWeapon(Item i) {/*// Checked by disabling buttons*/}
+	@Override	public void noItem(Item i) {/* Checked by disabling button*/}
+	@Override	public void itemInvalid(Item i) {/* Checked by disabling button*/}
+	@Override	public void itemError(Item i) {/* Checked by disabling button*/}
+	@Override	public void inCompleteCommand() {/* Impossible with GUI*/}
+	@Override	public void undoRedoUnavailable(CommandWords commandWord) {/* Disabling buttons when appropriate*/}
 	
 	public String updateConsole(){
 		String s = "";
@@ -363,9 +338,21 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			}
 		}
 		else if (e.getActionCommand().equals("Fight")) {
+			Monster m = p.getCurrentRoom().getMonster();
 			p.doCommand(Command.parse("Fight"));
 			if(p.getHealth()<=0){
 				this.gameDone();
+			} else {
+				if(p.getCurrentRoom().hasMonsters()){
+					m.setHealth(p.getCurrentRoom().getMonster().getHealth());
+				} else {
+					m.setHealth(0);
+				}
+				if(m.getHealth()<=0){
+					monsterDead(m);
+				} else {
+					fightPopUp();
+				}
 			}
 		}
 		else if (e.getActionCommand().equals("Eat")) {

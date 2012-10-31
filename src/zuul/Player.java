@@ -92,7 +92,6 @@ public class Player extends Humanoid  {
 				m.removeHealth(this.getBestItem().getValue());					//Remove health from the monster depending on the value of the best item in inventory
 				this.removeHealth((m.getBestItem().getValue()) * m.getLevel());	//Remove health from the player depending on the value of the best item on the monster multiplied with the monster's level
 				if(m.getHealth()<=0){											//Monster has died if its health is less than or equal to zero
-					v.monsterDead(m);											//Print accordingly
 					m.dropItems();												//Drop all of the monster's items and add them to the room
 					currentRoom.removeMonster(m);								//Remove the monster from the room
 				}
@@ -164,6 +163,7 @@ public class Player extends Humanoid  {
 					setHealth(MAX_HEALTH);							//Set the health to the maximum health (i.e. Your health cannot exceed the maximum health)
 				}
 				removeItem(i);										//Remove the item from the inventory, you can't eat it twice
+				playerHistory.removeItem(i);
 			}
 			else {
 				v.eatingWeapon(i);									//Print an error if the item attempting to be eaten is a weapon
@@ -207,5 +207,5 @@ public class Player extends Humanoid  {
 	public PlayerHistory getPlayerHistory(){
 		return playerHistory;
 	}
-
+	
 }

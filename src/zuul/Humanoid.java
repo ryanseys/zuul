@@ -175,4 +175,8 @@ public abstract class Humanoid{
 		}
 		return s;
 	}
+	
+	public String getName(){
+		return name;
+	}
 }
