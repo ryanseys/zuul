@@ -1,3 +1,4 @@
+package zuul;
 /**
  * Command class represents a combination of one or two
  * CommandWords, which together form a full instruction

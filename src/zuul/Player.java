@@ -1,3 +1,7 @@
+package zuul;
+
+import View.IView;
+
 /**
  * Player Class.
  *

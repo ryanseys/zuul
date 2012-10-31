@@ -1,3 +1,10 @@
+package View;
+
+import zuul.CommandWords;
+import zuul.Item;
+import zuul.Monster;
+import zuul.Player;
+
 /**
  * This class is intended to display the current state of the model in the console
  * 

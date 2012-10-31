@@ -1,3 +1,4 @@
+package zuul;
 /**
  * This is an enum for the command words.
  * It represents all the different commands

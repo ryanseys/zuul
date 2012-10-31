@@ -1,3 +1,4 @@
+package View;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,15 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import zuul.Command;
+import zuul.CommandWords;
+import zuul.Direction;
+import zuul.Item;
+import zuul.Monster;
+import zuul.Player;
+import zuul.Room;
+
 
 
 

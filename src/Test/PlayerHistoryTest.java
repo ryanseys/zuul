@@ -1,3 +1,4 @@
+package Test;
  /**
  * This class is intended to test the PlayerHistory class
  * 
@@ -14,6 +15,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import zuul.Command;
+import zuul.PlayerHistory;
 
 
 public class PlayerHistoryTest {

@@ -1,3 +1,8 @@
+package View;
+
+import zuul.CommandWords;
+import zuul.Item;
+import zuul.Monster;
  /**
  * This class is intended to display the current state of the model
  * in different ways. For all views to successfully display the model

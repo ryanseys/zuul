@@ -1,8 +1,13 @@
+package Test;
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import zuul.Item;
+import zuul.Monster;
+import zuul.Room;
 
 
 public class MonsterTest {

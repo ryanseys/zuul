@@ -1,8 +1,17 @@
+package Test;
 import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import View.IView;
+
+import zuul.Command;
+import zuul.Item;
+import zuul.Monster;
+import zuul.Player;
+import zuul.Room;
 
 
 public class PlayerTest {

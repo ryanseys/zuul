@@ -1,6 +1,10 @@
+package zuul;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import View.IView;
+import View.TwoDView;
 
  /**
  * This class is the main class of the "World of Zuul" application.

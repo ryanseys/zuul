@@ -1,3 +1,4 @@
+package zuul;
 /**
  * Direction class represents all the ways that a room
  * can be placed relative to another room.
