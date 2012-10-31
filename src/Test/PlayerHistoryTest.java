@@ -13,10 +13,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import zuul.Command;
+import zuul.CommandWords;
+import zuul.Item;
 import zuul.PlayerHistory;
 
 
@@ -35,6 +38,10 @@ public class PlayerHistoryTest {
 		nonUndoableCommand = Command.parse("Fight");
 		goCommand = Command.parse("Go east");
 		
+	}
+	
+	@After
+	public void tearDown() throws Exception {
 	}
 
 	@Test
@@ -112,6 +119,20 @@ public class PlayerHistoryTest {
 		//now they should be empty
 		assertNull(playerHistory.undo());
 		assertNull(playerHistory.redo());
+		
+	}
+
+	@Test
+	public void testRemoveItem() {
+		//putting stuff on both stacks
+		playerHistory.addStep(new Command(CommandWords.PICKUP, new Item("Apple", true)));
+		playerHistory.addStep(new Command(CommandWords.PICKUP, new Item("Orange", true)));
+		
+		playerHistory.undo(); //orange on redo, and apple on undo stacks
+		playerHistory.removeItem(new Item ("Orange", true));
+		//now you cannot redo
+		assertTrue(playerHistory.canUndo());
+		assertFalse(playerHistory.canRedo());
 		
 	}
 

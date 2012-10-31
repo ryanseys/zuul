@@ -3,14 +3,11 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -21,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import zuul.Command;
 import zuul.CommandWords;
@@ -36,7 +32,7 @@ import zuul.Room;
 
 public class TwoDView extends JFrame implements IView, ActionListener
 {
-	private JMenuItem resetGame, help, quit, add;
+	private JMenuItem resetGame, help, quit;
 	private JMenuBar menuBar;
 	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
 	private JLabel currentRoom;
@@ -257,17 +253,17 @@ public class TwoDView extends JFrame implements IView, ActionListener
 
 	@Override
 	public void monsterMissing() {
-		// TODO Auto-generated method stub
+		// Checked by disabling the button, this will never be called
 
 	}
 	@Override
 	public void garbageCommand() {
-		// TODO Auto-generated method stub
+		// checked by using buttons, no way to enter garbage
 
 	}
 	@Override
 	public void invalidRoom() {
-		// TODO Auto-generated method stub
+		// Checked by disabling buttons
 
 	}
 	@Override
@@ -282,33 +278,32 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	}
 	@Override
 	public void eatingWeapon(Item i) {
-		// TODO Auto-generated method stub
+		// Checked by disabling buttons
 
 	}
 	@Override
 	public void noItem(Item i) {
-		// TODO Auto-generated method stub
+		// Checked by disabling button
 
 	}
 	@Override
 	public void itemInvalid(Item i) {
-		// TODO Auto-generated method stub
+		// Checked by disabling button
 
 	}
 	@Override
 	public void itemError(Item i) {
-		// TODO Auto-generated method stub
+		// Checked by disabling button
 
 	}
 	@Override
 	public void inCompleteCommand() {
-		// TODO Auto-generated method stub
+		// Impossible with GUI
 
 	}
 	@Override
 	public void undoRedoUnavailable(CommandWords commandWord) {
-		// TODO Auto-generated method stub
-
+		// Disabling buttons when appropriate
 	}
 	
 	public String updateConsole(){
@@ -354,12 +349,11 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			p.doCommand(Command.parse("Go South"));
 		}
 		else if (e.getActionCommand().equals("Pickup")) {
-			JDialog abc = new JDialog();
-				pickup.setEnabled(true);
-				int def = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			pickup.setEnabled(true);
+				int popup = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
-				if (def != JOptionPane.CLOSED_OPTION) {
-					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(def)));
+				if (popup != JOptionPane.CLOSED_OPTION) {
+					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(popup)));
 				}
 		}
 		else if (e.getActionCommand().equals("Drop")) {
