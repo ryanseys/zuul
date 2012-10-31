@@ -98,9 +98,6 @@ public class Player extends Humanoid  {
 				}
 			}
 
-		} else if (c.getCommandWord().equals(CommandWords.HELP)){	//If the command is help
-			v.displayHelp();										//Print accordingly
-
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){ //If the command is pickup
 			Item i = (Item) c.getSecondWord();						//Get the item from the second word
 			if (i == null) {										//If there is no input for the item
