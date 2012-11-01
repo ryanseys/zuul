@@ -365,6 +365,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			p.doCommand(Command.parse("Undo"));
 		}
 		p = reset;
+		p.setHealth(p.MAX_HEALTH);
 		p.getPlayerHistory().clear();
 	}
 
