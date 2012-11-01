@@ -36,7 +36,6 @@ public class Game {
   	Room westRoom = new Room("WestRoom");
   	Room northWestRoom = new Room("NorthWestRoom");
   	Room northRoom2 = new Room("NorthRoom2");
-  	startRoom.addItem(new Item("Map", 0, 0, true));
   	startRoom.addItem(new Item("Sword", 50, 0, true));
   	startRoom.setExit(Direction.NORTH, northRoom1);
   	startRoom.setExit(Direction.SOUTH, southRoom);
@@ -50,6 +49,7 @@ public class Game {
 
   	Monster Monster1 = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1", eastRoom);
   	eastRoom.addMonster(Monster1);
+  	Monster1.addItem(new Item("Map", 0, 0, true));
   	Monster1.addItem(new Item("Claws", 10, 0, true));
 
   	Monster Boss = new Monster(100, 2, "Boss", southRoom);
@@ -71,6 +71,7 @@ public class Game {
   	
   	
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
+
   	view = new TwoDView(p);
   	view.update();
   	p.setView(view);

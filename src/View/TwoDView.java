@@ -33,7 +33,7 @@ import zuul.Room;
 
 public class TwoDView extends JFrame implements IView, ActionListener
 {
-	private JMenuItem resetGame, help, quit;
+	private JMenuItem resetGame, objective, hint, quit; //commands
 	private JMenuBar menuBar;
 	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
 	private JLabel currentRoom, mapLabel;
@@ -47,7 +47,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	public TwoDView (Player p) {
 		this.p = p;
 		reset = p;
-		p.addItem(new Item("Gold", false));
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
@@ -93,7 +92,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    centralPanel.add(currentRoom);
 	    centralPanel.add(pickup);
 	    centralPanel.add(fight);
-	    centralPanel.setBackground(new Color(255, 0, 0));
+	    centralPanel.setBackground(new Color(255, 249, 206));
 	    inventoryModel = new DefaultListModel();
 	    inventoryList = new JList(inventoryModel);
 	    
@@ -166,13 +165,24 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    addressMenu.add( resetGame );
 	    resetGame.addActionListener(this);
 
-	    help = new JMenuItem ( "Help" );
-	    addressMenu.add( help );
-	    help.addActionListener(this);
-
 	    quit = new JMenuItem ( "Quit" );
 	    addressMenu.add( quit );
 	    quit.addActionListener(this);
+	    
+	    JMenu helpMenu = new JMenu( "Help" );
+	    menuBar.add(helpMenu);
+	    
+	    objective = new JMenuItem ( "Objective" );
+	    helpMenu.add( objective );
+	    objective.addActionListener(this);
+	    
+//	    commands = new JMenuItem("Commands");
+//	    helpMenu.add(commands);
+//	    commands.addActionListener(this);
+	    
+	    hint = new JMenuItem("Hint");
+	    helpMenu.add(hint);
+	    hint.addActionListener(this);
 
 	    update();
 	}
@@ -239,61 +249,66 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	
 	public void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
-	   
+		   mapPanel.remove(mapLabel);
+	   if(p.getInventory().contains(new Item("Map", true))){
 		if(s.equals("NorthRoom1")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_northroom1.png"));
-		    mapPanel.add(mapLabel);
 		} else if (s.equals("EastRoom")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
-		    mapPanel.add(mapLabel);
 		} else if (s.equals("StartRoom")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_startRoom.png"));
-		    mapPanel.add(mapLabel);
 		} else if (s.equals("EastRoom")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
-		    mapPanel.add(mapLabel);
 		} else if (s.equals("WestRoom")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_westRoom.png"));
-		    mapPanel.add(mapLabel);
 		} else if (s.equals("SouthRoom")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_southRoom.png"));
-		    mapPanel.add(mapLabel);
 		} else if (s.equals("NorthRoom2")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_northroom2.png"));
-		    mapPanel.add(mapLabel);
 		} else if (s.equals("NorthWestRoom")){
-		    mapPanel.remove(mapLabel);
 		    mapLabel = new JLabel(new ImageIcon("rooms_northWestRoom.png"));
-		    mapPanel.add(mapLabel);
 		} 
+
+	   } else {
+		   mapPanel.remove(mapLabel);
+		   mapLabel = new JLabel(new ImageIcon("rooms_noMap.png"));
+	   }
+	   
+	   mapPanel.add(mapLabel);
 	}
 	
 	
 	@Override
 	public void displayHelp() {/* String is needed, so getHelp method is used instead.*/}
 	
-	public String getHelp(){
+	public String getObjective(){
 		String str = "";
 		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
-		str+="Your command words are: ";
-		for (CommandWords commandWord : CommandWords.values()) {
-			str+= commandWord + " ";
-		}
-		str+="\n";
 		return str;
 	}
+	
+//	public String getCommands(){
+//		String str="Your command words are:\n";
+//		for (CommandWords commandWord : CommandWords.values()) {
+//			str+= commandWord + " ";
+//		}
+//		return str;
+//	}
 	
 	public void fightPopUp(){
 		Monster m = p.getCurrentRoom().getMonster();
 		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
 				 + m.getName() + " attacked " + p.getName() + " and did " + m.getBestItem().getValue()*m.getLevel()  + " Damage\n"); 
+	}
+	
+	public void getHint(){
+		if(!p.getInventory().contains(new Item("Map", true))){
+			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room west of the startroom!");
+		} else if(!p.getInventory().contains(new Item("Key", true))){
+			JOptionPane.showMessageDialog(this, "Find the key!\nPerhaps the boss in the southroom has it!");
+		} else {
+			JOptionPane.showMessageDialog(this, "Locate the treasure, the game is yours!");
+		}
 	}
 
 	@Override
@@ -358,8 +373,14 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		if (e.getActionCommand().equals("Reset")) {
 			reset();
 		}
-		else if (e.getActionCommand().equals("Help")) {
-			JOptionPane.showMessageDialog(this, getHelp());
+		else if (e.getActionCommand().equals("Objective")) {
+			JOptionPane.showMessageDialog(this, getObjective());
+		} 
+//		else if (e.getActionCommand().equals("Commands")){
+//			JOptionPane.showMessageDialog(this, getCommands());
+//		}
+		else if(e.getActionCommand().equals("Hint")){
+			getHint();
 		}
 		else if (e.getActionCommand().equals("North Room")) {
 			p.doCommand(Command.parse("Go North"));
@@ -399,6 +420,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			Item selectedItem = ((Item) inventoryList.getSelectedValue());
 			if(selectedItem != null) {
 				p.doCommand(new Command(CommandWords.DROP, selectedItem));
+				updateMapPanel();
 			}
 		}
 		else if (e.getActionCommand().equals("Fight")) {
