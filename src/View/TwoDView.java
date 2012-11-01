@@ -42,6 +42,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	private Player p, reset;
 	private JList inventoryList;
 	private DefaultListModel inventoryModel;
+	private boolean unlocked = false;
 
 	public TwoDView (Player p) {
 		this.p = p;
@@ -158,10 +159,8 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    add(southRoom);
 	    add(inventoryPanel);
 
-	 
 	    JMenu addressMenu = new JMenu( "File" );
 	    menuBar.add( addressMenu );
-
 
 	    resetGame = new JMenuItem ( "Reset" );
 	    addressMenu.add( resetGame );
@@ -282,7 +281,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	
 	public String getHelp(){
 		String str = "";
-		str+="Welcome to the World of Zuul.\nCan you conquer the obstacles and beat the monsters?\n";
+		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
 		str+="Your command words are: ";
 		for (CommandWords commandWord : CommandWords.values()) {
 			str+= commandWord + " ";
@@ -302,6 +301,12 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		JOptionPane.showMessageDialog(this, "You have been defeated!");
 		quit();
 	}
+
+	public void win(){
+		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested all the monsters!\nYou win!");
+		quit();		
+	}
+	
 	
 	@Override
 	public void monsterDead(Monster m) {
@@ -363,7 +368,18 @@ public class TwoDView extends JFrame implements IView, ActionListener
 			p.doCommand(Command.parse("Go East"));
 		}
 		else if (e.getActionCommand().equals("West Room")) {
-			p.doCommand(Command.parse("Go West"));
+			
+			if(p.getCurrentRoom().getExit(Direction.WEST).getLocked()!=true || unlocked==true){
+				p.doCommand(Command.parse("Go West"));
+			} else {
+				if(!p.getInventory().contains(new Item("Key", true))){
+					JOptionPane.showMessageDialog(this, "The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
+				} else {
+					JOptionPane.showMessageDialog(this, "You have opened the door!\nYou see the treasure in front of you!");
+					unlocked = true;
+					p.doCommand(Command.parse("Go West"));
+				}
+			}
 		}
 		else if (e.getActionCommand().equals("South Room")) {
 			p.doCommand(Command.parse("Go South"));
@@ -374,6 +390,9 @@ public class TwoDView extends JFrame implements IView, ActionListener
 					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
 				if (popup != JOptionPane.CLOSED_OPTION) {
 					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(popup)));
+				}
+				if(p.getInventory().contains(new Item("Treasure", true))){
+					win();
 				}
 		}
 		else if (e.getActionCommand().equals("Drop")) {

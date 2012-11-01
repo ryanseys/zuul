@@ -55,6 +55,7 @@ public class Game {
   	Monster Boss = new Monster(100, 2, "Boss", southRoom);
   	southRoom.addMonster(Boss);
   	Boss.addItem(new Item("Flamethrower", 30, 0, true));
+  	Boss.addItem(new Item("Key", 0, 0, true));
 
 
   	westRoom.setExit(Direction.EAST, startRoom);
@@ -65,6 +66,8 @@ public class Game {
   	northRoom2.setExit(Direction.SOUTH, northRoom1);
   	northRoom2.setExit(Direction.WEST, northWestRoom);
   	northWestRoom.setExit(Direction.EAST, northRoom2);
+  	northWestRoom.setLocked(true);
+  	northWestRoom.addItem(new Item("Treasure", 100, 0, true));
   	
   	
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");

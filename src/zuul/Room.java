@@ -21,6 +21,7 @@ public class Room
   private List<Item> items;
   private List<Monster> monsters;
   private Map<Direction, Room> exits;
+  private boolean locked = false;
 
   /**
    * Create a room described "description". Initially, it has
@@ -187,4 +188,14 @@ public class Room
   public String getRoomName(){
 	  return description;
   }
+  
+  public boolean getLocked(){
+	  return locked;
+  }
+  
+  public void setLocked(boolean b){
+	  locked = b;
+  }
+  
+  
 }
