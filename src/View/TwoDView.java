@@ -367,6 +367,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		p = reset;
 		p.setHealth(p.MAX_HEALTH);
 		p.getPlayerHistory().clear();
+		unlocked = false;
 	}
 
 	@Override
