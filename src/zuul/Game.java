@@ -29,15 +29,16 @@ public class Game {
 
   public static void main(String[] args) throws IOException {
   	Room startRoom = new Room("StartRoom");
-  	Room northRoom = new Room("northRoom");
-  	northRoom.addItem(new Item("Bread", 30, 0, false));
-  	Room southRoom = new Room("southRoom");
-  	Room eastRoom = new Room("eastRoom");
-  	Room westRoom = new Room("westRoom");
-  	startRoom.addItem(new Item("GoldPiece", false));
-  	startRoom.addItem(new Item("SilverPiece", false));
+  	Room northRoom1 = new Room("NorthRoom1");
+  	northRoom1.addItem(new Item("Bread", 30, 0, false));
+  	Room southRoom = new Room("SouthRoom");
+  	Room eastRoom = new Room("EastRoom");
+  	Room westRoom = new Room("WestRoom");
+  	Room northWestRoom = new Room("NorthWestRoom");
+  	Room northRoom2 = new Room("NorthRoom2");
+  	startRoom.addItem(new Item("Map", 0, 0, true));
   	startRoom.addItem(new Item("Sword", 50, 0, true));
-  	startRoom.setExit(Direction.NORTH, northRoom);
+  	startRoom.setExit(Direction.NORTH, northRoom1);
   	startRoom.setExit(Direction.SOUTH, southRoom);
   	startRoom.setExit(Direction.EAST, eastRoom);
   	startRoom.setExit(Direction.WEST, westRoom);
@@ -57,9 +58,15 @@ public class Game {
 
 
   	westRoom.setExit(Direction.EAST, startRoom);
-  	northRoom.setExit(Direction.SOUTH, startRoom);
+  	northRoom1.setExit(Direction.SOUTH, startRoom);
+  	northRoom1.setExit(Direction.NORTH, northRoom2);
   	southRoom.setExit(Direction.NORTH, startRoom);
 
+  	northRoom2.setExit(Direction.SOUTH, northRoom1);
+  	northRoom2.setExit(Direction.WEST, northWestRoom);
+  	northWestRoom.setExit(Direction.EAST, northRoom2);
+  	
+  	
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
   	view = new TwoDView(p);
   	view.update();

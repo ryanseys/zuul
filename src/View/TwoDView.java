@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,9 +36,9 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	private JMenuItem resetGame, help, quit;
 	private JMenuBar menuBar;
 	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
-	private JLabel currentRoom;
+	private JLabel currentRoom, mapLabel;
 	private JTextArea consoleField;
-	private JPanel consolePanel, inventoryPanel, centralPanel, undoRedoPanel, emptyPanel;
+	private JPanel consolePanel, inventoryPanel, centralPanel, undoRedoPanel, mapPanel;
 	private Player p, reset;
 	private JList inventoryList;
 	private DefaultListModel inventoryModel;
@@ -83,7 +84,10 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    inventoryPanel.setLayout(new GridLayout(1, 2));
 	    centralPanel = new JPanel();
 	    undoRedoPanel = new JPanel();
-	    emptyPanel = new JPanel();
+	    mapPanel = new JPanel();
+	    mapLabel = new JLabel(new ImageIcon("rooms_startroom.png"));
+	    mapPanel.add(mapLabel);
+	    
 	    currentRoom = new JLabel("Current Room Actions:");
 	    centralPanel.add(currentRoom);
 	    centralPanel.add(pickup);
@@ -146,7 +150,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 
 	    add(undoRedoPanel);
 	    add(northRoom);
-	    add(emptyPanel);
+	    add(mapPanel);
 	    add(westRoom);
 	    add(centralPanel);
 	    add(eastRoom);
@@ -154,6 +158,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    add(southRoom);
 	    add(inventoryPanel);
 
+	 
 	    JMenu addressMenu = new JMenu( "File" );
 	    menuBar.add( addressMenu );
 
@@ -229,11 +234,51 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		eat.setEnabled(false);
 		inspect.setEnabled(false);
 		consoleField.setText(updateConsole());
+		updateMapPanel();
+
 	}
+	
+	public void updateMapPanel(){
+		String s = p.getCurrentRoom().getRoomName();
+	   
+		if(s.equals("NorthRoom1")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_northroom1.png"));
+		    mapPanel.add(mapLabel);
+		} else if (s.equals("EastRoom")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
+		    mapPanel.add(mapLabel);
+		} else if (s.equals("StartRoom")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_startRoom.png"));
+		    mapPanel.add(mapLabel);
+		} else if (s.equals("EastRoom")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
+		    mapPanel.add(mapLabel);
+		} else if (s.equals("WestRoom")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_westRoom.png"));
+		    mapPanel.add(mapLabel);
+		} else if (s.equals("SouthRoom")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_southRoom.png"));
+		    mapPanel.add(mapLabel);
+		} else if (s.equals("NorthRoom2")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_northroom2.png"));
+		    mapPanel.add(mapLabel);
+		} else if (s.equals("NorthWestRoom")){
+		    mapPanel.remove(mapLabel);
+		    mapLabel = new JLabel(new ImageIcon("rooms_northWestRoom.png"));
+		    mapPanel.add(mapLabel);
+		} 
+	}
+	
+	
 	@Override
-	public void displayHelp() {
-		//String is needed, so getHelp method is used instead.
-	}
+	public void displayHelp() {/* String is needed, so getHelp method is used instead.*/}
 	
 	public String getHelp(){
 		String str = "";

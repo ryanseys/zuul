@@ -183,4 +183,8 @@ public class Room
   public List<Item> getItems() {
 	  return items;
   }
+  
+  public String getRoomName(){
+	  return description;
+  }
 }
