@@ -1,6 +1,7 @@
 package Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,7 +10,6 @@ import org.junit.Test;
 import zuul.Direction;
 import zuul.Item;
 import zuul.Monster;
-import zuul.Player;
 import zuul.Room;
 
 public class RoomTest {

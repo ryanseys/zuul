@@ -1,3 +1,11 @@
+/**
+ * 
+ * This is the view as well as the controller.
+ * 
+ * @author Joint programming between Ryan, Jarred and Vinayak
+ * For more details on who made what change, please refer to the 
+ * change sets associated with this file on GitHub
+ */
 package View;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -23,12 +31,12 @@ import javax.swing.JTextArea;
 import zuul.Command;
 import zuul.CommandWords;
 import zuul.Direction;
-import zuul.Game;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Player;
 import zuul.Room;
 
+@SuppressWarnings("serial")
 public class TwoDView extends JFrame implements IView, ActionListener
 {
 	private JMenuItem resetGame, objective, hint, quit; //commands
@@ -42,6 +50,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	private DefaultListModel inventoryModel;
 	private boolean unlocked = false;
 
+	@SuppressWarnings("static-access")
 	public TwoDView (Player p) {
 		this.p = p;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -173,10 +182,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	    helpMenu.add( objective );
 	    objective.addActionListener(this);
 
-//	    commands = new JMenuItem("Commands");
-//	    helpMenu.add(commands);
-//	    commands.addActionListener(this);
-
 	    hint = new JMenuItem("Hint");
 	    helpMenu.add(hint);
 	    hint.addActionListener(this);
@@ -244,7 +249,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 
 	}
 
-	public void updateMapPanel(){
+	private void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
 		   mapPanel.remove(mapLabel);
 	   if(p.getInventory().contains(new Item("Map", true))){
@@ -276,29 +281,22 @@ public class TwoDView extends JFrame implements IView, ActionListener
 
 
 	@Override
-	public void displayHelp() {/* String is needed, so getHelp method is used instead.*/}
+	public void displayHelp() {/* String is needed, so getObjective and 
+	and getHint methods is used instead.*/}
 
-	public String getObjective(){
+	private String getObjective(){
 		String str = "";
 		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
 		return str;
 	}
 
-//	public String getCommands(){
-//		String str="Your command words are:\n";
-//		for (CommandWords commandWord : CommandWords.values()) {
-//			str+= commandWord + " ";
-//		}
-//		return str;
-//	}
-
-	public void fightPopUp(){
+	private void fightPopUp(){
 		Monster m = p.getCurrentRoom().getMonster();
 		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
 				 + m.getName() + " attacked " + p.getName() + " and did " + m.getBestItem().getValue()*m.getLevel()  + " Damage\n");
 	}
 
-	public void getHint(){
+	private void getHint(){
 		if(!p.getInventory().contains(new Item("Map", true))){
 			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room west of the startroom!");
 		} else if(!p.getInventory().contains(new Item("Key", true))){
@@ -314,7 +312,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		quit();
 	}
 
-	public void win(){
+	private void win(){
 		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested all the monsters!\nYou win!");
 		quit();
 	}
@@ -343,7 +341,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	@Override	public void inCompleteCommand() {/* Impossible with GUI*/}
 	@Override	public void undoRedoUnavailable(CommandWords commandWord) {/* Disabling buttons when appropriate*/}
 
-	public String updateConsole(){
+	private String updateConsole(){
 		String s = "";
 		s += ("Player Health: " + p.getHealth() + "\n");
 		if(p.getCurrentRoom().getMonster()!=null){
@@ -352,7 +350,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		return s;
 	}
 
-	public ImageIcon getImageIcon(Item i){
+	private ImageIcon getImageIcon(Item i){
 		ImageIcon icon = null;;
 		if(i.equals(new Item("Sword", true))){
 			icon  = new ImageIcon("sword.png");
@@ -383,39 +381,51 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		System.exit(0);
 	}
 
-	public void reset(){
+	private void reset(){
 		while(p.canUndo()){
 			p.doCommand(Command.parse("Undo"));
 		}
-		p.setHealth(p.MAX_HEALTH);
-		p.getPlayerHistory().clear();
+		p.reset();
 		unlocked = false;
 		resetInitialize();
 	}
 
-	public void resetInitialize(){
+	private void resetInitialize() {
 		Room west = p.getCurrentRoom().getExit(Direction.WEST);
-	  	Item r1 = new Item("Apple", 10, 0, false);
-		if(!west.getItems().contains(r1)){west.addItem(r1);}
+		Item r1 = new Item("Apple", 10, 0, false);
+		if (!west.getItems().contains(r1)) {
+			west.addItem(r1);
+		}
 		Item r2 = new Item("Orange", 15, 0, false);
-		if(!west.getItems().contains(r2)){west.addItem(r2);}
+		if (!west.getItems().contains(r2)) {
+			west.addItem(r2);
+		}
 		Item r3 = new Item("Pear", 20, 0, false);
-  	if(!west.getItems().contains(r3)){west.addItem(r3);}
-  	Room north1 = p.getCurrentRoom().getExit(Direction.NORTH);
-  	Item r4 = new Item("Bread", 30, 0, false);
-  	if(!north1.getItems().contains(r4)){north1.addItem(r4);}
-  	Room east = p.getCurrentRoom().getExit(Direction.EAST);
-  	Monster monster1 = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1", east);
-  	if(!east.getItems().contains(monster1)){west.addMonster(monster1);
-  	east.addMonster(monster1);
-  	monster1.addItem(new Item("Map", 0, 0, true));
-  	monster1.addItem(new Item("Hatchet", 10, 0, true));}
-  	Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
-  	Monster boss = new Monster(100, 2, "Boss", south);
-  	if(!east.getItems().contains(boss)){west.addMonster(boss);
-  	south.addMonster(boss);
-  	boss.addItem(new Item("Flamethrower", 30, 0, true));
-  	boss.addItem(new Item("Key", 0, 0, true));}
+		if (!west.getItems().contains(r3)) {
+			west.addItem(r3);
+		}
+		Room north1 = p.getCurrentRoom().getExit(Direction.NORTH);
+		Item r4 = new Item("Bread", 30, 0, false);
+		if (!north1.getItems().contains(r4)) {
+			north1.addItem(r4);
+		}
+		Room east = p.getCurrentRoom().getExit(Direction.EAST);
+		Monster monster1 = new Monster(Monster.MAX_HEALTH,
+				Monster.DEFAULT_LEVEL, "Monster1", east);
+		if (!east.getItems().contains(monster1)) {
+			west.addMonster(monster1);
+			east.addMonster(monster1);
+			monster1.addItem(new Item("Map", 0, 0, true));
+			monster1.addItem(new Item("Hatchet", 10, 0, true));
+		}
+		Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
+		Monster boss = new Monster(100, 2, "Boss", south);
+		if (!east.getItems().contains(boss)) {
+			west.addMonster(boss);
+			south.addMonster(boss);
+			boss.addItem(new Item("Flamethrower", 30, 0, true));
+			boss.addItem(new Item("Key", 0, 0, true));
+		}
 	}
 
 	@Override
@@ -426,9 +436,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		else if (e.getActionCommand().equals("Objective")) {
 			JOptionPane.showMessageDialog(this, getObjective());
 		}
-//		else if (e.getActionCommand().equals("Commands")){
-//			JOptionPane.showMessageDialog(this, getCommands());
-//		}
 		else if(e.getActionCommand().equals("Hint")){
 			getHint();
 		}
@@ -499,7 +506,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		else if (e.getActionCommand().equals("Inspect")) {
 			Item selectedItem = ((Item) inventoryList.getSelectedValue());
 			if(selectedItem != null) {
-				final ImageIcon icon = new ImageIcon("rooms_northroom1.png");
 		   		JOptionPane.showMessageDialog(this, selectedItem.getDescription(), "Item", getDefaultCloseOperation(), getImageIcon(selectedItem));
 			}
 		}

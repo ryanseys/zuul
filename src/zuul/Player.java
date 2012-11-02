@@ -189,23 +189,34 @@ public class Player extends Humanoid  {
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
+	
+	
 	/**
-	 * TODO
-	 * @return
+	 * Asking the player if it can go back.
+	 * Its a wrapper for invoking the history of the player
+	 * @return <code> true </code> if the player go back,
+	 * 		<code> false</code> otherwise
 	 */
 	public boolean canUndo() {
 		return playerHistory.canUndo();
 	}
+	
 	/**
-	 * TODO
-	 * @return
+	 * Asking the player if it can go one step forward.
+	 * Its a wrapper for invoking the history of the player
+	 * @return <code> true </code> if the player go step 
+	 * forward,<code> false</code> otherwise
 	 */
 	public boolean canRedo() {
 		return playerHistory.canRedo();
 	}
 
-	public PlayerHistory getPlayerHistory(){
-		return playerHistory;
+	/**
+	 * Return the player to its default state
+	 */
+	public void reset(){
+		playerHistory.clear();
+		setHealth(MAX_HEALTH);
 	}
 
 }

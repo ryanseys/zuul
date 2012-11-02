@@ -107,7 +107,11 @@ public abstract class Humanoid{
 	}
 
 	/**
-	 * TODO
+	 * 
+	 * @param item: an item for which info such as value, weight, etc
+	 * are required
+	 * @return the item that has the same name as the name of the 
+	 * item that is passed in, along with its other information
 	 */
 	 public Item getRealItem(Item item) {
 		    int index = inventory.indexOf(item);
