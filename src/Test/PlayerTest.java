@@ -19,7 +19,7 @@ public class PlayerTest {
 	IView v;
 	Player p;
 	Room r;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		v = null;
@@ -41,7 +41,7 @@ public class PlayerTest {
 			assert (e instanceof NullPointerException);
 		}
 	}
-	
+
 	@Test
 	public void redoUnavailableTest() {
 		Command c = Command.parse("REDO");
@@ -52,7 +52,7 @@ public class PlayerTest {
 			assert (e instanceof NullPointerException);
 		}
 	}
-	
+
 	@Test
 	public void garbageCommand() {
 		Command c = Command.parse("FDJAKLFJDAIO");
@@ -63,7 +63,7 @@ public class PlayerTest {
 			assert (e instanceof NullPointerException);
 		}
 	}
-	
+
 	@Test
 	public void nullCommand() {
 		Command c = null;
@@ -74,7 +74,7 @@ public class PlayerTest {
 			assert (e instanceof NullPointerException);
 		}
 	}
-	
+
 	@Test
 	public void incompleteCommandTest() {
 		Command c = Command.parse("GO");
@@ -106,7 +106,7 @@ public class PlayerTest {
 			assert (e instanceof NullPointerException);
 		}
 	}
-	
+
 	@Test
 	public void nullSecondCommandTest() {
 		Command c = Command.parse("GO" + null);
@@ -138,12 +138,9 @@ public class PlayerTest {
 			assert (e instanceof NullPointerException);
 		}
 	}
-	
-	
-	
+
 	@Test
 	public void invalidRoom() {
-		
 		Command c = Command.parse("GO North");
 		try {
 			p.doCommand(c);
@@ -151,12 +148,10 @@ public class PlayerTest {
 		}catch (Exception e){
 			assert (e instanceof NullPointerException);
 		}
-		
 	}
-	
+
 	@Test
 	public void monsterMissing() {
-		
 		Command c = Command.parse("Fight");
 		try {
 			p.doCommand(c);
@@ -164,12 +159,10 @@ public class PlayerTest {
 		}catch (Exception e){
 			assert (e instanceof NullPointerException);
 		}
-		
 	}
-	
+
 	@Test
 	public void itemPickupInvalid() {
-		
 		Command c = Command.parse("Pickup Item");
 		try {
 			p.doCommand(c);
@@ -177,12 +170,11 @@ public class PlayerTest {
 		}catch (Exception e){
 			assert (e instanceof NullPointerException);
 		}
-		
+
 	}
-	
+
 	@Test
 	public void itemDropInvalid() {
-		
 		Command c = Command.parse("Drop Item");
 		try {
 			p.doCommand(c);
@@ -190,12 +182,11 @@ public class PlayerTest {
 		}catch (Exception e){
 			assert (e instanceof NullPointerException);
 		}
-		
+
 	}
-		
+
 	@Test
 	public void itemEatInvalid() {
-		
 		Command c = Command.parse("Eat Item");
 		try {
 			p.doCommand(c);
@@ -203,9 +194,8 @@ public class PlayerTest {
 		}catch (Exception e){
 			assert (e instanceof NullPointerException);
 		}
-		
 	}
-	
+
 	@Test
 	public void itemEatWeapon() {
 		Item i = new Item("Sword", true);
@@ -217,9 +207,8 @@ public class PlayerTest {
 		}catch (Exception e){
 			assert (e instanceof NullPointerException);
 		}
-		
 	}
-	
+
 	@Test
 	public void itemEatFood() {
 		Item i = new Item("Apple", 20, 20, false);
@@ -229,7 +218,7 @@ public class PlayerTest {
 		p.doCommand(c);
 		assertTrue(p.getHealth()==40);
 	}
-	
+
 	@Test
 	public void itemEatFoodMaxHealth() {
 		Item i = new Item("Apple", 20, 20, false);
@@ -238,7 +227,7 @@ public class PlayerTest {
 		p.doCommand(c);
 		assertTrue(p.getHealth()==100);
 	}
-	
+
 	@Test
 	public void fightLoseHealth() {
 		Item i = new Item("Claws", 20, 20, true);
@@ -249,7 +238,4 @@ public class PlayerTest {
 		p.doCommand(c);
 		assertTrue (p.getHealth()==80);
 	}
-	
-	
-
 }

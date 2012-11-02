@@ -7,9 +7,8 @@ import org.junit.Test;
 
 import zuul.*;
 
-
 public class ItemTest {
-	
+
 	Item i;
 	Item i3;
 
@@ -36,5 +35,4 @@ public class ItemTest {
 		assertTrue(i.equals(i2));
 		assertFalse(i.equals(i3));
 	}
-
 }

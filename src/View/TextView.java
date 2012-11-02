@@ -7,7 +7,7 @@ import zuul.Player;
 
 /**
  * This class is intended to display the current state of the model in the console
- * 
+ *
  * @author Vinayak Bansal
  * @version 2012.10.22
  */

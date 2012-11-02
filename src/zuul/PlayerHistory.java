@@ -84,7 +84,7 @@ public class PlayerHistory {
 		undoStack.clear();
 		redoStack.clear();
 	}
-	
+
 	/**
 	 * This method tells if the undo button should be available or not
 	 * @return
@@ -92,22 +92,22 @@ public class PlayerHistory {
 	public boolean canUndo() {
 		return !undoStack.isEmpty();
 	}
-	
+
 	/**
 	 * This method tells if the redo button should be available or not
-	 * @return 
+	 * @return
 	 */
 	public boolean canRedo() {
 		return !redoStack.isEmpty();
 	}
-	
+
 	/**
 	 * When  an item is eaten, its no longer undoable, so we need
 	 * to remove it from all the stacks.
-	 * 
+	 *
 	 * @param i - the item that has been eaten
 	 */
-	
+
 	public void removeItem(Item i) {
 		Stack<Command> temp = new Stack<Command>();
 		while (!undoStack.isEmpty()) {
@@ -119,7 +119,7 @@ public class PlayerHistory {
 		while (!temp.isEmpty()) {
 			undoStack.add(temp.pop());
 		}
-		
+
 		while (!redoStack.isEmpty()) {
 			Command top = redoStack.pop();
 			if (!top.getSecondWord().equals(i)) {

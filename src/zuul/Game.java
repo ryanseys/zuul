@@ -29,7 +29,7 @@ public class Game {
   private static Room startRoom;
 
   public static void main(String[] args) throws IOException {
-  	
+
   	initialize();
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
 
@@ -70,8 +70,8 @@ public class Game {
 //  		view.quit();
 //  	}
   }
-  
-  
+
+
   public static void initialize(){
 	    startRoom = new Room("StartRoom");
 	  	Room northRoom1 = new Room("NorthRoom1");
@@ -114,5 +114,5 @@ public class Game {
 	  	northWestRoom.setLocked(true);
 	  	northWestRoom.addItem(new Item("Treasure", 100, 0, true));
   }
-  
+
 }

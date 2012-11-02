@@ -7,7 +7,7 @@ package zuul;
  * person can move while in a particular room.
  *
  * @author Ryan Seys
- * @version 2012.08.23
+ * @version 2012.11.02
  */
 public enum Direction {
 

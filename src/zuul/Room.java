@@ -12,7 +12,7 @@ import java.util.HashMap;
  * room as well as have a specific direction.
  *
  * @author Ryan Seys
- * @version 2012.08.23
+ * @version 2012.11.02
  */
 
 public class Room
@@ -176,26 +176,36 @@ public class Room
   {
       return exits.get(direction);
   }
-  
+
   /**
-   * TODO
+   * Get a list of the items in the room
+   * @return list of items in the Room
    */
-  
   public List<Item> getItems() {
 	  return items;
   }
-  
+
+  /**
+   * Get the name of the room
+   * @return The name of the room
+   */
   public String getRoomName(){
 	  return description;
   }
-  
+
+  /**
+   * Returns whether the room is locked
+   * @return true if room is locked, false if not.
+   */
   public boolean getLocked(){
 	  return locked;
   }
-  
+
+  /**
+   * Set Room to locked or not
+   * @param true to set it to locked, false to unlock
+   */
   public void setLocked(boolean b){
 	  locked = b;
   }
-  
-  
 }

@@ -9,12 +9,11 @@ import zuul.Item;
 import zuul.Player;
 import zuul.Room;
 
-
 public class HumanoidTest {
 
 	Player p;
 	Room r;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		r = new Room("Current");
@@ -53,7 +52,7 @@ public class HumanoidTest {
 		assertTrue(p.getInventory().isEmpty());
 	}
 
-	
+
 	@Test
 	public void testGetRealItem() {
 		Item i = new Item("Hammer", true);
@@ -70,7 +69,7 @@ public class HumanoidTest {
 		p.addItem(i2);
 		Item i3 = p.getBestItem();
 		assertTrue(i3.equals(i));
-		
+
 	}
 
 	@Test
@@ -79,5 +78,4 @@ public class HumanoidTest {
 		Item i2 = new Item("Blade", 60, 10, true);
 		assertTrue(i.equals(i2));
 	}
-
 }
