@@ -23,6 +23,7 @@ import javax.swing.JTextArea;
 import zuul.Command;
 import zuul.CommandWords;
 import zuul.Direction;
+import zuul.Game;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Player;
@@ -39,14 +40,13 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	private JLabel currentRoom, mapLabel;
 	private JTextArea consoleField;
 	private JPanel consolePanel, inventoryPanel, centralPanel, undoRedoPanel, mapPanel;
-	private Player p, reset;
+	private Player p;
 	private JList inventoryList;
 	private DefaultListModel inventoryModel;
 	private boolean unlocked = false;
 
 	public TwoDView (Player p) {
 		this.p = p;
-		reset = p;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
@@ -355,6 +355,32 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		return s;
 	}
 	
+	public ImageIcon getImageIcon(Item i){
+		ImageIcon icon = null;;
+		if(i.equals(new Item("Sword", true))){
+			icon  = new ImageIcon("sword.png");
+		} else if(i.equals(new Item("Bread", true))){
+			icon  = new ImageIcon("bread.gif");
+		} else if(i.equals(new Item("Apple", true))){
+			icon  = new ImageIcon("apple.png");
+		} else if(i.equals(new Item("Pear", true))){
+			icon  = new ImageIcon("pear.png");
+		} else if(i.equals(new Item("Orange", true))){
+			icon  = new ImageIcon("orange.png");
+		} else if(i.equals(new Item("Map", true))){
+			icon  = new ImageIcon("map.jpg");
+		} else if(i.equals(new Item("Hatchet", true))){
+			icon  = new ImageIcon("hatchet.png");
+		} else if(i.equals(new Item("Flamethrower", true))){
+			icon  = new ImageIcon("flamethrower.jpg");
+		} else if(i.equals(new Item("Key", true))){
+			icon  = new ImageIcon("key.png");
+		} //can't inspect treasure since game is already won if it is picked up
+			return icon;
+	}
+	
+	
+	
 	@Override
 	public void quit() {
 		System.exit(0);
@@ -364,11 +390,38 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		while(p.canUndo()){
 			p.doCommand(Command.parse("Undo"));
 		}
-		p = reset;
 		p.setHealth(p.MAX_HEALTH);
 		p.getPlayerHistory().clear();
 		unlocked = false;
+		resetInitialize();
 	}
+	
+	public void resetInitialize(){
+		Room west = p.getCurrentRoom().getExit(Direction.WEST);
+	  	Item r1 = new Item("Apple", 10, 0, false);
+		if(!west.getItems().contains(r1)){west.addItem(r1);}
+		Item r2 = new Item("Orange", 15, 0, false);
+		if(!west.getItems().contains(r2)){west.addItem(r2);}
+		Item r3 = new Item("Pear", 20, 0, false);
+	  	if(!west.getItems().contains(r3)){west.addItem(r3);}
+	  	Room north1 = p.getCurrentRoom().getExit(Direction.NORTH);
+	  	Item r4 = new Item("Bread", 30, 0, false);
+	  	if(!north1.getItems().contains(r4)){north1.addItem(r4);}
+	  	Room east = p.getCurrentRoom().getExit(Direction.EAST);
+	  	Monster monster1 = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1", east);
+	  	if(!east.getItems().contains(monster1)){west.addMonster(monster1);
+	  	east.addMonster(monster1);
+	  	monster1.addItem(new Item("Map", 0, 0, true));
+	  	monster1.addItem(new Item("Hatchet", 10, 0, true));}
+	  	Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
+	  	Monster boss = new Monster(100, 2, "Boss", south);
+	  	if(!east.getItems().contains(boss)){west.addMonster(boss);
+	  	south.addMonster(boss);
+	  	boss.addItem(new Item("Flamethrower", 30, 0, true));
+	  	boss.addItem(new Item("Key", 0, 0, true));}
+
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -452,7 +505,8 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		else if (e.getActionCommand().equals("Inspect")) {
 			Item selectedItem = ((Item) inventoryList.getSelectedValue());
 			if(selectedItem != null) {
-				JOptionPane.showMessageDialog(this, selectedItem.getDescription());
+				final ImageIcon icon = new ImageIcon("rooms_northroom1.png");
+		   		JOptionPane.showMessageDialog(this, selectedItem.getDescription(), "Item", getDefaultCloseOperation(), getImageIcon(selectedItem));
 			}
 		}
 		else if (e.getActionCommand().equals("UNDO")) {

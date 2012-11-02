@@ -137,7 +137,20 @@ public class Item implements Comparable<Item> {
 	}
 	
 	public String getDescription() {
-		return name + ": " + value; 
+		String s = "This is ";
+		if(name.startsWith("A") || name.startsWith("E") || name.startsWith("I") || name.startsWith("O") || name.startsWith("U")){
+			s+= "an ";
+		} else {
+			s+= "a ";
+		}
+		s+=  name.toLowerCase() + ".\n";
+		if(isWeapon()){
+			s+= "It can do " + value + " damage when used to fight.";
+		} else {
+			s+= "It can recover " + value + " health when eaten.";
+		}
+		
+		return s;
 	}
 
 	/**
