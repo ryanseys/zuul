@@ -55,10 +55,10 @@ public class TwoDView extends JFrame implements IView, ActionListener
 
 	    undo = new JButton("UNDO");
 	    redo = new JButton("REDO");
-	    northRoom = new JButton("North Room");
-	    eastRoom = new JButton("East Room");
-	    westRoom = new JButton("West Room");
-	    southRoom = new JButton("South Room");
+	    northRoom = new JButton("Go North");
+	    eastRoom = new JButton("Go East");
+	    westRoom = new JButton("Go West");
+	    southRoom = new JButton("Go South");
 	    pickup = new JButton("Pickup");
 	    fight = new JButton ("Fight");
 	    eat = new JButton ("Eat");
@@ -437,13 +437,13 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		else if(e.getActionCommand().equals("Hint")){
 			getHint();
 		}
-		else if (e.getActionCommand().equals("North Room")) {
+		else if (e.getActionCommand().equals("Go North")) {
 			p.doCommand(Command.parse("Go North"));
 		}
-		else if (e.getActionCommand().equals("East Room")) {
+		else if (e.getActionCommand().equals("Go East")) {
 			p.doCommand(Command.parse("Go East"));
 		}
-		else if (e.getActionCommand().equals("West Room")) {
+		else if (e.getActionCommand().equals("Go West")) {
 			
 			if(p.getCurrentRoom().getExit(Direction.WEST).getLocked()!=true || unlocked==true){
 				p.doCommand(Command.parse("Go West"));
@@ -457,7 +457,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 				}
 			}
 		}
-		else if (e.getActionCommand().equals("South Room")) {
+		else if (e.getActionCommand().equals("Go South")) {
 			p.doCommand(Command.parse("Go South"));
 		}
 		else if (e.getActionCommand().equals("Pickup")) {
