@@ -190,20 +190,24 @@ public class Player extends Humanoid  {
 		return currentRoom;
 	}
 	/**
-	 * TODO
-	 * @return
+	 * This method determines whether or not the playerhistory can be undone
+	 * @return the boolean from the playerhistory.canUndo() command.
 	 */
 	public boolean canUndo() {
 		return playerHistory.canUndo();
 	}
 	/**
-	 * TODO
-	 * @return
+	 * This method determines whether or not the playerhistory can be undone
+	 * @return the boolean from the playerhistory.canRedo() command.
 	 */
 	public boolean canRedo() {
 		return playerHistory.canRedo();
 	}
 
+	/**
+	 * Get the playerHistory of this player.
+	 * @return : The playerHistory of the player.
+	 */
 	public PlayerHistory getPlayerHistory(){
 		return playerHistory;
 	}

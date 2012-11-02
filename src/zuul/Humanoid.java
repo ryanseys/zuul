@@ -107,7 +107,9 @@ public abstract class Humanoid{
 	}
 
 	/**
-	 * TODO
+	 * Get the real item in the inventory given only the item's name.
+	 * @param item : The name of the item, not the real item.
+	 * @return : The real Item from the inventory.
 	 */
 	 public Item getRealItem(Item item) {
 		    int index = inventory.indexOf(item);
@@ -123,9 +125,6 @@ public abstract class Humanoid{
 	 */
 	public Item getBestItem(){
 		Item tempItem;
-	//	if(inventory.isEmpty()){
-	//		return new Item("NO_ITEM", 0, 0, false);
-	//	}
 		tempItem = new Item("NO_ITEM", 0, 0, false);
 		for(Item i: inventory){
 			if(i.isWeapon()){
@@ -139,7 +138,8 @@ public abstract class Humanoid{
 
 	/**
 	 * An equals method used to compare two Humanoids.
-	 * @return : True if the Humanoid are the same, false if not.
+	 * @param o : Another humanoid object to compare to.
+	 * @return : True if the Humanoids are the same, false if not.
 	 */
 	@Override
 	public boolean equals(Object o){
@@ -176,6 +176,10 @@ public abstract class Humanoid{
 		return s;
 	}
 
+	/**
+	 * Get the name of the Humanoid.
+	 * @return : The name of the humanoid.
+	 */
 	public String getName(){
 		return name;
 	}

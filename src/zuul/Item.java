@@ -136,6 +136,11 @@ public class Item implements Comparable<Item> {
 		return name;
 	}
 
+	/**
+	 * Get the description of the item.
+	 * Either add a or an to the string depending on if it is a consonant or not.
+	 * @return : The string giving the required information for inspection of an item.
+	 */
 	public String getDescription() {
 		String s = "This is ";
 		if(name.startsWith("A") || name.startsWith("E") || name.startsWith("I") || name.startsWith("O") || name.startsWith("U")){

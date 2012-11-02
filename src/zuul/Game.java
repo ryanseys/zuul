@@ -38,7 +38,7 @@ public class Game {
   	p.setView(view);
 	((TwoDView)view).setVisible(true);
 
-
+/* This is only useful for the TextView, so it is commented out for this milestone */
 //  	InputStreamReader converter = new InputStreamReader(System.in);
 //  	BufferedReader in = new BufferedReader(converter);
 //  	String input = in.readLine(); //priming the loop
@@ -72,6 +72,10 @@ public class Game {
   }
 
 
+  /**
+   * Initialization method, to set up the game.
+   * Sets up the rooms, the monsters and the items in the game.
+   */
   public static void initialize(){
 	    startRoom = new Room("StartRoom");
 	  	Room northRoom1 = new Room("NorthRoom1");

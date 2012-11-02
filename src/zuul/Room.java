@@ -62,6 +62,11 @@ public class Room
       return monsters.get(0);
   }
 
+  /**
+   * Get the real item from a passed in item name.
+   * @param item : The string, not the 'real' item.
+   * @return : The real item that is contained in the room.
+   */
   public Item getRealItem(Item item) {
     int index = items.indexOf(item);
     if(index != -1) return items.get(index);
@@ -101,6 +106,9 @@ public class Room
   	return !monsters.isEmpty();
   }
 
+  /**
+   * @return : The list of the available directions for the current room.
+   */
   public List<Direction> getExitDirections() {
   	return new ArrayList<Direction>(exits.keySet());
   }
