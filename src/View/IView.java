@@ -14,7 +14,7 @@ import zuul.Monster;
  */
 
 public interface IView {
-	
+
 	/**
 	 * This method is invoked very frequently, and tells the status of the
 	 * player.

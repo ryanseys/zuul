@@ -9,12 +9,11 @@ import zuul.Item;
 import zuul.Monster;
 import zuul.Room;
 
-
 public class MonsterTest {
 
 	Room r;
 	Monster m;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		r = new Room("Current");
@@ -40,5 +39,4 @@ public class MonsterTest {
 		m.dropItems();
 		assertTrue(r.getItems().contains(i));
 	}
-
 }

@@ -10,7 +10,7 @@ package zuul;
  * if available.
  *
  * @author Ryan Seys
- * @version 2012.08.23
+ * @version 2012.11.02
  */
 
 public class Command {
@@ -24,10 +24,9 @@ public class Command {
    * @param firstWord The first word of the command. Null if the command was not recognised.
    * @param secondWord The second word of the command. Can be an object
    */
-  public Command(CommandWords firstWord, Object secondWord)
-  {
-      this.firstWord = firstWord;
-      this.secondWord = secondWord;
+  public Command(CommandWords firstWord, Object secondWord) {
+    this.firstWord = firstWord;
+    this.secondWord = secondWord;
   }
 
   /**
@@ -35,27 +34,24 @@ public class Command {
    * command was not understood, the result is null.
    * @return The command word.
    */
-  public CommandWords getCommandWord()
-  {
-      return firstWord; //basically the same as getFirstWord
+  public CommandWords getCommandWord() {
+    return firstWord; //basically the same as getFirstWord
   }
 
   /**
    * Returns the second word of the command, or it will return null if no second word.
    * @return The second word of this command. Returns null if there was no second word.
    */
-  public Object getSecondWord()
-  {
-      return secondWord;
+  public Object getSecondWord() {
+    return secondWord;
   }
 
   /**
    * Returns whether the command is invalid or not
    * @return true if this command was not understood, false if understood
    */
-  public boolean isUnknown()
-  {
-      return (firstWord == null);
+  public boolean isUnknown() {
+    return (firstWord == null);
   }
 
   /**
@@ -80,9 +76,8 @@ public class Command {
    *
    * @return true if the command has a second word.
    */
-  public boolean hasSecondWord()
-  {
-      return (secondWord != null);
+  public boolean hasSecondWord() {
+    return (secondWord != null);
   }
 
   /**
@@ -157,7 +152,7 @@ public class Command {
     }
     return null;
   }
-  
+
   @Override
   public boolean equals(Object o) {
 	  Command c = (Command)o;

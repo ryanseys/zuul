@@ -135,7 +135,7 @@ public class Item implements Comparable<Item> {
 	public String toString(){
 		return name;
 	}
-	
+
 	public String getDescription() {
 		String s = "This is ";
 		if(name.startsWith("A") || name.startsWith("E") || name.startsWith("I") || name.startsWith("O") || name.startsWith("U")){
@@ -149,7 +149,7 @@ public class Item implements Comparable<Item> {
 		} else {
 			s+= "It can recover " + value + " health when eaten.";
 		}
-		
+
 		return s;
 	}
 

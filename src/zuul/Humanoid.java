@@ -105,7 +105,7 @@ public abstract class Humanoid{
 	public ArrayList<Item> getInventory(){
 		return inventory;
 	}
-	
+
 	/**
 	 * TODO
 	 */
@@ -175,7 +175,7 @@ public abstract class Humanoid{
 		}
 		return s;
 	}
-	
+
 	public String getName(){
 		return name;
 	}
