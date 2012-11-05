@@ -3,14 +3,14 @@ zuul (Github : http://github.com/ryanseys/zuul)
 
 Authors: Ryan Seys, Vinayak Bansal, Jarred Linthorne-Shaw
 
-Milestone 1
+Milestone 2
 ===========
 
 ## Deliverables
 
 * README.md (this file)
 
-### Source Files
+### Zuul package
 
 * Command.java
 * CommandWords.java
@@ -22,23 +22,71 @@ Milestone 1
 * Player.java
 * PlayerHistory.java
 * Room.java
-* View.java
+
+### View package
+
+* IView.java
+* TextView.java
+* TwoDView.java
+
+### Test package
+
+* CommandTest.java
+* DirectionTest.java
+* HumanoidTest.java
+* ItemTest.java
+* MonsterTest.java
+* PlayerHistoryTest.java
+* PlayerTest.java
+* RoomTest.java
+
+### Image files
+
+* apple.png
+* bread.gif
+* flamethrower.jpg
+* hatchet.png
+* key.png
+* map.jpg
+* orange.png
+* pear.png
+* rooms_eastroom.png
+* rooms_noMap.png
+* rooms_northroom1.png
+* rooms_northroom2.png
+* rooms_northwestroom.png
+* rooms_southroom.png
+* rooms_startroom.png
+* rooms_westroom.png
+* sword.png
 
 ### Sequence Diagrams
 
-* drop.png — Drop
-* eat.png — Eat
-* fight.png — Fight
-* Garbage.png — Garbage
-* Go.png — Go
-* pickup.png — Pickup
-* help.png — Help
-* quit.png — Quit
-* UndoRedo.png — Undo/Redo
+* drop.png
+* eat.png
+* fight.png
+* Garbage.png
+* Go.png
+* pickup.png
+* help.png
+* quit.png
+* UndoRedo.png
 
-### Class Diagram
+### Class Diagrams and Sequence Diagrams
 
-* Milestone1FinalUML.png — The Final UML Class Diagram for Milestone 1
+* SecondMilestoneUML.png
+* TestUML.png
+* hint.png
+* objective.png
+* reset.png
+* quit.png
+* pickup.png
+* Inspect.png
+* Go.png
+* fight.png
+* eat.png
+* drop.png
+* UndoRedo.png
 
 ## Authors and Their Roles
 
@@ -53,6 +101,8 @@ Milestone 1
 
 **All:**
   Responsible for reporting issues/bugs to Github (https://github.com/ryanseys/zuul/issues)
+  Responsible for the GUI building and testing
+  Responsible for writing tests for their respective class files
 
 ## Changes made for Milestone 1
 
@@ -66,24 +116,17 @@ Milestone 1
 * Added a player inventory (support for the player to hold a number of items)
 * Added documentation which conforms to JavaDoc specifications
 
-## How to Run
+## Changes made for Milestone 2
 
-Clone the repo
-
-```
-git clone https://github.com/ryanseys/zuul.git
-```
-
-Compile and Run Game.java (or run the Makefile)
-
-```
-cd src
-javac Game.java
-java Game
-```
-
-OR
-
-```
-make
-```
+* Added GUI interface
+  * Buttons for directions
+  * Inventory list
+  * Map functionality shows current status
+  * Added images of the items you have
+  * Added images for the map functionality
+  * Console panel in GUI for showing status of health of player/monsters
+* Inspect functionality on all items
+  * New GUI displays the information about the items
+* Hint functionality provides hint depending on the state of the game
+* Added lots of unit tests for the classes
+* Splitted the project into multiple packages
