@@ -130,3 +130,4 @@ Milestone 2
 * Hint functionality provides hint depending on the state of the game
 * Added lots of unit tests for the classes
 * Splitted the project into multiple packages
+* Added reset functionality
