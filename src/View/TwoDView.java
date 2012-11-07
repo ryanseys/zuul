@@ -330,7 +330,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	 */
 	private void getHint(){
 		if(!p.getInventory().contains(new Item("Map", true))){
-			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room west of the startroom!");
+			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room east of the startroom!");
 		} else if(!p.getInventory().contains(new Item("Key", true))){
 			JOptionPane.showMessageDialog(this, "Find the key!\nPerhaps the boss in the southroom has it!");
 		} else {
