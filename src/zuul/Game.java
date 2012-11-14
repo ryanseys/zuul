@@ -2,7 +2,7 @@ package zuul;
 import java.io.IOException;
 
 import View.IView;
-import View.TwoDView;
+import View.ThreeDView;
 
  /**
  * This class is the main class of the "World of Zuul" application.
@@ -31,10 +31,10 @@ public class Game {
   	initialize();
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
 
-  	view = new TwoDView(p);
+  	view = new ThreeDView(p);
   	view.update();
   	p.setView(view);
-	((TwoDView)view).setVisible(true);
+	((ThreeDView)view).setVisible(true);
 
 /* This is only useful for the TextView, so it is commented out for this milestone */
 //  	InputStreamReader converter = new InputStreamReader(System.in);
