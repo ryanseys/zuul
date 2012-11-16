@@ -42,7 +42,7 @@ import zuul.Room;
 @SuppressWarnings("serial")
 public class ThreeDView extends JFrame implements IView, ActionListener
 {
-	private JMenuItem resetGame, objective, hint, quit; //commands
+	private JMenuItem resetGame, objective, hint, quit, undo, redo; //commands
 	private JMenuBar menuBar;
 	private JButton /*undo, redo, northRoom, southRoom, eastRoom, westRoom,*/ pickup,/* fight,*/ eat, drop, inspect;
 	private JLabel currentRoom, mapLabel;
@@ -279,6 +279,14 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    addressMenu.add( resetGame );
 	    resetGame.addActionListener(this);
 
+	    undo = new JMenuItem ( "Undo" );
+	    addressMenu.add( undo );
+	    undo.addActionListener(this);
+	    
+	    redo = new JMenuItem ( "Redo" );
+	    addressMenu.add( redo );
+	    redo.addActionListener(this);
+	    
 	    quit = new JMenuItem ( "Quit" );
 	    addressMenu.add( quit );
 	    quit.addActionListener(this);
@@ -337,6 +345,16 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 //			//redo.setEnabled(false);
 //		}
 
+		if(p.getPlayerHistory().canUndo()){
+			undo.setEnabled(true);
+		} else {
+			undo.setEnabled(false);
+		}
+		if(p.getPlayerHistory().canRedo()){
+			redo.setEnabled(true);
+		} else {
+			redo.setEnabled(false);
+		}
 
 		if(!p.getCurrentRoom().getItems().isEmpty()){
 			pickup.setEnabled(true);
@@ -643,16 +661,17 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		   		JOptionPane.showMessageDialog(this, selectedItem.getDescription(), "Item", getDefaultCloseOperation(), getImageIcon(selectedItem));
 			}
 		}
-		else if (e.getActionCommand().equals("UNDO")) {
+		else if (e.getActionCommand().equals("Undo")) {
 			p.doCommand(Command.parse("UNDO"));
 		}
-		else if (e.getActionCommand().equals("REDO")) {
+		else if (e.getActionCommand().equals("Redo")) {
 			p.doCommand(Command.parse("REDO"));
 		}
 		else if (e.getActionCommand().equals("Quit")) {
 			quit();
 		}
 		update();
+		setupView();
 	}
 	
 	private void handleCoordinates(int x, int y){
