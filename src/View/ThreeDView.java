@@ -8,26 +8,15 @@
  */
 package View;
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
-import java.awt.Point;
 import java.awt.Polygon;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -41,8 +30,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.OverlayLayout;
-import javax.swing.SpringLayout;
 
 import zuul.Command;
 import zuul.CommandWords;
@@ -81,6 +68,10 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	private JPanel bossPanel = new JPanel();
 	private JPanel bossPanel2 = new JPanel();
 	private JPanel scene = new JPanel();
+	private JPanel fixPanel = new JPanel();
+	private JPanel fixPanel2 = new JPanel();
+	private JPanel fixPanel3 = new JPanel();
+
 	
 	@SuppressWarnings("static-access")
 	public ThreeDView (Player p) {
@@ -98,7 +89,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    scene.setBounds(0,0,600,400);
 	    this.add(scene, BorderLayout.CENTER);
 	    
-	    	    
 	    backgroundLabel = new JLabel(new ImageIcon("background_plain.png"));
 	    backgroundPanel.add(backgroundLabel);
 	    backgroundPanel.setBounds(0, 0, 850, 900);
@@ -106,8 +96,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 
 	    consolePanel.add(backgroundPanel, new Integer(0), 0);
 
-	    	    
-	    
+	
 //	    undo = new JButton("UNDO");
 //	    redo = new JButton("REDO");
 //	    northRoom = new JButton("Go North");
@@ -735,12 +724,19 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	private void setupView(){
 		consolePanel.removeAll();
 		consolePanel.add(backgroundPanel, new Integer(0), 0);
+		
+		JLabel fixLabel = new JLabel(new ImageIcon("fix.png"));
+		
 		JLabel chestLabel = new JLabel(new ImageIcon("chest_in_room.png"));
 		if(!p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
 			chestPanel.add(chestLabel);
 			chestPanel.setBounds(210,278, 165, 160);
 			chestPanel.setBackground(new Color(185, 122, 87));
 			consolePanel.add(chestPanel, new Integer(1), 0);
+			fixPanel.add(fixLabel);
+			fixPanel.setBackground(Color.black);
+			fixPanel.setBounds(249, 278, 5, 5);
+			consolePanel.add(fixPanel, new Integer(1), 0);
 		} else {
 			JLabel treasureLabel = new JLabel(new ImageIcon("treasure_in_room.png"));
 			treasurePanel.add(treasureLabel);
@@ -759,13 +755,20 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 				bossPanel2.setBounds(380,330, 280, 180);
 			    consolePanel.add(bossPanel2, new Integer(1), 0);
 			    consolePanel.add(bossPanel, new Integer(1), 0);
+				fixPanel2.add(fixLabel);
+				fixPanel2.setBackground(Color.black);
+				fixPanel2.setBounds(596, 143, 5, 5);
+				consolePanel.add(fixPanel2, new Integer(1), 0);
 			} else {
 				JLabel monsterLabel = new JLabel(new ImageIcon("monster_in_room.png"));
 				monsterPanel.add(monsterLabel);
 				monsterPanel.setBackground(new Color(185, 122, 87));
 				monsterPanel.setBounds(488,210, 180, 300);
-			    consolePanel.add(monsterPanel, new Integer(1), 0);
-			
+			    consolePanel.add(monsterPanel, new Integer(1), 0);   
+				fixPanel3.add(fixLabel);
+				fixPanel3.setBackground(Color.black);
+				fixPanel3.setBounds(596, 210, 5, 5);
+				consolePanel.add(fixPanel3, new Integer(1), 0);
 			}
 		} 
 		if(p.getCurrentRoom().getExit(Direction.NORTH)!=null){
