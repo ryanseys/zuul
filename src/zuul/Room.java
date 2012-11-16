@@ -21,6 +21,10 @@ public class Room
   private List<Item> items;
   private List<Monster> monsters;
   private Map<Direction, Room> exits;
+  private static final String EXIT_STRING = "Exits:";
+  private static final String MONSTER_STRING = "Monsters:";
+  private static final String HEALTH_STRING = "Health:";
+  private static final String ITEM_STRING = "Items:";
   private boolean locked = false;
 
   /**
@@ -132,7 +136,7 @@ public class Room
    */
   private String getExitString()
   {
-      String returnString = "Exits:";
+      String returnString = EXIT_STRING;
       Set<Direction> directions = exits.keySet();
       for(Direction exit : directions) {
           returnString += " " + exit.name();
@@ -145,9 +149,9 @@ public class Room
    */
   private String getMonsterString() {
       if(monsters.isEmpty()) return "";
-      String returnString = "Monsters:";
+      String returnString = MONSTER_STRING;
       for(Monster m: monsters) {
-          returnString += " " + m + "\n" + m.getInventoryString() + "\nHealth:" + m.getHealth();
+          returnString += " " + m + "\n" + m.getInventoryString() + "\n" + HEALTH_STRING + m.getHealth();
       }
       return returnString + "\n";
   }
@@ -157,7 +161,7 @@ public class Room
    */
   private String getItemString() {
       if(items.isEmpty()) return "";
-      String returnString = "Items:";
+      String returnString = ITEM_STRING;
       for(Item i: items) {
           returnString += " " + i;
       }
