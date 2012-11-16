@@ -36,13 +36,13 @@ public class TwoDView extends View
 	public TwoDView (Player p) {
 		super(p);
 
-	    undo = new JButton("UNDO");
-	    redo = new JButton("REDO");
+	    undo = new JButton(UNDO);
+	    redo = new JButton(REDO);
 	    northRoom = new JButton("Go North");
 	    eastRoom = new JButton("Go East");
 	    westRoom = new JButton("Go West");
 	    southRoom = new JButton("Go South");
-	    fight = new JButton ("Fight");
+	    fight = new JButton (FIGHT);
 	    pickup = new JButton("Pickup");
 	    
 
@@ -233,13 +233,13 @@ public class TwoDView extends View
 				if (popup != JOptionPane.CLOSED_OPTION) {
 					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(popup)));
 				}
-				if(p.getInventory().contains(new Item("Treasure", true))){
+				if(p.getInventory().contains(new Item(TREASURE, true))){
 					win();
 				}
 		}
-		else if (e.getActionCommand().equals("Fight")) {
+		else if (e.getActionCommand().equals(FIGHT)) {
 			Monster m = p.getCurrentRoom().getMonster();
-			p.doCommand(Command.parse("Fight"));
+			p.doCommand(Command.parse(FIGHT));
 			if(p.getHealth()<=0){
 				this.gameDone();
 			} else {
