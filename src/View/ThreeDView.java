@@ -88,7 +88,7 @@ public class ThreeDView extends View implements ActionListener
 	    scene.setBounds(0,0,600,400);
 	    this.add(scene, BorderLayout.CENTER);
 	    
-	    backgroundLabel = new JLabel(new ImageIcon("background_plain.png"));
+	    backgroundLabel = new JLabel(new ImageIcon("Images/background_plain.png"));
 	    backgroundPanel.add(backgroundLabel);
 	    backgroundPanel.setBounds(0, 0, 850, 900);
 	    backgroundPanel.setOpaque(true);
@@ -314,26 +314,26 @@ public class ThreeDView extends View implements ActionListener
 
 	   if(p.getInventory().contains(new Item("Map", true))){
 		if(s.equals("NorthRoom1")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_northroom1.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom1.png"));
 		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
 		} else if (s.equals("StartRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_startRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_startRoom.png"));
 		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
 		} else if (s.equals("WestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_westRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_westRoom.png"));
 		} else if (s.equals("SouthRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_southRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_southRoom.png"));
 		} else if (s.equals("NorthRoom2")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_northroom2.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom2.png"));
 		} else if (s.equals("NorthWestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_northWestRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northWestRoom.png"));
 		}
 
 	   } else {
 		   mapPanel.remove(mapLabel);
-		   mapLabel = new JLabel(new ImageIcon("rooms_noMap.png"));
+		   mapLabel = new JLabel(new ImageIcon("Images/rooms_noMap.png"));
 	   }
 	  
 	   mapPanel.add(mapLabel);
@@ -431,23 +431,23 @@ public class ThreeDView extends View implements ActionListener
     private ImageIcon getImageIcon(Item i){
 		ImageIcon icon = null;;
 		if(i.equals(new Item("Sword", true))){
-			icon  = new ImageIcon("sword.png");
+			icon  = new ImageIcon("Images/sword.png");
 		} else if(i.equals(new Item("Bread", true))){
-			icon  = new ImageIcon("bread.gif");
+			icon  = new ImageIcon("Images/bread.gif");
 		} else if(i.equals(new Item("Apple", true))){
-			icon  = new ImageIcon("apple.png");
+			icon  = new ImageIcon("Images/apple.png");
 		} else if(i.equals(new Item("Pear", true))){
-			icon  = new ImageIcon("pear.png");
+			icon  = new ImageIcon("Images/pear.png");
 		} else if(i.equals(new Item("Orange", true))){
-			icon  = new ImageIcon("orange.png");
+			icon  = new ImageIcon("Images/orange.png");
 		} else if(i.equals(new Item("Map", true))){
-			icon  = new ImageIcon("map.jpg");
-		} else if(i.equals(new Item("Hatchet", true))){
-			icon  = new ImageIcon("hatchet.png");
+			icon  = new ImageIcon("Images/map.jpg");
+		} else if(i.equals(new Item("Claws", true))){
+			icon  = new ImageIcon("Images/claws.png");
 		} else if(i.equals(new Item("Flamethrower", true))){
-			icon  = new ImageIcon("flamethrower.jpg");
+			icon  = new ImageIcon("Images/flamethrower.jpg");
 		} else if(i.equals(new Item("Key", true))){
-			icon  = new ImageIcon("key.png");
+			icon  = new ImageIcon("Images/key.png");
 		} //can't inspect treasure since game is already won if it is picked up
 			return icon;
 	}
@@ -638,9 +638,9 @@ public class ThreeDView extends View implements ActionListener
 		consolePanel.removeAll();
 		consolePanel.add(backgroundPanel, new Integer(0), 0);
 		
-		JLabel fixLabel = new JLabel(new ImageIcon("fix.png"));
+		JLabel fixLabel = new JLabel(new ImageIcon("Images/fix.png"));
 		
-		JLabel chestLabel = new JLabel(new ImageIcon("chest_in_room.png"));
+		JLabel chestLabel = new JLabel(new ImageIcon("Images/chest_in_room.png"));
 		if(!p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
 			chestPanel.add(chestLabel);
 			chestPanel.setBounds(210,278, 165, 160);
@@ -651,15 +651,15 @@ public class ThreeDView extends View implements ActionListener
 			fixPanel.setBounds(249, 278, 5, 5);
 			consolePanel.add(fixPanel, new Integer(1), 0);
 		} else {
-			JLabel treasureLabel = new JLabel(new ImageIcon("treasure_in_room.png"));
+			JLabel treasureLabel = new JLabel(new ImageIcon("Images/treasure_in_room.png"));
 			treasurePanel.add(treasureLabel);
 			treasurePanel.setBounds(75, 0, 700, 500);
 			consolePanel.add(treasurePanel, new Integer(1), 0);
 		}
 		if(p.getCurrentRoom().hasMonsters()){
 			if(p.getCurrentRoom().getMonster().getName().equals("Boss")){
-				JLabel bossLabel = new JLabel(new ImageIcon("boss1_in_room.png"));
-				JLabel bossLabel2 = new JLabel(new ImageIcon("boss2_in_room.png"));
+				JLabel bossLabel = new JLabel(new ImageIcon("Images/boss1_in_room.png"));
+				JLabel bossLabel2 = new JLabel(new ImageIcon("Images/boss2_in_room.png"));
 				bossPanel.add(bossLabel);
 				bossPanel2.add(bossLabel2);
 				bossPanel.setBackground(new Color(185, 122, 87));
@@ -673,7 +673,7 @@ public class ThreeDView extends View implements ActionListener
 				fixPanel2.setBounds(596, 143, 5, 5);
 				consolePanel.add(fixPanel2, new Integer(1), 0);
 			} else {
-				JLabel monsterLabel = new JLabel(new ImageIcon("monster_in_room.png"));
+				JLabel monsterLabel = new JLabel(new ImageIcon("Images/monster_in_room.png"));
 				monsterPanel.add(monsterLabel);
 				monsterPanel.setBackground(new Color(185, 122, 87));
 				monsterPanel.setBounds(488,210, 180, 300);
@@ -685,28 +685,28 @@ public class ThreeDView extends View implements ActionListener
 			}
 		} 
 		if(p.getCurrentRoom().getExit(Direction.NORTH)!=null){
-			JLabel northLabel = new JLabel(new ImageIcon("north_door.png"));
+			JLabel northLabel = new JLabel(new ImageIcon("Images/north_door.png"));
 		    northPanel.add(northLabel);
 		    northPanel.setBackground(new Color(185, 122, 87));
 		    northPanel.setBounds(385,146, 100, 180);
 		    consolePanel.add(northPanel, new Integer(1), 0);
 		}
 		if(p.getCurrentRoom().getExit(Direction.EAST)!=null){
-			JLabel eastLabel = new JLabel(new ImageIcon("east_door.png"));
+			JLabel eastLabel = new JLabel(new ImageIcon("Images/east_door.png"));
 		    eastPanel.add(eastLabel);
 		    eastPanel.setBackground(new Color(185, 122, 87));
 		    eastPanel.setBounds(650,158, 80, 310);
 		    consolePanel.add(eastPanel, new Integer(1), 1);
 		}
 		if(p.getCurrentRoom().getExit(Direction.WEST)!=null){
-			JLabel westLabel = new JLabel(new ImageIcon("west_door.png"));
+			JLabel westLabel = new JLabel(new ImageIcon("Images/west_door.png"));
 		    westPanel.add(westLabel);
 		    westPanel.setBackground(new Color(185, 122, 87));
 		    westPanel.setBounds(120,158, 80, 310);
 		    consolePanel.add(westPanel, new Integer(1), 0);
 		}
 		if(p.getCurrentRoom().getExit(Direction.SOUTH)!=null){
-			JLabel southLabel = new JLabel(new ImageIcon("south_door.png"));
+			JLabel southLabel = new JLabel(new ImageIcon("Images/south_door.png"));
 		    southPanel.add(southLabel);
 		    southPanel.setBackground(new Color(69, 43, 29));
 		    southPanel.setBounds(385,490, 90, 90);
