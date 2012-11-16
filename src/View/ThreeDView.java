@@ -70,6 +70,9 @@ public class ThreeDView extends JFrame implements IView, ActionListener
     private JPanel northPanel = new JPanel();
     private JPanel southPanel = new JPanel();
 	private JPanel monsterPanel = new JPanel();
+	private JPanel chestPanel = new JPanel();
+	private JPanel bossPanel = new JPanel();
+	private JPanel bossPanel2 = new JPanel();
 	
 	@SuppressWarnings("static-access")
 	public ThreeDView (Player p) {
@@ -394,7 +397,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	 */
     private void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
-//		   mapPanel.remove(mapLabel);
+		   mapPanel.remove(mapLabel);
 	   if(p.getInventory().contains(new Item("Map", true))){
 		if(s.equals("NorthRoom1")){
 		    mapLabel = new JLabel(new ImageIcon("rooms_northroom1.png"));
@@ -415,11 +418,11 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		}
 
 	   } else {
-		//   mapPanel.remove(mapLabel);
+		   mapPanel.remove(mapLabel);
 		   mapLabel = new JLabel(new ImageIcon("rooms_noMap.png"));
 	   }
 
-	 //  mapPanel.add(mapLabel);
+	   mapPanel.add(mapLabel);
 	}
 
 	/**
@@ -697,8 +700,16 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 			p.doCommand(Command.parse("Go South"));
 		} else if(chest.contains(x, y)){
 			pickup.setEnabled(true);
-			int popup = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
-				JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
+			int popup;
+			if(!p.getCurrentRoom().getItems().isEmpty()){
+				popup = JOptionPane.showOptionDialog(this, "This Room has the following items:", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
+					
+			} else {
+				popup = JOptionPane.showOptionDialog(this, "This room does not have any items in it!", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
+					
+			}
 			if (popup != JOptionPane.CLOSED_OPTION) {
 				p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(popup)));
 			}
@@ -728,30 +739,33 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	}
 	
 	private void setupView(){
-//		JPanel monsterPanel = new JPanel();
-//	    JLabel monsterLabel = new JLabel(new ImageIcon("monster_in_room.png"));
-//	    monsterPanel.add(monsterLabel);
-	    
-//		JPanel northPanel = new JPanel();
-//	    JLabel northLabel = new JLabel(new ImageIcon("north_door.png"));
-//	    northPanel.add(northLabel);
-//		JPanel southPanel = new JPanel();
-//	    JLabel southLabel = new JLabel(new ImageIcon("south_door.png"));
-//	    southPanel.add(southLabel);
-//		JPanel eastPanel = new JPanel();
-//	    JLabel eastLabel = new JLabel(new ImageIcon("east_door.png"));
-//	    eastPanel.add(eastLabel);
-//		JPanel westPanel = new JPanel();
-//	    JLabel westLabel = new JLabel(new ImageIcon("west_door.png"));
-//	    westPanel.add(westLabel);
-//	    
 		consolePanel.removeAll();
 		consolePanel.add(backgroundPanel, new Integer(0), 0);
+		JLabel chestLabel = new JLabel(new ImageIcon("chest_in_room.png"));
+		chestPanel.add(chestLabel);
+		chestPanel.setBounds(210,278, 165, 160);
+		chestPanel.setBackground(new Color(185, 122, 87));
+		consolePanel.add(chestPanel, new Integer(1), 0);
 		if(p.getCurrentRoom().hasMonsters()){
-			JLabel monsterLabel = new JLabel(new ImageIcon("monster_in_room.png"));
-			monsterPanel.add(monsterLabel);
-			monsterPanel.setBounds(400,146, 100, 180);
-		    consolePanel.add(monsterPanel, new Integer(1), 0);
+			if(p.getCurrentRoom().getMonster().getName().equals("Boss")){
+				JLabel bossLabel = new JLabel(new ImageIcon("boss1_in_room.png"));
+				JLabel bossLabel2 = new JLabel(new ImageIcon("boss2_in_room.png"));
+				bossPanel.add(bossLabel);
+				bossPanel2.add(bossLabel2);
+				bossPanel.setBackground(new Color(185, 122, 87));
+				bossPanel2.setBackground(new Color(69, 43, 29));
+				bossPanel.setBounds(487,143, 180, 300);
+				bossPanel2.setBounds(380,330, 280, 180);
+			    consolePanel.add(bossPanel2, new Integer(1), 0);
+			    consolePanel.add(bossPanel, new Integer(1), 0);
+			} else {
+				JLabel monsterLabel = new JLabel(new ImageIcon("monster_in_room.png"));
+				monsterPanel.add(monsterLabel);
+				monsterPanel.setBackground(new Color(185, 122, 87));
+				monsterPanel.setBounds(488,210, 180, 300);
+			    consolePanel.add(monsterPanel, new Integer(1), 0);
+			
+			}
 		} 
 		if(p.getCurrentRoom().getExit(Direction.NORTH)!=null){
 			JLabel northLabel = new JLabel(new ImageIcon("north_door.png"));
