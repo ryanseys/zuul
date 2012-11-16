@@ -1,9 +1,9 @@
 package zuul;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashMap;
 
 /**
  * Room class for representing a room that a Player can be in.
@@ -35,10 +35,10 @@ public class Room
    */
   public Room(String description)
   {
-      this.description = description;
-      exits = new HashMap<Direction, Room>();
-      monsters = new ArrayList<Monster>();
-      items = new ArrayList<Item>();
+    this.description = description;
+    exits = new HashMap<Direction, Room>();
+    monsters = new ArrayList<Monster>();
+    items = new ArrayList<Item>();
   }
 
   /**
@@ -46,7 +46,7 @@ public class Room
    * @param i Item to add to the room
    */
   public void addItem(Item i) {
-  	items.add(i);
+    items.add(i);
   }
 
   /**
@@ -54,7 +54,7 @@ public class Room
    * @param m Monster to add to the room
    */
   public void addMonster(Monster m) {
-  	monsters.add(m);
+    monsters.add(m);
   }
 
   /**
@@ -62,8 +62,10 @@ public class Room
    * @return The first monster found in the room
    */
   public Monster getMonster() {
-      if(monsters.isEmpty()) return null;
-      return monsters.get(0);
+    if(monsters.isEmpty()) {
+      return null;
+    }
+    return monsters.get(0);
   }
 
   /**
@@ -73,8 +75,12 @@ public class Room
    */
   public Item getRealItem(Item item) {
     int index = items.indexOf(item);
-    if(index != -1) return items.get(index);
-    else return null;
+    if(index != -1) {
+      return items.get(index);
+    }
+    else {
+      return null;
+    }
   }
 
   /**
@@ -82,7 +88,7 @@ public class Room
    * @param i The Item object to remove
    */
   public void removeItem(Item i) {
-      items.remove(i);
+    items.remove(i);
   }
 
   /**
@@ -90,7 +96,7 @@ public class Room
    * @param m The Monster to remove from the room
    */
   public void removeMonster(Monster m) {
-      monsters.remove(m);
+    monsters.remove(m);
   }
 
   /**
@@ -100,21 +106,21 @@ public class Room
    */
   public void setExit(Direction direction, Room neighbor)
   {
-      exits.put(direction, neighbor);
+    exits.put(direction, neighbor);
   }
 
   /**
    * @return whether the room has any monsters
    */
   public boolean hasMonsters() {
-  	return !monsters.isEmpty();
+    return !monsters.isEmpty();
   }
 
   /**
    * @return : The list of the available directions for the current room.
    */
   public List<Direction> getExitDirections() {
-  	return new ArrayList<Direction>(exits.keySet());
+    return new ArrayList<Direction>(exits.keySet());
   }
 
   /**
@@ -125,8 +131,8 @@ public class Room
    */
   public String getDescription()
   {
-      return "You are in " + description + ".\n" + getExitString() +
-      getMonsterString() + getItemString();
+    return "You are in " + description + ".\n" + getExitString() +
+        getMonsterString() + getItemString();
   }
 
   /**
@@ -136,36 +142,40 @@ public class Room
    */
   private String getExitString()
   {
-      String returnString = EXIT_STRING;
-      Set<Direction> directions = exits.keySet();
-      for(Direction exit : directions) {
-          returnString += " " + exit.name();
-      }
-      return returnString + "\n";
+    String returnString = EXIT_STRING;
+    Set<Direction> directions = exits.keySet();
+    for(Direction exit : directions) {
+      returnString += " " + exit.name();
+    }
+    return returnString + "\n";
   }
 
   /**
    * @return A string listing all the monsters in the room
    */
   private String getMonsterString() {
-      if(monsters.isEmpty()) return "";
-      String returnString = MONSTER_STRING;
-      for(Monster m: monsters) {
-          returnString += " " + m + "\n" + m.getInventoryString() + "\n" + HEALTH_STRING + m.getHealth();
-      }
-      return returnString + "\n";
+    if(monsters.isEmpty()) {
+      return "";
+    }
+    String returnString = MONSTER_STRING;
+    for(Monster m: monsters) {
+      returnString += " " + m + "\n" + m.getInventoryString() + "\n" + HEALTH_STRING + m.getHealth();
+    }
+    return returnString + "\n";
   }
 
   /**
    * @return A string listing all the items in the room
    */
   private String getItemString() {
-      if(items.isEmpty()) return "";
-      String returnString = ITEM_STRING;
-      for(Item i: items) {
-          returnString += " " + i;
-      }
-      return returnString + "\n";
+    if(items.isEmpty()) {
+      return "";
+    }
+    String returnString = ITEM_STRING;
+    for(Item i: items) {
+      returnString += " " + i;
+    }
+    return returnString + "\n";
   }
 
   /**
@@ -175,7 +185,7 @@ public class Room
    * @return true if the room has the specific item, false if not.
    */
   public boolean hasItem(Item i) {
-      return items.contains(i);
+    return items.contains(i);
   }
 
   /**
@@ -186,7 +196,7 @@ public class Room
    */
   public Room getExit(Direction direction)
   {
-      return exits.get(direction);
+    return exits.get(direction);
   }
 
   /**
@@ -194,7 +204,7 @@ public class Room
    * @return list of items in the Room
    */
   public List<Item> getItems() {
-	  return items;
+    return items;
   }
 
   /**
@@ -202,7 +212,7 @@ public class Room
    * @return The name of the room
    */
   public String getRoomName(){
-	  return description;
+    return description;
   }
 
   /**
@@ -210,7 +220,7 @@ public class Room
    * @return true if room is locked, false if not.
    */
   public boolean getLocked(){
-	  return locked;
+    return locked;
   }
 
   /**
@@ -218,6 +228,6 @@ public class Room
    * @param true to set it to locked, false to unlock
    */
   public void setLocked(boolean b){
-	  locked = b;
+    locked = b;
   }
 }
