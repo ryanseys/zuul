@@ -62,12 +62,8 @@ public class Command {
     if((firstWord == CommandWords.FIGHT) ||
         (firstWord == CommandWords.HELP) ||
         (firstWord == CommandWords.QUIT) ||
-        (firstWord == CommandWords.EAT)) {
-      return false;
-    }
-    else {
-      return true;
-    }
+        (firstWord == CommandWords.EAT)) return false;
+    else return true;
   }
 
   /**
@@ -85,19 +81,11 @@ public class Command {
    * This is useful for undoing commands.
    */
   public Command getOpposite() {
-    if(!isUndoable()) {
-      return null;
-    }
+    if(!isUndoable()) return null;
     else {
-      if(firstWord == CommandWords.GO) {
-        return new Command(CommandWords.GO, ((Direction) secondWord).getOpposite());
-      }
-      else if(firstWord == CommandWords.PICKUP) {
-        return new Command(CommandWords.DROP, secondWord);
-      }
-      else if(firstWord == CommandWords.DROP) {
-        return new Command(CommandWords.PICKUP, secondWord);
-      }
+      if(firstWord == CommandWords.GO) return new Command(CommandWords.GO, ((Direction) secondWord).getOpposite());
+      else if(firstWord == CommandWords.PICKUP) return new Command(CommandWords.DROP, secondWord);
+      else if(firstWord == CommandWords.DROP) return new Command(CommandWords.PICKUP, secondWord);
       return null;
     }
   }
@@ -108,16 +96,12 @@ public class Command {
    * instruct the player to do a certain thing.
    */
   public static Command parse(String command) {
-    if((command == "") || (command == null)) {
-      return null;
-    }
+    if((command == "") || (command == null)) return null;
     command = command.toUpperCase().trim();
     String[] commands = command.split(" ");
     String first = commands[0];
     String second = null;
-    if(commands.length == 2) {
-      second = commands[1];
-    }
+    if(commands.length == 2) second = commands[1];
     CommandWords cmdword;
     //try to get the enum for that word
     try {
@@ -127,29 +111,19 @@ public class Command {
       return null;
     }
 
-    if(cmdword != null) {
-      if(second == null ) {
-        return new Command(cmdword, null);
+    if(cmdword != null) if(second == null ) return new Command(cmdword, null);
+    else if(cmdword == CommandWords.GO) {
+      Direction dir;
+      //try to get the enum for that
+      try {
+        dir = Direction.valueOf(second); //get direction
       }
-      else {
-        if(cmdword == CommandWords.GO) {
-          Direction dir;
-          //try to get the enum for that
-          try {
-            dir = Direction.valueOf(second); //get direction
-          }
-          catch(Exception e) {
-            return null;
-          }
-          if(dir != null) {
-            return new Command(cmdword, dir);
-          }
-        }
-        else if ((cmdword == CommandWords.DROP) || (cmdword == CommandWords.PICKUP) || (cmdword == CommandWords.EAT)) {
-          return new Command(cmdword, new Item(second, 0, 0, false)); //assume weight and value to be zero
-        }
+      catch(Exception e) {
+        return null;
       }
+      if(dir != null) return new Command(cmdword, dir);
     }
+    else if ((cmdword == CommandWords.DROP) || (cmdword == CommandWords.PICKUP) || (cmdword == CommandWords.EAT)) return new Command(cmdword, new Item(second, 0, 0, false)); //assume weight and value to be zero
     return null;
   }
 
