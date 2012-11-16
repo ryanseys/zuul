@@ -97,7 +97,7 @@ public class Game {
 	  	Monster Monster1 = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1", eastRoom);
 	  	eastRoom.addMonster(Monster1);
 	  	Monster1.addItem(new Item("Map", 0, 0, true));
-	  	Monster1.addItem(new Item("Hatchet", 10, 0, true));
+	  	Monster1.addItem(new Item("Claws", 10, 0, true));
 
 	  	Monster Boss = new Monster(100, 2, "Boss", southRoom);
 	  	southRoom.addMonster(Boss);

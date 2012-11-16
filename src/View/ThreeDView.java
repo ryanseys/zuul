@@ -57,9 +57,9 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 {
 	private JMenuItem resetGame, objective, hint, quit; //commands
 	private JMenuBar menuBar;
-	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
+	private JButton /*undo, redo, northRoom, southRoom, eastRoom, westRoom,*/ pickup,/* fight,*/ eat, drop, inspect;
 	private JLabel currentRoom, mapLabel;
-	private JTextArea consoleField;
+	private JTextArea healthField;
 	private JPanel /*consolePanel,*/ inventoryPanel,/* centralPanel, undoRedoPanel, */mapPanel;
 	private Player p;
 	private JList inventoryList;
@@ -255,9 +255,13 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    inventoryRightPanel.add(inspect);
 
 	    JPanel interfacePanel = new JPanel();
-	    interfacePanel.setLayout(new GridLayout(2, 1));
+	    interfacePanel.setLayout(new GridLayout(3, 1));
 
+	    healthField = new JTextArea("Player Health: " + p.getHealth());
+	    healthField.setEditable(false);
+	    
 	    interfacePanel.add(mapPanel);
+	    interfacePanel.add(healthField);
 	    interfacePanel.add(inventoryPanel);
 //	    undoRedoPanel.add(undo);
 //	    undoRedoPanel.add(redo);
@@ -310,37 +314,37 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	@Override
 	public void update() {
 		Room currentRoom = p.getCurrentRoom();
-		if (currentRoom.getExit(Direction.NORTH) == null) {
-			//northRoom.setEnabled(false);
-		} else {
-			//northRoom.setEnabled(true);
-		}
-		if (currentRoom.getExit(Direction.SOUTH) == null) {
-			//southRoom.setEnabled(false);
-		} else {
-			//southRoom.setEnabled(true);
-		}
-		if (currentRoom.getExit(Direction.EAST)== null) {
-			//eastRoom.setEnabled(false);
-		} else {
-			//eastRoom.setEnabled(true);
-		}
-		if (currentRoom.getExit(Direction.WEST) == null) {
-			//westRoom.setEnabled(false);
-		} else {
-			//westRoom.setEnabled(true);
-		}
-
-		if (p.canUndo()) {
-			//undo.setEnabled(true);
-		} else {
-			//undo.setEnabled(false);
-		}
-		if (p.canRedo()) {
-			//redo.setEnabled(true);
-		} else {
-			//redo.setEnabled(false);
-		}
+//		if (currentRoom.getExit(Direction.NORTH) == null) {
+//			//northRoom.setEnabled(false);
+//		} else {
+//			//northRoom.setEnabled(true);
+//		}
+//		if (currentRoom.getExit(Direction.SOUTH) == null) {
+//			//southRoom.setEnabled(false);
+//		} else {
+//			//southRoom.setEnabled(true);
+//		}
+//		if (currentRoom.getExit(Direction.EAST)== null) {
+//			//eastRoom.setEnabled(false);
+//		} else {
+//			//eastRoom.setEnabled(true);
+//		}
+//		if (currentRoom.getExit(Direction.WEST) == null) {
+//			//westRoom.setEnabled(false);
+//		} else {
+//			//westRoom.setEnabled(true);
+//		}
+//
+//		if (p.canUndo()) {
+//			//undo.setEnabled(true);
+//		} else {
+//			//undo.setEnabled(false);
+//		}
+//		if (p.canRedo()) {
+//			//redo.setEnabled(true);
+//		} else {
+//			//redo.setEnabled(false);
+//		}
 
 
 		if(!p.getCurrentRoom().getItems().isEmpty()){
@@ -353,17 +357,18 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		for (Item i :p.getInventory())
 			inventoryModel.addElement(i);
 
-		if(p.getCurrentRoom().hasMonsters()) {
-			//fight.setEnabled(true);
-		} else {
-			//fight.setEnabled(false);
-		}
+//		if(p.getCurrentRoom().hasMonsters()) {
+//			//fight.setEnabled(true);
+//		} else {
+//			//fight.setEnabled(false);
+//		}
 		drop.setEnabled(false);
 		eat.setEnabled(false);
 		inspect.setEnabled(false);
 	//	consoleField.setText(updateConsole());
 		updateMapPanel();
-
+		mapPanel.validate();
+		updateHealthField();
 	}
 
 	/**
@@ -373,7 +378,8 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	 */
     private void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
-		   mapPanel.remove(mapLabel);
+		   mapPanel.removeAll();
+
 	   if(p.getInventory().contains(new Item("Map", true))){
 		if(s.equals("NorthRoom1")){
 		    mapLabel = new JLabel(new ImageIcon("rooms_northroom1.png"));
@@ -397,7 +403,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		   mapPanel.remove(mapLabel);
 		   mapLabel = new JLabel(new ImageIcon("rooms_noMap.png"));
 	   }
-
+	  
 	   mapPanel.add(mapLabel);
 	}
 
@@ -467,7 +473,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	 * This method pops up a dialog that congratulates the player on winning the game.
 	 */
 	private void win(){
-		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested all the monsters!\nYou win!");
+		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested the monsters!\nYou win!");
 		quit();
 	}
 
@@ -507,13 +513,13 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	 * This method is used to update the console showing the player and monster health.
 	 * @return : The string that should be placed onto the console.
 	 */
-	private String updateConsole(){
-		String s = "";
-		s += ("Player Health: " + p.getHealth() + "\n");
-		if(p.getCurrentRoom().getMonster()!=null){
-			s+= ("Monster Health: " + p.getCurrentRoom().getMonster().getHealth());
+	private void updateHealthField(){
+		String s = "Player Health: " + p.getHealth();
+		if (p.getCurrentRoom().hasMonsters()) {
+			s += "\nMonster Health: "
+					+ p.getCurrentRoom().getMonster().getHealth();
 		}
-		return s;
+		healthField.setText(s);
 	}
 	
 	/**
@@ -562,6 +568,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 			p.doCommand(Command.parse("Undo"));
 		}
 		p.reset();
+		setupView();
 		unlocked = false;
 		resetInitialize();
 	}
@@ -592,16 +599,18 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		Room east = p.getCurrentRoom().getExit(Direction.EAST);
 		Monster monster1 = new Monster(Monster.MAX_HEALTH,
 				Monster.DEFAULT_LEVEL, "Monster1", east);
-		if (!east.getItems().contains(monster1)) {
-			west.addMonster(monster1);
+		east.removeItem(new Item("Claws", 10, 0, true));
+		east.removeItem(new Item("Map", 0, 0, true));
+		if (!east.hasMonsters()) {
 			east.addMonster(monster1);
 			monster1.addItem(new Item("Map", 0, 0, true));
-			monster1.addItem(new Item("Hatchet", 10, 0, true));
+			monster1.addItem(new Item("Claws", 10, 0, true));
 		}
 		Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
 		Monster boss = new Monster(100, 2, "Boss", south);
-		if (!east.getItems().contains(boss)) {
-			west.addMonster(boss);
+		south.removeItem(new Item("Key", 0, 0, true));
+		south.removeItem(new Item("Flamethrower", 30, 0, true));
+		if (!south.hasMonsters()) {
 			south.addMonster(boss);
 			boss.addItem(new Item("Flamethrower", 30, 0, true));
 			boss.addItem(new Item("Key", 0, 0, true));
