@@ -66,7 +66,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	private DefaultListModel inventoryModel;
 	private boolean unlocked = false;
 
-	private Polygon doorWest, doorEast, doorNorth, chest, monster, doorSouth;
+	private Polygon doorWest, doorEast, doorNorth, chest, monster, doorSouth, treasure;
 	private JLayeredPane consolePanel;
 	private JLabel backgroundLabel;
 	
@@ -77,6 +77,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
     private JPanel southPanel = new JPanel();
 	private JPanel monsterPanel = new JPanel();
 	private JPanel chestPanel = new JPanel();
+	private JPanel treasurePanel = new JPanel();
 	private JPanel bossPanel = new JPanel();
 	private JPanel bossPanel2 = new JPanel();
 	private JPanel scene = new JPanel();
@@ -88,12 +89,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
 	    this.setExtendedState(this.MAXIMIZED_BOTH);
-	    /*
-	    this.setLayout(new BorderLayout());
-	    consolePanel = new JLayeredPane();
-	    this.add(consolePanel, BorderLayout.CENTER);
-	    consolePanel.setBounds(0,0,600,400);
-		*/
 	    
 	    this.setLayout(new BorderLayout());
 	    scene.setLayout(new BorderLayout());
@@ -146,36 +141,43 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    doorSouth = new Polygon();
 	    chest = new Polygon();
 	    monster = new Polygon();
+	    treasure = new Polygon();
+	    //still some strange instances where mouse is not found inside polygon
 	    
-	    doorWest.addPoint(83,  270);
-	    doorWest.addPoint(83, 481);
-	    doorWest.addPoint(156, 188);
-	    doorWest.addPoint(156, 399);
+	    doorWest.addPoint(103, 247);
+	    doorWest.addPoint(103, 458);
+	    doorWest.addPoint(174, 166);
+	    doorWest.addPoint(174, 374);
 	    
-	    doorEast.addPoint(652, 189);
-	    doorEast.addPoint(652, 395);
-	    doorEast.addPoint(725, 271);
-	    doorEast.addPoint(725, 479);
+	    doorEast.addPoint(632, 166);
+	    doorEast.addPoint(632, 374);
+	    doorEast.addPoint(705, 247);
+	    doorEast.addPoint(705, 459);
 	    
 	    doorNorth.addPoint(366, 152);
 	    doorNorth.addPoint(366, 314);
 	    doorNorth.addPoint(458, 152);
 	    doorNorth.addPoint(458, 314);
 	    
-	    doorSouth.addPoint(382, 494);
-	    doorSouth.addPoint(465, 494);
-	    doorSouth.addPoint(465, 575);
-	    doorSouth.addPoint(382, 575);
+	    doorSouth.addPoint(363, 495);
+	    doorSouth.addPoint(450, 495);
+	    doorSouth.addPoint(450, 573);
+	    doorSouth.addPoint(363, 573);
 	    
-	    chest.addPoint(217,  347);
-	    chest.addPoint(369,  347);
-	    chest.addPoint(369,  483);
-	    chest.addPoint(217,  483);
+	    chest.addPoint(197, 280);
+	    chest.addPoint(351, 280);
+	    chest.addPoint(351, 430);
+	    chest.addPoint(197, 430);
 	    
-	    monster.addPoint(472,  275);
-	    monster.addPoint(609,  275);
-	    monster.addPoint(609,  487);
-	    monster.addPoint(472,  487);
+	    monster.addPoint(472, 170);
+	    monster.addPoint(609, 170);
+	    monster.addPoint(609, 487);
+	    monster.addPoint(472, 487);
+	    
+	    treasure.addPoint(0, 0);
+	    treasure.addPoint(600, 0);
+	    treasure.addPoint(0, 400);
+	    treasure.addPoint(600, 400);
 	    
 	    backgroundLabel.addMouseListener(new MouseListener() {
 			
@@ -665,6 +667,13 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	}
 	
 	private void handleCoordinates(int x, int y){
+		
+		if(p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
+			if(treasure.contains(x, y)){
+				win();
+			} 
+		}
+		
 		if(doorEast.contains(x, y)){
 			p.doCommand(Command.parse("Go East"));
 		} else if(doorWest.contains(x, y)){
@@ -727,10 +736,17 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		consolePanel.removeAll();
 		consolePanel.add(backgroundPanel, new Integer(0), 0);
 		JLabel chestLabel = new JLabel(new ImageIcon("chest_in_room.png"));
-		chestPanel.add(chestLabel);
-		chestPanel.setBounds(210,278, 165, 160);
-		chestPanel.setBackground(new Color(185, 122, 87));
-		consolePanel.add(chestPanel, new Integer(1), 0);
+		if(!p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
+			chestPanel.add(chestLabel);
+			chestPanel.setBounds(210,278, 165, 160);
+			chestPanel.setBackground(new Color(185, 122, 87));
+			consolePanel.add(chestPanel, new Integer(1), 0);
+		} else {
+			JLabel treasureLabel = new JLabel(new ImageIcon("treasure_in_room.png"));
+			treasurePanel.add(treasureLabel);
+			treasurePanel.setBounds(75, 0, 700, 500);
+			consolePanel.add(treasurePanel, new Integer(1), 0);
+		}
 		if(p.getCurrentRoom().hasMonsters()){
 			if(p.getCurrentRoom().getMonster().getName().equals("Boss")){
 				JLabel bossLabel = new JLabel(new ImageIcon("boss1_in_room.png"));
