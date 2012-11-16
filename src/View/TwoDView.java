@@ -38,7 +38,7 @@ import zuul.Room;
 @SuppressWarnings("serial")
 public class TwoDView extends View implements  ActionListener
 {
-	private JMenuItem resetGame, objective, hint, quit; //commands
+	private JMenuItem resetGame, objective, hint, quit; 
 	private JMenuBar menuBar;
 	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
 	private JLabel currentRoom, mapLabel;
@@ -185,12 +185,8 @@ public class TwoDView extends View implements  ActionListener
 	    update();
 	}
 
-	/**
-	 * This is the overarching method used to update everything in the class.
-	 * It will change buttons as required and enables/disables them.
-	 * It updates all of the panels as well.
-	 */
-	protected void update() {
+	@Override
+	public void update() {
 		Room currentRoom = p.getCurrentRoom();
 		if (currentRoom.getExit(Direction.NORTH) == null) {
 			northRoom.setEnabled(false);
@@ -248,12 +244,8 @@ public class TwoDView extends View implements  ActionListener
 
 	}
 
-	/**
-	 * This method updates the mapPanel with the images of the minimap.
-	 * If there is no map in the players inventory, 
-	 * then a picture message is shown telling the player to find the map.
-	 */
-    protected void updateMapPanel(){
+	@Override
+	protected void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
 		   mapPanel.remove(mapLabel);
 	   if(p.getInventory().contains(new Item("Map", true))){
@@ -283,31 +275,15 @@ public class TwoDView extends View implements  ActionListener
 	   mapPanel.add(mapLabel);
 	}
 
-	/**
-	 * This method prints out the objective of the game.
-	 * @return : Returns a string informing the player of the game objective.
-	 */
-    protected String getObjective(){
+	@Override
+	protected String getObjective(){
 		String str = "";
 		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
 		return str;
 	}
 
 
-	/*
-	 * This method is not used in this milestone.
-	 */
-//	public String getCommands(){
-//		String str="Your command words are:\n";
-//		for (CommandWords commandWord : CommandWords.values()) {
-//			str+= commandWord + " ";
-//		}
-//		return str;
-//	}
-
-	/**
-	 * This method pops up a dialog that informs the player of the damage done to and from the player.
-	 */
+	@Override
 	protected void fightPopUp(){
 		Monster m = p.getCurrentRoom().getMonster();
 		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
@@ -315,9 +291,7 @@ public class TwoDView extends View implements  ActionListener
 	}
 
 
-	/**
-	 * This method pops up a dialog that gives the player a hint as to what to do next.
-	 */
+	@Override
 	protected void getHint(){
 		if(!p.getInventory().contains(new Item("Map", true))){
 			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room east of the startroom!");
@@ -328,28 +302,20 @@ public class TwoDView extends View implements  ActionListener
 		}
 	}
 
-	/**
-	 * This method pops up a dialog that informs the player that they have been defeated by a monster.
-	 */
+	@Override
 	protected void gameDone() {
 		JOptionPane.showMessageDialog(this, "You have been defeated!");
 		quit();
 	}
 
-	/**
-	 * This method pops up a dialog that congratulates the player on winning the game.
-	 */
+	@Override
 	protected void win(){
 		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested all the monsters!\nYou win!");
 		quit();
 	}
 
 
-	/**
-	 * If the monster dies, A message should be printed accordingly.
-	 * This method creates a popup that shows the items that the monster dropped.
-	 * @param m : The monster that has died.
-	 */
+	@Override
 	protected void monsterDead(Monster m) {
 		String s = ("You defeated " + m.getName() + "!\n");
 		if(!m.getInventory().isEmpty()){
@@ -375,12 +341,7 @@ public class TwoDView extends View implements  ActionListener
 		return s;
 	}
 	
-	/**
-	 * Used when the inspect button is clicked.
-	 * This method returns the image icon associated with the item when inspect is clicked.
-	 * @param i : The item that is selected.
-	 * @return : The corresponding image that represents the item.
-	 */
+	@Override
 	protected ImageIcon getImageIcon(Item i){
 		ImageIcon icon = null;;
 		if(i.equals(new Item("Sword", true))){
@@ -405,16 +366,12 @@ public class TwoDView extends View implements  ActionListener
 			return icon;
 	}
 
-	/**
-	 * Quit method, used to exit the game.
-	 */
+	@Override
 	protected void quit() {
 		System.exit(0);
 	}
 
-	/**
-	 * Reset method, used to start the game anew.
-	 */
+	@Override
 	protected void reset(){
 		while(p.canUndo()){
 			p.doCommand(Command.parse("Undo"));
@@ -424,10 +381,7 @@ public class TwoDView extends View implements  ActionListener
 		resetInitialize();
 	}
 
-	/**
-	 * Initialize the game with the original monsters and items
-	 * in the case that monsters were defeated, or items were eaten.
-	 */
+	@Override
 	protected void resetInitialize() {
 		Room west = p.getCurrentRoom().getExit(Direction.WEST);
 		Item r1 = new Item("Apple", 10, 0, false);

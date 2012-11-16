@@ -41,7 +41,7 @@ import zuul.Room;
 @SuppressWarnings("serial")
 public class ThreeDView extends View implements ActionListener
 {
-	private JMenuItem resetGame, objective, hint, quit, undo, redo; //commands
+	private JMenuItem resetGame, objective, hint, quit, undo, redo; 
 	private JMenuBar menuBar;
 	private JButton pickup, eat, drop, inspect;
 	private JLabel mapLabel;
@@ -266,11 +266,7 @@ public class ThreeDView extends View implements ActionListener
 	    update();
 	}
 
-	/**
-	 * This is the overarching method used to update everything in the class.
-	 * It will change buttons as required and enables/disables them.
-	 * It updates all of the panels as well.
-	 */
+	@Override
 	public void update() {
 		p.getCurrentRoom();
 
@@ -303,11 +299,7 @@ public class ThreeDView extends View implements ActionListener
 		updateHealthField();
 	}
 
-	/**
-	 * This method updates the mapPanel with the images of the minimap.
-	 * If there is no map in the players inventory, 
-	 * then a picture message is shown telling the player to find the map.
-	 */
+	@Override
     protected void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
 		   mapPanel.removeAll();
@@ -339,31 +331,27 @@ public class ThreeDView extends View implements ActionListener
 	   mapPanel.add(mapLabel);
 	}
 
-	/**
-	 * This method prints out the objective of the game.
-	 * @return : Returns a string informing the player of the game objective.
-	 */
-	private String getObjective(){
+	
+    @Override
+    protected String getObjective(){
 		String str = "";
 		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
 		return str;
 	}
 
 
-	/**
-	 * This method pops up a dialog that informs the player of the damage done to and from the player.
-	 */
-	private void fightPopUp(){
+	
+	@Override
+	protected void fightPopUp(){
 		Monster m = p.getCurrentRoom().getMonster();
 		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
 				 + m.getName() + " attacked " + p.getName() + " and did " + m.getBestItem().getValue()*m.getLevel()  + " Damage\n");
 	}
 
 
-	/**
-	 * This method pops up a dialog that gives the player a hint as to what to do next.
-	 */
-	private void getHint(){
+	
+	@Override
+	protected void getHint(){
 		if(!p.getInventory().contains(new Item("Map", true))){
 			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room east of the startroom!");
 		} else if(!p.getInventory().contains(new Item("Key", true))){
@@ -373,31 +361,22 @@ public class ThreeDView extends View implements ActionListener
 		}
 	}
 
-	/**
-	 * This method pops up a dialog that informs the player that they have been defeated by a monster.
-	 */
 	@Override
-	public void gameDone() {
+	protected void gameDone() {
 		JOptionPane.showMessageDialog(this, "You have been defeated!");
 		quit();
 	}
 
-	/**
-	 * This method pops up a dialog that congratulates the player on winning the game.
-	 */
-	private void win(){
+	
+	@Override
+	protected void win(){
 		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested the monsters!\nYou win!");
 		quit();
 	}
 
 
-	/**
-	 * If the monster dies, A message should be printed accordingly.
-	 * This method creates a popup that shows the items that the monster dropped.
-	 * @param m : The monster that has died.
-	 */
 	@Override
-	public void monsterDead(Monster m) {
+	protected void monsterDead(Monster m) {
 		String s = ("You defeated " + m.getName() + "!\n");
 		if(!m.getInventory().isEmpty()){
 			s+= m.getName() + " dropped the following item(s):\n" ;
@@ -413,7 +392,7 @@ public class ThreeDView extends View implements ActionListener
 	 * This method is used to update the console showing the player and monster health.
 	 * @return : The string that should be placed onto the console.
 	 */
-	private void updateHealthField(){
+	protected void updateHealthField(){
 		String s = "Player Health: " + p.getHealth();
 		if (p.getCurrentRoom().hasMonsters()) {
 			s += "\nMonster Health: "
@@ -422,13 +401,8 @@ public class ThreeDView extends View implements ActionListener
 		healthField.setText(s);
 	}
 	
-	/**
-	 * Used when the inspect button is clicked.
-	 * This method returns the image icon associated with the item when inspect is clicked.
-	 * @param i : The item that is selected.
-	 * @return : The corresponding image that represents the item.
-	 */
-    private ImageIcon getImageIcon(Item i){
+	@Override
+	protected ImageIcon getImageIcon(Item i){
 		ImageIcon icon = null;;
 		if(i.equals(new Item("Sword", true))){
 			icon  = new ImageIcon("Images/sword.png");
@@ -452,18 +426,14 @@ public class ThreeDView extends View implements ActionListener
 			return icon;
 	}
 
-	/**
-	 * Quit method, used to exit the game.
-	 */
+	
 	@Override
-	public void quit() {
+	protected void quit() {
 		System.exit(0);
 	}
 
-	/**
-	 * Reset method, used to start the game anew.
-	 */
-	private void reset(){
+	@Override
+	protected void reset(){
 		while(p.canUndo()){
 			p.doCommand(Command.parse("Undo"));
 		}
@@ -473,11 +443,8 @@ public class ThreeDView extends View implements ActionListener
 		resetInitialize();
 	}
 
-	/**
-	 * Initialize the game with the original monsters and items
-	 * in the case that monsters were defeated, or items were eaten.
-	 */
-	private void resetInitialize() {
+	@Override
+	protected void resetInitialize() {
 		Room west = p.getCurrentRoom().getExit(Direction.WEST);
 		Item r1 = new Item("Apple", 10, 0, false);
 		if (!west.getItems().contains(r1)) {
@@ -565,7 +532,7 @@ public class ThreeDView extends View implements ActionListener
 		setupView();
 	}
 	
-	private void handleCoordinates(int x, int y){
+	protected void handleCoordinates(int x, int y){
 		
 		if(p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
 			if(treasure.contains(x, y)){
@@ -634,7 +601,7 @@ public class ThreeDView extends View implements ActionListener
 		setupView();
 	}
 	
-	private void setupView(){
+	protected void setupView(){
 		consolePanel.removeAll();
 		consolePanel.add(backgroundPanel, new Integer(0), 0);
 		

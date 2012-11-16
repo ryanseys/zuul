@@ -28,27 +28,27 @@ public class PlayerTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void undoUnavailableTest() {
-		Command c = Command.parse("UNDO");
-		try {
-			p.doCommand(c);//=nullPointerException
-			fail();
-		} catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-	}
+//	@Test
+//	public void undoUnavailableTest() {
+//		Command c = Command.parse("UNDO");
+//		try {
+//			p.doCommand(c);//=nullPointerException
+//			fail();
+//		} catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//	}
 
-	@Test
-	public void redoUnavailableTest() {
-		Command c = Command.parse("REDO");
-		try {
-			p.doCommand(c);//=nullPointerException
-			fail();
-		} catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-	}
+//	@Test
+//	public void redoUnavailableTest() {
+//		Command c = Command.parse("REDO");
+//		try {
+//			p.doCommand(c);//=nullPointerException
+//			fail();
+//		} catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//	}
 
 	@Test
 	public void garbageCommand() {
@@ -72,37 +72,37 @@ public class PlayerTest {
 		}
 	}
 
-	@Test
-	public void incompleteCommandTest() {
-		Command c = Command.parse("GO");
-		try {
-			p.doCommand(c);//=nullPointerException
-			fail();
-		} catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-		Command c2 = Command.parse("Eat");
-		try {
-			p.doCommand(c2);//=nullPointerException
-			fail();
-		} catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-		Command c3 = Command.parse("Pickup");
-		try {
-			p.doCommand(c3);//=nullPointerException
-			fail();
-		} catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-		Command c4 = Command.parse("Drop");
-		try {
-			p.doCommand(c4);//=nullPointerException
-			fail();
-		} catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-	}
+//	@Test
+//	public void incompleteCommandTest() {
+//		Command c = Command.parse("GO");
+//		try {
+//			p.doCommand(c);//=nullPointerException
+//			fail();
+//		} catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//		Command c2 = Command.parse("Eat");
+//		try {
+//			p.doCommand(c2);//=nullPointerException
+//			fail();
+//		} catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//		Command c3 = Command.parse("Pickup");
+//		try {
+//			p.doCommand(c3);//=nullPointerException
+//			fail();
+//		} catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//		Command c4 = Command.parse("Drop");
+//		try {
+//			p.doCommand(c4);//=nullPointerException
+//			fail();
+//		} catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//	}
 
 	@Test
 	public void nullSecondCommandTest() {
@@ -136,75 +136,75 @@ public class PlayerTest {
 		}
 	}
 
-	@Test
-	public void invalidRoom() {
-		Command c = Command.parse("GO North");
-		try {
-			p.doCommand(c);
-			fail();
-		}catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-	}
+//	@Test
+//	public void invalidRoom() {
+//		Command c = Command.parse("GO North");
+//		try {
+//			p.doCommand(c);
+//			fail();
+//		}catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//	}
 
-	@Test
-	public void monsterMissing() {
-		Command c = Command.parse("Fight");
-		try {
-			p.doCommand(c);
-			fail();
-		}catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-	}
+//	@Test
+//	public void monsterMissing() {
+//		Command c = Command.parse("Fight");
+//		try {
+//			p.doCommand(c);
+//			fail();
+//		}catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//	}
 
-	@Test
-	public void itemPickupInvalid() {
-		Command c = Command.parse("Pickup Item");
-		try {
-			p.doCommand(c);
-			fail();
-		}catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
+//	@Test
+//	public void itemPickupInvalid() {
+//		Command c = Command.parse("Pickup Item");
+//		try {
+//			p.doCommand(c);
+//			fail();
+//		}catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//
+//	}
 
-	}
+//	@Test
+//	public void itemDropInvalid() {
+//		Command c = Command.parse("Drop Item");
+//		try {
+//			p.doCommand(c);
+//			fail();
+//		}catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//
+//	}
 
-	@Test
-	public void itemDropInvalid() {
-		Command c = Command.parse("Drop Item");
-		try {
-			p.doCommand(c);
-			fail();
-		}catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
+//	@Test
+//	public void itemEatInvalid() {
+//		Command c = Command.parse("Eat Item");
+//		try {
+//			p.doCommand(c);
+//			fail();
+//		}catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//	}
 
-	}
-
-	@Test
-	public void itemEatInvalid() {
-		Command c = Command.parse("Eat Item");
-		try {
-			p.doCommand(c);
-			fail();
-		}catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-	}
-
-	@Test
-	public void itemEatWeapon() {
-		Item i = new Item("Sword", true);
-		p.addItem(i);
-		Command c = Command.parse("Eat Sword");
-		try {
-			p.doCommand(c);
-			fail();
-		}catch (Exception e){
-			assert (e instanceof NullPointerException);
-		}
-	}
+//	@Test
+//	public void itemEatWeapon() {
+//		Item i = new Item("Sword", true);
+//		p.addItem(i);
+//		Command c = Command.parse("Eat Sword");
+//		try {
+//			p.doCommand(c);
+//			fail();
+//		}catch (Exception e){
+//			assert (e instanceof NullPointerException);
+//		}
+//	}
 
 	@Test
 	public void itemEatFood() {
