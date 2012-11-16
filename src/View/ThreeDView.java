@@ -8,9 +8,12 @@
  */
 package View;
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
@@ -22,7 +25,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -37,6 +42,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
+import javax.swing.SpringLayout;
 
 import zuul.Command;
 import zuul.CommandWords;
@@ -73,6 +79,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	private JPanel chestPanel = new JPanel();
 	private JPanel bossPanel = new JPanel();
 	private JPanel bossPanel2 = new JPanel();
+	private JPanel scene = new JPanel();
 	
 	@SuppressWarnings("static-access")
 	public ThreeDView (Player p) {
@@ -80,68 +87,53 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
-	    //setLayout(new GridBagLayout());
 	    this.setExtendedState(this.MAXIMIZED_BOTH);
-
-	    //this.setPreferredSize(new Dimension(600, 400));
+	    /*
 	    this.setLayout(new BorderLayout());
-		 // setLayout(new GridBagLayout());
-
 	    consolePanel = new JLayeredPane();
-//	    LayoutManager overlay = new OverlayLayout(consolePanel);
-//	    consolePanel.setLayout(overlay);
-	   	    
-	   // this.add(consolePanel);
 	    this.add(consolePanel, BorderLayout.CENTER);
 	    consolePanel.setBounds(0,0,600,400);
-
-	   // consolePanel.setOpaque(true);
+		*/
 	    
+	    this.setLayout(new BorderLayout());
+	    scene.setLayout(new BorderLayout());
+	    consolePanel = new JLayeredPane();
+	    scene.add(consolePanel, BorderLayout.CENTER);
+	    consolePanel.setBounds(0,0,600,400);
+	    scene.setBounds(0,0,600,400);
+	    this.add(scene, BorderLayout.CENTER);
 	    
-
-	    
-//	    backgroundPanel.setBackground(Color.blue);
+	    	    
 	    backgroundLabel = new JLabel(new ImageIcon("background_plain.png"));
-	    backgroundPanel.add(backgroundLabel);// JLayeredPane.DEFAULT_LAYER);
+	    backgroundPanel.add(backgroundLabel);
 	    backgroundPanel.setBounds(0, 0, 850, 900);
 	    backgroundPanel.setOpaque(true);
 
-//	    JLabel westLabel = new JLabel(new ImageIcon("west_door.png"));
-//	    westPanel.add(westLabel);
-//	    //westPanel.setBackground(Color.green);
-//	    westPanel.setBounds(120,158, 80, 310);
-//	    //westPanel.setOpaque(true);
 	    consolePanel.add(backgroundPanel, new Integer(0), 0);
-//	    consolePanel.add(westPanel, new Integer(1), 0);// JLayeredPane.PALETTE_LAYER);
-		
+
+	    	    
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    undo = new JButton("UNDO");
-	    redo = new JButton("REDO");
-	    northRoom = new JButton("Go North");
-	    eastRoom = new JButton("Go East");
-	    westRoom = new JButton("Go West");
-	    southRoom = new JButton("Go South");
+//	    undo = new JButton("UNDO");
+//	    redo = new JButton("REDO");
+//	    northRoom = new JButton("Go North");
+//	    eastRoom = new JButton("Go East");
+//	    westRoom = new JButton("Go West");
+//	    southRoom = new JButton("Go South");
 	    pickup = new JButton("Pickup");
-	    fight = new JButton ("Fight");
+//	    fight = new JButton ("Fight");
 	    eat = new JButton ("Eat");
 	    drop = new JButton ("Drop");
 	    inspect = new JButton ("Inspect");
 
 
-	    undo.addActionListener(this);
-	    redo.addActionListener(this);
-	    northRoom.addActionListener(this);
-	    eastRoom.addActionListener(this);
-	    westRoom.addActionListener(this);
-	    southRoom.addActionListener(this);
-	    pickup.addActionListener(this);
-	    fight.addActionListener(this);
+//	    undo.addActionListener(this);
+//	    redo.addActionListener(this);
+//	    northRoom.addActionListener(this);
+//	    eastRoom.addActionListener(this);
+//	    westRoom.addActionListener(this);
+//	    southRoom.addActionListener(this);
+//	    pickup.addActionListener(this);
+//	    fight.addActionListener(this);
 	    drop.addActionListener(this);
 	    eat.addActionListener(this);
 	    inspect.addActionListener(this);
@@ -192,30 +184,14 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 				//System.out.println("" + arg0.getX() + " " + arg0.getY());
 				handleCoordinates(arg0.getX(), arg0.getY());
 			}
-			
 			@Override
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void mousePressed(MouseEvent arg0) {}
+			@Override 
+			public void mouseExited(MouseEvent arg0) {}
 			@Override
-			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
+			public void mouseEntered(MouseEvent arg0) {}
 			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseClicked(MouseEvent arg0) {}
 		});
 	    inventoryPanel = new JPanel();
 	    inventoryPanel.setLayout(new GridLayout(2, 1));
@@ -299,7 +275,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 //	    add(consolePanel);
 //	    add(southRoom);
 //	    add(inventoryPanel);
-//	    add(interfacePanel);
+	    this.add(interfacePanel, BorderLayout.EAST);//, c);
 
 	    JMenu addressMenu = new JMenu( "File" );
 	    menuBar.add( addressMenu );
@@ -335,35 +311,35 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	public void update() {
 		Room currentRoom = p.getCurrentRoom();
 		if (currentRoom.getExit(Direction.NORTH) == null) {
-			northRoom.setEnabled(false);
+			//northRoom.setEnabled(false);
 		} else {
-			northRoom.setEnabled(true);
+			//northRoom.setEnabled(true);
 		}
 		if (currentRoom.getExit(Direction.SOUTH) == null) {
-			southRoom.setEnabled(false);
+			//southRoom.setEnabled(false);
 		} else {
-			southRoom.setEnabled(true);
+			//southRoom.setEnabled(true);
 		}
 		if (currentRoom.getExit(Direction.EAST)== null) {
-			eastRoom.setEnabled(false);
+			//eastRoom.setEnabled(false);
 		} else {
-			eastRoom.setEnabled(true);
+			//eastRoom.setEnabled(true);
 		}
 		if (currentRoom.getExit(Direction.WEST) == null) {
-			westRoom.setEnabled(false);
+			//westRoom.setEnabled(false);
 		} else {
-			westRoom.setEnabled(true);
+			//westRoom.setEnabled(true);
 		}
 
 		if (p.canUndo()) {
-			undo.setEnabled(true);
+			//undo.setEnabled(true);
 		} else {
-			undo.setEnabled(false);
+			//undo.setEnabled(false);
 		}
 		if (p.canRedo()) {
-			redo.setEnabled(true);
+			//redo.setEnabled(true);
 		} else {
-			redo.setEnabled(false);
+			//redo.setEnabled(false);
 		}
 
 
@@ -378,9 +354,9 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 			inventoryModel.addElement(i);
 
 		if(p.getCurrentRoom().hasMonsters()) {
-			fight.setEnabled(true);
+			//fight.setEnabled(true);
 		} else {
-			fight.setEnabled(false);
+			//fight.setEnabled(false);
 		}
 		drop.setEnabled(false);
 		eat.setEnabled(false);
