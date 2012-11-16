@@ -7,10 +7,16 @@
  * change sets associated with this file on GitHub
  */
 package View;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -21,6 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -29,6 +36,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.OverlayLayout;
 
 import zuul.Command;
 import zuul.CommandWords;
@@ -53,8 +61,15 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	private boolean unlocked = false;
 
 	private Polygon doorWest, doorEast, doorNorth, chest, monster, doorSouth;
+	private JLayeredPane consolePanel;
+	private JLabel backgroundLabel;
 	
-	
+    private JPanel backgroundPanel = new JPanel();
+    private JPanel westPanel = new JPanel();
+    private JPanel eastPanel = new JPanel();
+    private JPanel northPanel = new JPanel();
+    private JPanel southPanel = new JPanel();
+	private JPanel monsterPanel = new JPanel();
 	
 	@SuppressWarnings("static-access")
 	public ThreeDView (Player p) {
@@ -62,9 +77,47 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
-	    setLayout(new GridBagLayout());
+	    //setLayout(new GridBagLayout());
 	    this.setExtendedState(this.MAXIMIZED_BOTH);
 
+	    //this.setPreferredSize(new Dimension(600, 400));
+	    this.setLayout(new BorderLayout());
+		 // setLayout(new GridBagLayout());
+
+	    consolePanel = new JLayeredPane();
+//	    LayoutManager overlay = new OverlayLayout(consolePanel);
+//	    consolePanel.setLayout(overlay);
+	   	    
+	   // this.add(consolePanel);
+	    this.add(consolePanel, BorderLayout.CENTER);
+	    consolePanel.setBounds(0,0,600,400);
+
+	   // consolePanel.setOpaque(true);
+	    
+	    
+
+	    
+//	    backgroundPanel.setBackground(Color.blue);
+	    backgroundLabel = new JLabel(new ImageIcon("background_plain.png"));
+	    backgroundPanel.add(backgroundLabel);// JLayeredPane.DEFAULT_LAYER);
+	    backgroundPanel.setBounds(0, 0, 850, 900);
+	    backgroundPanel.setOpaque(true);
+
+//	    JLabel westLabel = new JLabel(new ImageIcon("west_door.png"));
+//	    westPanel.add(westLabel);
+//	    //westPanel.setBackground(Color.green);
+//	    westPanel.setBounds(120,158, 80, 310);
+//	    //westPanel.setOpaque(true);
+	    consolePanel.add(backgroundPanel, new Integer(0), 0);
+//	    consolePanel.add(westPanel, new Integer(1), 0);// JLayeredPane.PALETTE_LAYER);
+		
+	    
+	    
+	    
+	    
+	    
+	    
+	    
 	    undo = new JButton("UNDO");
 	    redo = new JButton("REDO");
 	    northRoom = new JButton("Go North");
@@ -90,9 +143,8 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    eat.addActionListener(this);
 	    inspect.addActionListener(this);
 
-	    JPanel consolePanel = new JPanel();
-	    JLabel backgroundLabel = new JLabel(new ImageIcon("background_complete2.png"));
-	    consolePanel.add(backgroundLabel);
+	    
+	    setupView();
 	    doorWest = new Polygon();
 	    doorEast = new Polygon();
 	    doorNorth = new Polygon();
@@ -136,7 +188,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 			public void mouseReleased(MouseEvent arg0) {
 				//System.out.println("" + arg0.getX() + " " + arg0.getY());
 				handleCoordinates(arg0.getX(), arg0.getY());
-				
 			}
 			
 			@Override
@@ -242,10 +293,10 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 //	    add(westRoom);
 //	    add(centralPanel);
 //	    add(eastRoom);
-	    add(consolePanel);
+//	    add(consolePanel);
 //	    add(southRoom);
 //	    add(inventoryPanel);
-	    add(interfacePanel);
+//	    add(interfacePanel);
 
 	    JMenu addressMenu = new JMenu( "File" );
 	    menuBar.add( addressMenu );
@@ -673,6 +724,63 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 			}
 		}
 		update();
+		setupView();
+	}
+	
+	private void setupView(){
+//		JPanel monsterPanel = new JPanel();
+//	    JLabel monsterLabel = new JLabel(new ImageIcon("monster_in_room.png"));
+//	    monsterPanel.add(monsterLabel);
+	    
+//		JPanel northPanel = new JPanel();
+//	    JLabel northLabel = new JLabel(new ImageIcon("north_door.png"));
+//	    northPanel.add(northLabel);
+//		JPanel southPanel = new JPanel();
+//	    JLabel southLabel = new JLabel(new ImageIcon("south_door.png"));
+//	    southPanel.add(southLabel);
+//		JPanel eastPanel = new JPanel();
+//	    JLabel eastLabel = new JLabel(new ImageIcon("east_door.png"));
+//	    eastPanel.add(eastLabel);
+//		JPanel westPanel = new JPanel();
+//	    JLabel westLabel = new JLabel(new ImageIcon("west_door.png"));
+//	    westPanel.add(westLabel);
+//	    
+		consolePanel.removeAll();
+		consolePanel.add(backgroundPanel, new Integer(0), 0);
+		if(p.getCurrentRoom().hasMonsters()){
+			JLabel monsterLabel = new JLabel(new ImageIcon("monster_in_room.png"));
+			monsterPanel.add(monsterLabel);
+			monsterPanel.setBounds(400,146, 100, 180);
+		    consolePanel.add(monsterPanel, new Integer(1), 0);
+		} 
+		if(p.getCurrentRoom().getExit(Direction.NORTH)!=null){
+			JLabel northLabel = new JLabel(new ImageIcon("north_door.png"));
+		    northPanel.add(northLabel);
+		    northPanel.setBackground(new Color(185, 122, 87));
+		    northPanel.setBounds(385,146, 100, 180);
+		    consolePanel.add(northPanel, new Integer(1), 0);
+		}
+		if(p.getCurrentRoom().getExit(Direction.EAST)!=null){
+			JLabel eastLabel = new JLabel(new ImageIcon("east_door.png"));
+		    eastPanel.add(eastLabel);
+		    eastPanel.setBackground(new Color(185, 122, 87));
+		    eastPanel.setBounds(650,158, 80, 310);
+		    consolePanel.add(eastPanel, new Integer(1), 1);
+		}
+		if(p.getCurrentRoom().getExit(Direction.WEST)!=null){
+			JLabel westLabel = new JLabel(new ImageIcon("west_door.png"));
+		    westPanel.add(westLabel);
+		    westPanel.setBackground(new Color(185, 122, 87));
+		    westPanel.setBounds(120,158, 80, 310);
+		    consolePanel.add(westPanel, new Integer(1), 0);
+		}
+		if(p.getCurrentRoom().getExit(Direction.SOUTH)!=null){
+			JLabel southLabel = new JLabel(new ImageIcon("south_door.png"));
+		    southPanel.add(southLabel);
+		    southPanel.setBackground(new Color(69, 43, 29));
+		    southPanel.setBounds(385,490, 90, 90);
+		    consolePanel.add(southPanel, new Integer(1), 0);
+		}
 	}
 	
 	
