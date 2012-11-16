@@ -1,7 +1,8 @@
 package zuul;
 import java.io.IOException;
 
-import View.ThreeDView;
+import View.TwoDView;
+import View.View;
 
  /**
  * This class is the main class of the "World of Zuul" application.
@@ -22,7 +23,6 @@ import View.ThreeDView;
 
 public class Game {
 
-  private static ThreeDView view;
   private static Room startRoom;
 
   public static void main(String[] args) throws IOException {
@@ -30,7 +30,8 @@ public class Game {
   	initialize();
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
 
-  	view = new ThreeDView(p);
+  	View view;
+    view = new TwoDView(p);
   	view.update();
 	view.setVisible(true);
 

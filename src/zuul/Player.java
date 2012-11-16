@@ -18,7 +18,6 @@ public class Player extends Humanoid  {
 
 	private PlayerHistory playerHistory;
 	private Room currentRoom;
-//	private IView v;
 
 	/**
 	 * The Constructor for the player.
@@ -50,7 +49,6 @@ public class Player extends Humanoid  {
 	 */
 	public void doCommand(Command c){
 		boolean b = false;	//boolean variable, used to keep undo/redo off of the stack when not wanted.
-		Command temp = c;
 		if (c.getCommandWord().equals(CommandWords.UNDO)){	//If the undo command is called on another command(drop, pickup, go)
 			c = playerHistory.undo();						//Undo the command
 			b = true;
@@ -60,7 +58,6 @@ public class Player extends Humanoid  {
 		}
 
 		if (b == true && c == null) { 						//If there is nothing on the stack
-//			v.undoRedoUnavailable(temp.getCommandWord());	//Print an error accordingly
 			return;
 		}
 
@@ -68,7 +65,6 @@ public class Player extends Humanoid  {
 		if (c.getCommandWord().equals(CommandWords.GO)){	//If the command is go
 			Direction d = (Direction) c.getSecondWord();	//set the second word to be the direction
 			if (d == null) {								//If the direction is null
-//				v.inCompleteCommand();						//Print an error accordingly
 				return;
 			}
 
@@ -76,7 +72,6 @@ public class Player extends Humanoid  {
 			if(r!=null){									//if the room isn't null
 				currentRoom = r;							//the new room is the room in the specified direction
 			} else {
-//				v.invalidRoom();							//The room does not exist, print an error accordingly
 				return;
 			}
 			if(b == false){									//If b is false, the command is not an undo or a redo
@@ -86,7 +81,6 @@ public class Player extends Humanoid  {
 		} else if (c.getCommandWord().equals(CommandWords.FIGHT)){	//If the command is fight
 			Monster m = currentRoom.getMonster();					//get the monster in the room
 			if(m==null){											//If there are no monsters in the room, this will be null
-//				v.monsterMissing();									//Print an error accordingly
 			} else {
 				m.removeHealth(this.getBestItem().getValue());					//Remove health from the monster depending on the value of the best item in inventory
 				this.removeHealth((m.getBestItem().getValue()) * m.getLevel());	//Remove health from the player depending on the value of the best item on the monster multiplied with the monster's level
@@ -99,13 +93,10 @@ public class Player extends Humanoid  {
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){ //If the command is pickup
 			Item i = (Item) c.getSecondWord();						//Get the item from the second word
 			if (i == null) {										//If there is no input for the item
-//				v.inCompleteCommand();								//Print an error accordingly
 				return;
 			}
-			Item temp1 = i;
 			i = currentRoom.getRealItem(i);							//Determine if the item is real or not
 			if ( i == null) {										//If the item is null, it is not a real item
-//				v.itemInvalid(temp1);								//Print an error accordingly
 				return;
 			}
 			if(currentRoom.hasItem(i)){								//If the real item is in the current room
@@ -119,15 +110,12 @@ public class Player extends Humanoid  {
 		} else if (c.getCommandWord().equals(CommandWords.DROP)){	//If the command is drop
 			Item i = (Item) c.getSecondWord();						//Get the item from the second word
 			if (i == null) {										//If there is no input for the item
-//				v.inCompleteCommand();								//Print an error accordingly
 				return;
 			}
-			Item temp2 = i;
 
 			i = getRealItem(i);										//Determine if the item is real or not
 
 			if ( i == null) {										//If the item is null, it is not a real item
-//				v.itemInvalid(temp2);								//Print an error accordingly
 				return;
 			}
 			if(getInventory().contains(i)){							//If the item is in the player's inventory
@@ -142,12 +130,10 @@ public class Player extends Humanoid  {
 		} else if (c.getCommandWord().equals(CommandWords.EAT)){	//If the command is eat
 			Item i = (Item) c.getSecondWord();						//Get the item from the second word
 			if (i == null) {										//If there is no input for the item
-//				v.inCompleteCommand();								//Print an error accordingly
 				return;
 			}
 
 			if (!inventory.contains(i)) {							//If the inventory does not contain the item
-//				v.noItem(i);										//Print an error accordingly
 				return;
 			}
 
@@ -164,22 +150,10 @@ public class Player extends Humanoid  {
 				removeItem(i);										//Remove the item from the inventory, you can't eat it twice
 				playerHistory.removeItem(i);
 			}
-			else {
-//				v.eatingWeapon(i);									//Print an error if the item attempting to be eaten is a weapon
-			}
-
 		}
 
 		return;
 	}
-
-//	/**
-//	 * Setter for the view.
-//	 * @param v : The view.
-//	 */
-//	public void setView(IView v){
-//		this.v = v;
-//	}
 
 	/**
 	 * Getter for the current room.
@@ -191,7 +165,6 @@ public class Player extends Humanoid  {
 	
 	
 	/**
-
 	 * Asking the player if it can go back.
 	 * Its a wrapper for invoking the history of the player
 	 * @return <code> true </code> if the player go back,
@@ -223,5 +196,4 @@ public class Player extends Humanoid  {
 		playerHistory.clear();
 		setHealth(MAX_HEALTH);
 	}
-
 }
