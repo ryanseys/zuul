@@ -10,21 +10,11 @@ package View;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import zuul.Command;
@@ -36,27 +26,15 @@ import zuul.Player;
 import zuul.Room;
 
 @SuppressWarnings("serial")
-public class TwoDView extends View implements  ActionListener
+public class TwoDView extends View 
 {
-	private JMenuItem resetGame, objective, hint, quit; 
-	private JMenuBar menuBar;
-	private JButton undo, redo, northRoom, southRoom, eastRoom, westRoom, pickup, fight, eat, drop, inspect;
-	private JLabel currentRoom, mapLabel;
+	private JButton pickup, undo, redo, northRoom, southRoom, eastRoom, westRoom, fight;
+	private JLabel currentRoom;
 	private JTextArea consoleField;
-	private JPanel consolePanel, inventoryPanel, centralPanel, undoRedoPanel, mapPanel;
-	private Player p;
-	private JList inventoryList;
-	private DefaultListModel inventoryModel;
-	private boolean unlocked = false;
+	private JPanel consolePanel, centralPanel, undoRedoPanel;
 
-	@SuppressWarnings("static-access")
 	public TwoDView (Player p) {
-		this.p = p;
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		menuBar = new JMenuBar( );
-	    setJMenuBar( menuBar );
-	    setLayout(new GridLayout(3,3));
-	    this.setExtendedState(this.MAXIMIZED_BOTH);
+		super(p);
 
 	    undo = new JButton("UNDO");
 	    redo = new JButton("REDO");
@@ -64,12 +42,9 @@ public class TwoDView extends View implements  ActionListener
 	    eastRoom = new JButton("Go East");
 	    westRoom = new JButton("Go West");
 	    southRoom = new JButton("Go South");
-	    pickup = new JButton("Pickup");
 	    fight = new JButton ("Fight");
-	    eat = new JButton ("Eat");
-	    drop = new JButton ("Drop");
-	    inspect = new JButton ("Inspect");
-
+	    pickup = new JButton("Pickup");
+	    
 
 	    undo.addActionListener(this);
 	    redo.addActionListener(this);
@@ -79,69 +54,18 @@ public class TwoDView extends View implements  ActionListener
 	    southRoom.addActionListener(this);
 	    pickup.addActionListener(this);
 	    fight.addActionListener(this);
-	    drop.addActionListener(this);
-	    eat.addActionListener(this);
-	    inspect.addActionListener(this);
 
 	    consolePanel = new JPanel();
 	    consolePanel.setLayout(new GridLayout(3, 2));
-	    inventoryPanel = new JPanel();
 	    inventoryPanel.setLayout(new GridLayout(1, 2));
 	    centralPanel = new JPanel();
 	    undoRedoPanel = new JPanel();
-	    mapPanel = new JPanel();
-	    mapLabel = new JLabel(new ImageIcon("Images/rooms_startroom.png"));
-	    mapPanel.add(mapLabel);
 
 	    currentRoom = new JLabel("Current Room Actions:");
 	    centralPanel.add(currentRoom);
 	    centralPanel.add(pickup);
 	    centralPanel.add(fight);
 	    centralPanel.setBackground(new Color(255, 249, 206));
-	    inventoryModel = new DefaultListModel();
-	    inventoryList = new JList(inventoryModel);
-
-	    JScrollPane pane = new JScrollPane(inventoryList);
-	    
-	    inventoryList.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {}
-			@Override
-			public void mouseEntered(MouseEvent arg0) {}
-			@Override
-			public void mouseExited(MouseEvent arg0) {}
-			@Override
-			public void mousePressed(MouseEvent arg0) {}
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				Item selectedItem = (Item) inventoryList.getSelectedValue();
-				if(selectedItem == null) {
-					drop.setEnabled(false);
-					eat.setEnabled(false);
-					inspect.setEnabled(false);
-				}
-				else {
-					drop.setEnabled(true);
-					inspect.setEnabled(true);
-					if(!selectedItem.isWeapon()) {
-						eat.setEnabled(true);
-					}
-					else eat.setEnabled(false);
-				}
-			}
-
-	    });
-	    
-	    JPanel inventoryLeftPanel = new JPanel();
-	    inventoryLeftPanel.setLayout(new GridLayout(1, 1));
-	    JPanel inventoryRightPanel = new JPanel();
-	    inventoryRightPanel.setLayout(new GridLayout(3, 1));
-	    inventoryPanel.add(inventoryLeftPanel);
-	    inventoryPanel.add(inventoryRightPanel);
-	    inventoryLeftPanel.add(pane);
-	    inventoryRightPanel.add(eat);
-	    inventoryRightPanel.add(drop);
-	    inventoryRightPanel.add(inspect);
 
 	    undoRedoPanel.add(undo);
 	    undoRedoPanel.add(redo);
@@ -160,27 +84,7 @@ public class TwoDView extends View implements  ActionListener
 	    add(southRoom);
 	    add(inventoryPanel);
 
-	    JMenu addressMenu = new JMenu( "File" );
-	    menuBar.add( addressMenu );
-
-	    resetGame = new JMenuItem ( "Reset" );
-	    addressMenu.add( resetGame );
-	    resetGame.addActionListener(this);
-
-	    quit = new JMenuItem ( "Quit" );
 	    addressMenu.add( quit );
-	    quit.addActionListener(this);
-
-	    JMenu helpMenu = new JMenu( "Help" );
-	    menuBar.add(helpMenu);
-
-	    objective = new JMenuItem ( "Objective" );
-	    helpMenu.add( objective );
-	    objective.addActionListener(this);
-
-	    hint = new JMenuItem("Hint");
-	    helpMenu.add(hint);
-	    hint.addActionListener(this);
 
 	    update();
 	}
@@ -227,105 +131,17 @@ public class TwoDView extends View implements  ActionListener
 			pickup.setEnabled(false);
 		}
 
-		inventoryModel.removeAllElements();
-		for (Item i :p.getInventory())
-			inventoryModel.addElement(i);
-
+		super.update();
 		if(p.getCurrentRoom().hasMonsters()) {
 			fight.setEnabled(true);
 		} else {
 			fight.setEnabled(false);
 		}
-		drop.setEnabled(false);
-		eat.setEnabled(false);
-		inspect.setEnabled(false);
 		consoleField.setText(updateConsole());
-		updateMapPanel();
-
-	}
-
-	@Override
-	protected void updateMapPanel(){
-		String s = p.getCurrentRoom().getRoomName();
-		   mapPanel.remove(mapLabel);
-	   if(p.getInventory().contains(new Item("Map", true))){
-		if(s.equals("NorthRoom1")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom1.png"));
-		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
-		} else if (s.equals("StartRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_startRoom.png"));
-		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
-		} else if (s.equals("WestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_westRoom.png"));
-		} else if (s.equals("SouthRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_southRoom.png"));
-		} else if (s.equals("NorthRoom2")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom2.png"));
-		} else if (s.equals("NorthWestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northWestRoom.png"));
-		}
-
-	   } else {
-		   mapPanel.remove(mapLabel);
-		   mapLabel = new JLabel(new ImageIcon("Images/rooms_noMap.png"));
-	   }
-
-	   mapPanel.add(mapLabel);
-	}
-
-	@Override
-	protected String getObjective(){
-		String str = "";
-		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
-		return str;
 	}
 
 
-	@Override
-	protected void fightPopUp(){
-		Monster m = p.getCurrentRoom().getMonster();
-		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
-				 + m.getName() + " attacked " + p.getName() + " and did " + m.getBestItem().getValue()*m.getLevel()  + " Damage\n");
-	}
 
-
-	@Override
-	protected void getHint(){
-		if(!p.getInventory().contains(new Item("Map", true))){
-			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room east of the startroom!");
-		} else if(!p.getInventory().contains(new Item("Key", true))){
-			JOptionPane.showMessageDialog(this, "Find the key!\nPerhaps the boss in the southroom has it!");
-		} else {
-			JOptionPane.showMessageDialog(this, "Locate the treasure, the game is yours!");
-		}
-	}
-
-	@Override
-	protected void gameDone() {
-		JOptionPane.showMessageDialog(this, "You have been defeated!");
-		quit();
-	}
-
-	@Override
-	protected void win(){
-		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested all the monsters!\nYou win!");
-		quit();
-	}
-
-
-	@Override
-	protected void monsterDead(Monster m) {
-		String s = ("You defeated " + m.getName() + "!\n");
-		if(!m.getInventory().isEmpty()){
-			s+= m.getName() + " dropped the following item(s):\n" ;
-			for(Item i: m.getInventory()){
-				s+= i.getName() + "\n";
-			}
-		}
-		JOptionPane.showMessageDialog(this, s);
-	}
 
 
 	/**
@@ -341,45 +157,6 @@ public class TwoDView extends View implements  ActionListener
 		return s;
 	}
 	
-	@Override
-	protected ImageIcon getImageIcon(Item i){
-		ImageIcon icon = null;;
-		if(i.equals(new Item("Sword", true))){
-			icon  = new ImageIcon("Images/sword.png");
-		} else if(i.equals(new Item("Bread", true))){
-			icon  = new ImageIcon("Images/bread.gif");
-		} else if(i.equals(new Item("Apple", true))){
-			icon  = new ImageIcon("Images/apple.png");
-		} else if(i.equals(new Item("Pear", true))){
-			icon  = new ImageIcon("Images/pear.png");
-		} else if(i.equals(new Item("Orange", true))){
-			icon  = new ImageIcon("Images/orange.png");
-		} else if(i.equals(new Item("Map", true))){
-			icon  = new ImageIcon("Images/map.jpg");
-		} else if(i.equals(new Item("Claws", true))){
-			icon  = new ImageIcon("Images/Claws.png");
-		} else if(i.equals(new Item("Flamethrower", true))){
-			icon  = new ImageIcon("Images/flamethrower.jpg");
-		} else if(i.equals(new Item("Key", true))){
-			icon  = new ImageIcon("Images/key.png");
-		} //can't inspect treasure since game is already won if it is picked up
-			return icon;
-	}
-
-	@Override
-	protected void quit() {
-		System.exit(0);
-	}
-
-	@Override
-	protected void reset(){
-		while(p.canUndo()){
-			p.doCommand(Command.parse("Undo"));
-		}
-		p.reset();
-		unlocked = false;
-		resetInitialize();
-	}
 
 	@Override
 	protected void resetInitialize() {
@@ -427,16 +204,7 @@ public class TwoDView extends View implements  ActionListener
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Reset")) {
-			reset();
-		}
-		else if (e.getActionCommand().equals("Objective")) {
-			JOptionPane.showMessageDialog(this, getObjective());
-		}
-		else if(e.getActionCommand().equals("Hint")){
-			getHint();
-		}
-		else if (e.getActionCommand().equals("Go North")) {
+		if (e.getActionCommand().equals("Go North")) {
 			p.doCommand(Command.parse("Go North"));
 		}
 		else if (e.getActionCommand().equals("Go East")) {
@@ -469,13 +237,6 @@ public class TwoDView extends View implements  ActionListener
 					win();
 				}
 		}
-		else if (e.getActionCommand().equals("Drop")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-				p.doCommand(new Command(CommandWords.DROP, selectedItem));
-				updateMapPanel();
-			}
-		}
 		else if (e.getActionCommand().equals("Fight")) {
 			Monster m = p.getCurrentRoom().getMonster();
 			p.doCommand(Command.parse("Fight"));
@@ -493,28 +254,7 @@ public class TwoDView extends View implements  ActionListener
 					fightPopUp();
 				}
 			}
+			super.actionPerformed(e);
 		}
-		else if (e.getActionCommand().equals("Eat")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-				p.doCommand(new Command(CommandWords.EAT, selectedItem));
-			}
-		}
-		else if (e.getActionCommand().equals("Inspect")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-		   		JOptionPane.showMessageDialog(this, selectedItem.getDescription(), "Item", getDefaultCloseOperation(), getImageIcon(selectedItem));
-			}
-		}
-		else if (e.getActionCommand().equals("UNDO")) {
-			p.doCommand(Command.parse("UNDO"));
-		}
-		else if (e.getActionCommand().equals("REDO")) {
-			p.doCommand(Command.parse("REDO"));
-		}
-		else if (e.getActionCommand().equals("Quit")) {
-			quit();
-		}
-		update();
 	}
 }

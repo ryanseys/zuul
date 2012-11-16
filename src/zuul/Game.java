@@ -1,7 +1,7 @@
 package zuul;
 import java.io.IOException;
 
-import View.TwoDView;
+import View.ThreeDView;
 import View.View;
 
  /**
@@ -31,7 +31,7 @@ public class Game {
   	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
 
   	View view;
-    view = new TwoDView(p);
+    view = new ThreeDView(p);
   	view.update();
 	view.setVisible(true);
 

@@ -11,23 +11,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Polygon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
-import javax.swing.JList;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import zuul.Command;
@@ -39,19 +31,11 @@ import zuul.Player;
 import zuul.Room;
 
 @SuppressWarnings("serial")
-public class ThreeDView extends View implements ActionListener
+public class ThreeDView extends View 
 {
-	private JMenuItem resetGame, objective, hint, quit, undo, redo; 
-	private JMenuBar menuBar;
-	private JButton pickup, eat, drop, inspect;
-	private JLabel mapLabel;
+	private JMenuItem undo, redo; 
 	private JTextArea healthField;
-	private JPanel inventoryPanel, mapPanel;
-	private Player p;
-	private JList inventoryList;
-	private DefaultListModel inventoryModel;
-	private boolean unlocked = false;
-
+	
 	private Polygon doorWest, doorEast, doorNorth, chest, monster, doorSouth, treasure;
 	private JLayeredPane consolePanel;
 	private JLabel backgroundLabel;
@@ -72,14 +56,9 @@ public class ThreeDView extends View implements ActionListener
 	private JPanel fixPanel3 = new JPanel();
 
 	
-	@SuppressWarnings("static-access")
 	public ThreeDView (Player p) {
-		this.p = p;
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		menuBar = new JMenuBar( );
-	    setJMenuBar( menuBar );
-	    this.setExtendedState(this.MAXIMIZED_BOTH);
-	    
+		super(p);
+		 
 	    this.setLayout(new BorderLayout());
 	    scene.setLayout(new BorderLayout());
 	    consolePanel = new JLayeredPane();
@@ -95,20 +74,56 @@ public class ThreeDView extends View implements ActionListener
 
 	    consolePanel.add(backgroundPanel, new Integer(0), 0);
 
-	
-	    pickup = new JButton("Pickup");
-	    eat = new JButton ("Eat");
-	    drop = new JButton ("Drop");
-	    inspect = new JButton ("Inspect");
-
-
-	    drop.addActionListener(this);
-	    eat.addActionListener(this);
-	    inspect.addActionListener(this);
-
+	    addPolygons();
 	    
-	    setupView();
-	    doorWest = new Polygon();
+	    backgroundLabel.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				handleCoordinates(arg0.getX(), arg0.getY());
+			}
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+			@Override 
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseClicked(MouseEvent arg0) {}
+		});
+	    inventoryPanel.setLayout(new GridLayout(2, 1));
+	    
+	    
+	    
+	    JPanel interfacePanel = new JPanel();
+	    interfacePanel.setLayout(new GridLayout(3, 1));
+
+	    healthField = new JTextArea("Player Health: " + p.getHealth());
+	    healthField.setEditable(false);
+	    
+	    interfacePanel.add(mapPanel);
+	    interfacePanel.add(healthField);
+	    interfacePanel.add(inventoryPanel);
+	    this.add(interfacePanel, BorderLayout.EAST);
+
+	    undo = new JMenuItem ( "Undo" );
+	    addressMenu.add( undo );
+	    undo.addActionListener(this);
+	    
+	    redo = new JMenuItem ( "Redo" );
+	    addressMenu.add( redo );
+	    redo.addActionListener(this);
+	    
+	    addressMenu.add( quit );
+	    
+	    update();
+	}
+
+	/**
+	 * Initialises the areas for various GUI objects.
+	 */
+	private void addPolygons() {
+		doorWest = new Polygon();
 	    doorEast = new Polygon();
 	    doorNorth = new Polygon();
 	    doorSouth = new Polygon();
@@ -151,242 +166,27 @@ public class ThreeDView extends View implements ActionListener
 	    treasure.addPoint(600, 0);
 	    treasure.addPoint(0, 400);
 	    treasure.addPoint(600, 400);
-	    
-	    backgroundLabel.addMouseListener(new MouseListener() {
-			
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				handleCoordinates(arg0.getX(), arg0.getY());
-			}
-			@Override
-			public void mousePressed(MouseEvent arg0) {}
-			@Override 
-			public void mouseExited(MouseEvent arg0) {}
-			@Override
-			public void mouseEntered(MouseEvent arg0) {}
-			@Override
-			public void mouseClicked(MouseEvent arg0) {}
-		});
-	    inventoryPanel = new JPanel();
-	    inventoryPanel.setLayout(new GridLayout(2, 1));
-	    
-	    mapPanel = new JPanel();
-	    mapLabel = new JLabel(new ImageIcon("Images/rooms_startroom.png"));
-	    mapPanel.add(mapLabel);
-
-	    new JLabel("Current Room Actions:");
-	    inventoryModel = new DefaultListModel();
-	    inventoryList = new JList(inventoryModel);
-
-	    JScrollPane pane = new JScrollPane(inventoryList);
-	    
-	    inventoryList.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {}
-			@Override
-			public void mouseEntered(MouseEvent arg0) {}
-			@Override
-			public void mouseExited(MouseEvent arg0) {}
-			@Override
-			public void mousePressed(MouseEvent arg0) {}
-			@Override
-			public void mouseReleased(MouseEvent arg0) {
-				Item selectedItem = (Item) inventoryList.getSelectedValue();
-				if(selectedItem == null) {
-					drop.setEnabled(false);
-					eat.setEnabled(false);
-					inspect.setEnabled(false);
-				}
-				else {
-					drop.setEnabled(true);
-					inspect.setEnabled(true);
-					if(!selectedItem.isWeapon()) {
-						eat.setEnabled(true);
-					}
-					else eat.setEnabled(false);
-				}
-			}
-
-	    });
-	    
-
-	    
-	    JPanel inventoryLeftPanel = new JPanel();
-	    inventoryLeftPanel.setLayout(new GridLayout(1, 1));
-	    JPanel inventoryRightPanel = new JPanel();
-	    inventoryRightPanel.setLayout(new GridLayout(3, 1));
-	    inventoryPanel.add(inventoryLeftPanel);
-	    inventoryPanel.add(inventoryRightPanel);
-	    inventoryLeftPanel.add(pane);
-	    inventoryRightPanel.add(eat);
-	    inventoryRightPanel.add(drop);
-	    inventoryRightPanel.add(inspect);
-
-	    JPanel interfacePanel = new JPanel();
-	    interfacePanel.setLayout(new GridLayout(3, 1));
-
-	    healthField = new JTextArea("Player Health: " + p.getHealth());
-	    healthField.setEditable(false);
-	    
-	    interfacePanel.add(mapPanel);
-	    interfacePanel.add(healthField);
-	    interfacePanel.add(inventoryPanel);
-	    this.add(interfacePanel, BorderLayout.EAST);
-
-	    JMenu addressMenu = new JMenu( "File" );
-	    menuBar.add( addressMenu );
-
-	    resetGame = new JMenuItem ( "Reset" );
-	    addressMenu.add( resetGame );
-	    resetGame.addActionListener(this);
-
-	    undo = new JMenuItem ( "Undo" );
-	    addressMenu.add( undo );
-	    undo.addActionListener(this);
-	    
-	    redo = new JMenuItem ( "Redo" );
-	    addressMenu.add( redo );
-	    redo.addActionListener(this);
-	    
-	    quit = new JMenuItem ( "Quit" );
-	    addressMenu.add( quit );
-	    quit.addActionListener(this);
-
-	    JMenu helpMenu = new JMenu( "Help" );
-	    menuBar.add(helpMenu);
-
-	    objective = new JMenuItem ( "Objective" );
-	    helpMenu.add( objective );
-	    objective.addActionListener(this);
-
-	    hint = new JMenuItem("Hint");
-	    helpMenu.add(hint);
-	    hint.addActionListener(this);
-
-	    update();
 	}
 
 	@Override
 	public void update() {
-		p.getCurrentRoom();
-
-		if(p.getPlayerHistory().canUndo()){
+		if(p.canUndo()){
 			undo.setEnabled(true);
 		} else {
 			undo.setEnabled(false);
 		}
-		if(p.getPlayerHistory().canRedo()){
+		if(p.canRedo()){
 			redo.setEnabled(true);
 		} else {
 			redo.setEnabled(false);
 		}
 
-		if(!p.getCurrentRoom().getItems().isEmpty()){
-			pickup.setEnabled(true);
-		} else {
-			pickup.setEnabled(false);
-		}
-
-		inventoryModel.removeAllElements();
-		for (Item i :p.getInventory())
-			inventoryModel.addElement(i);
-
-		drop.setEnabled(false);
-		eat.setEnabled(false);
-		inspect.setEnabled(false);
-		updateMapPanel();
+		super.update();
 		mapPanel.validate();
 		updateHealthField();
+		setupView();
 	}
-
-	@Override
-    protected void updateMapPanel(){
-		String s = p.getCurrentRoom().getRoomName();
-		   mapPanel.removeAll();
-
-	   if(p.getInventory().contains(new Item("Map", true))){
-		if(s.equals("NorthRoom1")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom1.png"));
-		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
-		} else if (s.equals("StartRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_startRoom.png"));
-		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
-		} else if (s.equals("WestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_westRoom.png"));
-		} else if (s.equals("SouthRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_southRoom.png"));
-		} else if (s.equals("NorthRoom2")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom2.png"));
-		} else if (s.equals("NorthWestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northWestRoom.png"));
-		}
-
-	   } else {
-		   mapPanel.remove(mapLabel);
-		   mapLabel = new JLabel(new ImageIcon("Images/rooms_noMap.png"));
-	   }
-	  
-	   mapPanel.add(mapLabel);
-	}
-
 	
-    @Override
-    protected String getObjective(){
-		String str = "";
-		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
-		return str;
-	}
-
-
-	
-	@Override
-	protected void fightPopUp(){
-		Monster m = p.getCurrentRoom().getMonster();
-		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
-				 + m.getName() + " attacked " + p.getName() + " and did " + m.getBestItem().getValue()*m.getLevel()  + " Damage\n");
-	}
-
-
-	
-	@Override
-	protected void getHint(){
-		if(!p.getInventory().contains(new Item("Map", true))){
-			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room east of the startroom!");
-		} else if(!p.getInventory().contains(new Item("Key", true))){
-			JOptionPane.showMessageDialog(this, "Find the key!\nPerhaps the boss in the southroom has it!");
-		} else {
-			JOptionPane.showMessageDialog(this, "Locate the treasure, the game is yours!");
-		}
-	}
-
-	@Override
-	protected void gameDone() {
-		JOptionPane.showMessageDialog(this, "You have been defeated!");
-		quit();
-	}
-
-	
-	@Override
-	protected void win(){
-		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested the monsters!\nYou win!");
-		quit();
-	}
-
-
-	@Override
-	protected void monsterDead(Monster m) {
-		String s = ("You defeated " + m.getName() + "!\n");
-		if(!m.getInventory().isEmpty()){
-			s+= m.getName() + " dropped the following item(s):\n" ;
-			for(Item i: m.getInventory()){
-				s+= i.getName() + "\n";
-			}
-		}
-		JOptionPane.showMessageDialog(this, s);
-	}
-
 
 	/**
 	 * This method is used to update the console showing the player and monster health.
@@ -401,48 +201,6 @@ public class ThreeDView extends View implements ActionListener
 		healthField.setText(s);
 	}
 	
-	@Override
-	protected ImageIcon getImageIcon(Item i){
-		ImageIcon icon = null;;
-		if(i.equals(new Item("Sword", true))){
-			icon  = new ImageIcon("Images/sword.png");
-		} else if(i.equals(new Item("Bread", true))){
-			icon  = new ImageIcon("Images/bread.gif");
-		} else if(i.equals(new Item("Apple", true))){
-			icon  = new ImageIcon("Images/apple.png");
-		} else if(i.equals(new Item("Pear", true))){
-			icon  = new ImageIcon("Images/pear.png");
-		} else if(i.equals(new Item("Orange", true))){
-			icon  = new ImageIcon("Images/orange.png");
-		} else if(i.equals(new Item("Map", true))){
-			icon  = new ImageIcon("Images/map.jpg");
-		} else if(i.equals(new Item("Claws", true))){
-			icon  = new ImageIcon("Images/claws.png");
-		} else if(i.equals(new Item("Flamethrower", true))){
-			icon  = new ImageIcon("Images/flamethrower.jpg");
-		} else if(i.equals(new Item("Key", true))){
-			icon  = new ImageIcon("Images/key.png");
-		} //can't inspect treasure since game is already won if it is picked up
-			return icon;
-	}
-
-	
-	@Override
-	protected void quit() {
-		System.exit(0);
-	}
-
-	@Override
-	protected void reset(){
-		while(p.canUndo()){
-			p.doCommand(Command.parse("Undo"));
-		}
-		p.reset();
-		setupView();
-		unlocked = false;
-		resetInitialize();
-	}
-
 	@Override
 	protected void resetInitialize() {
 		Room west = p.getCurrentRoom().getExit(Direction.WEST);
@@ -485,54 +243,15 @@ public class ThreeDView extends View implements ActionListener
 	}
 
 
+		
 	/**
-	 * This method gets an action from a button press and reacts accordingly.
-	 * @param e : The actionEvent when a button or menu item is clicked.
+	 * This method uses the coordinates from the mouse to determine
+	 * on which object the user clicked. Once it has determined that,
+	 * it calls the appropriate command on the model (the player).
+	 * @param x - the x coordinate of the mouse click
+	 * @param y - the y coordinate of the mouse click
 	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Reset")) {
-			reset();
-		}
-		else if (e.getActionCommand().equals("Objective")) {
-			JOptionPane.showMessageDialog(this, getObjective());
-		}
-		else if(e.getActionCommand().equals("Hint")){
-			getHint();
-		}
-		else if (e.getActionCommand().equals("Drop")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-				p.doCommand(new Command(CommandWords.DROP, selectedItem));
-				updateMapPanel();
-			}
-		}
-		else if (e.getActionCommand().equals("Eat")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-				p.doCommand(new Command(CommandWords.EAT, selectedItem));
-			}
-		}
-		else if (e.getActionCommand().equals("Inspect")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-		   		JOptionPane.showMessageDialog(this, selectedItem.getDescription(), "Item", getDefaultCloseOperation(), getImageIcon(selectedItem));
-			}
-		}
-		else if (e.getActionCommand().equals("Undo")) {
-			p.doCommand(Command.parse("UNDO"));
-		}
-		else if (e.getActionCommand().equals("Redo")) {
-			p.doCommand(Command.parse("REDO"));
-		}
-		else if (e.getActionCommand().equals("Quit")) {
-			quit();
-		}
-		update();
-		setupView();
-	}
-	
-	protected void handleCoordinates(int x, int y){
+	private void handleCoordinates(int x, int y){
 		
 		if(p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
 			if(treasure.contains(x, y)){
@@ -559,7 +278,6 @@ public class ThreeDView extends View implements ActionListener
 		} else if(doorSouth.contains(x, y)){
 			p.doCommand(Command.parse("Go South"));
 		} else if(chest.contains(x, y)){
-			pickup.setEnabled(true);
 			int popup;
 			if(!p.getCurrentRoom().getItems().isEmpty()){
 				popup = JOptionPane.showOptionDialog(this, "This Room has the following items:", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
@@ -598,10 +316,15 @@ public class ThreeDView extends View implements ActionListener
 			}
 		}
 		update();
-		setupView();
 	}
 	
-	protected void setupView(){
+	
+	/**
+	 * Helps the update method with updating view - helps to update 
+	 * panels, the update method specializes in updating the menus and
+	 * buttons
+	 */
+	private void setupView(){
 		consolePanel.removeAll();
 		consolePanel.add(backgroundPanel, new Integer(0), 0);
 		

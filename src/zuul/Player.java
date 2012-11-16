@@ -184,14 +184,6 @@ public class Player extends Humanoid  {
 		return playerHistory.canRedo();
 	}
 
-	/**
-	 * Return the player to its default state
-	 * @return : The playerHistory of the player.
-	 */
-	public PlayerHistory getPlayerHistory(){
-		return playerHistory;
-	}
-
 	public void reset(){
 		playerHistory.clear();
 		setHealth(MAX_HEALTH);
