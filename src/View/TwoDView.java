@@ -17,7 +17,6 @@ import java.awt.event.MouseListener;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -91,7 +90,7 @@ public class TwoDView extends View implements  ActionListener
 	    centralPanel = new JPanel();
 	    undoRedoPanel = new JPanel();
 	    mapPanel = new JPanel();
-	    mapLabel = new JLabel(new ImageIcon("rooms_startroom.png"));
+	    mapLabel = new JLabel(new ImageIcon("Images/rooms_startroom.png"));
 	    mapPanel.add(mapLabel);
 
 	    currentRoom = new JLabel("Current Room Actions:");
@@ -191,7 +190,7 @@ public class TwoDView extends View implements  ActionListener
 	 * It will change buttons as required and enables/disables them.
 	 * It updates all of the panels as well.
 	 */
-	public void update() {
+	protected void update() {
 		Room currentRoom = p.getCurrentRoom();
 		if (currentRoom.getExit(Direction.NORTH) == null) {
 			northRoom.setEnabled(false);
@@ -259,26 +258,26 @@ public class TwoDView extends View implements  ActionListener
 		   mapPanel.remove(mapLabel);
 	   if(p.getInventory().contains(new Item("Map", true))){
 		if(s.equals("NorthRoom1")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_northroom1.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom1.png"));
 		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
 		} else if (s.equals("StartRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_startRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_startRoom.png"));
 		} else if (s.equals("EastRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_eastRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_eastRoom.png"));
 		} else if (s.equals("WestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_westRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_westRoom.png"));
 		} else if (s.equals("SouthRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_southRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_southRoom.png"));
 		} else if (s.equals("NorthRoom2")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_northroom2.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northroom2.png"));
 		} else if (s.equals("NorthWestRoom")){
-		    mapLabel = new JLabel(new ImageIcon("rooms_northWestRoom.png"));
+		    mapLabel = new JLabel(new ImageIcon("Images/rooms_northWestRoom.png"));
 		}
 
 	   } else {
 		   mapPanel.remove(mapLabel);
-		   mapLabel = new JLabel(new ImageIcon("rooms_noMap.png"));
+		   mapLabel = new JLabel(new ImageIcon("Images/rooms_noMap.png"));
 	   }
 
 	   mapPanel.add(mapLabel);
@@ -288,7 +287,7 @@ public class TwoDView extends View implements  ActionListener
 	 * This method prints out the objective of the game.
 	 * @return : Returns a string informing the player of the game objective.
 	 */
-	private String getObjective(){
+    protected String getObjective(){
 		String str = "";
 		str+="Welcome to the World of Zuul.\nCan you conquer the monsters and find the long lost treasure of Zuul?\n";
 		return str;
@@ -309,7 +308,7 @@ public class TwoDView extends View implements  ActionListener
 	/**
 	 * This method pops up a dialog that informs the player of the damage done to and from the player.
 	 */
-	private void fightPopUp(){
+	protected void fightPopUp(){
 		Monster m = p.getCurrentRoom().getMonster();
 		JOptionPane.showMessageDialog(this, "" + p.getName() + " attacked " + m.getName() + " and did " + p.getBestItem().getValue() + " Damage\n"
 				 + m.getName() + " attacked " + p.getName() + " and did " + m.getBestItem().getValue()*m.getLevel()  + " Damage\n");
@@ -319,7 +318,7 @@ public class TwoDView extends View implements  ActionListener
 	/**
 	 * This method pops up a dialog that gives the player a hint as to what to do next.
 	 */
-	private void getHint(){
+	protected void getHint(){
 		if(!p.getInventory().contains(new Item("Map", true))){
 			JOptionPane.showMessageDialog(this, "Find the map!\nTry the room east of the startroom!");
 		} else if(!p.getInventory().contains(new Item("Key", true))){
@@ -332,7 +331,7 @@ public class TwoDView extends View implements  ActionListener
 	/**
 	 * This method pops up a dialog that informs the player that they have been defeated by a monster.
 	 */
-	public void gameDone() {
+	protected void gameDone() {
 		JOptionPane.showMessageDialog(this, "You have been defeated!");
 		quit();
 	}
@@ -340,7 +339,7 @@ public class TwoDView extends View implements  ActionListener
 	/**
 	 * This method pops up a dialog that congratulates the player on winning the game.
 	 */
-	private void win(){
+	protected void win(){
 		JOptionPane.showMessageDialog(this, "Congratulations!\nYou recovered the long lost treasure of Zuul and bested all the monsters!\nYou win!");
 		quit();
 	}
@@ -351,7 +350,7 @@ public class TwoDView extends View implements  ActionListener
 	 * This method creates a popup that shows the items that the monster dropped.
 	 * @param m : The monster that has died.
 	 */
-	public void monsterDead(Monster m) {
+	protected void monsterDead(Monster m) {
 		String s = ("You defeated " + m.getName() + "!\n");
 		if(!m.getInventory().isEmpty()){
 			s+= m.getName() + " dropped the following item(s):\n" ;
@@ -367,7 +366,7 @@ public class TwoDView extends View implements  ActionListener
 	 * This method is used to update the console showing the player and monster health.
 	 * @return : The string that should be placed onto the console.
 	 */
-	private String updateConsole(){
+	protected String updateConsole(){
 		String s = "";
 		s += ("Player Health: " + p.getHealth() + "\n");
 		if(p.getCurrentRoom().getMonster()!=null){
@@ -382,26 +381,26 @@ public class TwoDView extends View implements  ActionListener
 	 * @param i : The item that is selected.
 	 * @return : The corresponding image that represents the item.
 	 */
-    private ImageIcon getImageIcon(Item i){
+	protected ImageIcon getImageIcon(Item i){
 		ImageIcon icon = null;;
 		if(i.equals(new Item("Sword", true))){
-			icon  = new ImageIcon("sword.png");
+			icon  = new ImageIcon("Images/sword.png");
 		} else if(i.equals(new Item("Bread", true))){
-			icon  = new ImageIcon("bread.gif");
+			icon  = new ImageIcon("Images/bread.gif");
 		} else if(i.equals(new Item("Apple", true))){
-			icon  = new ImageIcon("apple.png");
+			icon  = new ImageIcon("Images/apple.png");
 		} else if(i.equals(new Item("Pear", true))){
-			icon  = new ImageIcon("pear.png");
+			icon  = new ImageIcon("Images/pear.png");
 		} else if(i.equals(new Item("Orange", true))){
-			icon  = new ImageIcon("orange.png");
+			icon  = new ImageIcon("Images/orange.png");
 		} else if(i.equals(new Item("Map", true))){
-			icon  = new ImageIcon("map.jpg");
-		} else if(i.equals(new Item("Hatchet", true))){
-			icon  = new ImageIcon("hatchet.png");
+			icon  = new ImageIcon("Images/map.jpg");
+		} else if(i.equals(new Item("Claws", true))){
+			icon  = new ImageIcon("Images/Claws.png");
 		} else if(i.equals(new Item("Flamethrower", true))){
-			icon  = new ImageIcon("flamethrower.jpg");
+			icon  = new ImageIcon("Images/flamethrower.jpg");
 		} else if(i.equals(new Item("Key", true))){
-			icon  = new ImageIcon("key.png");
+			icon  = new ImageIcon("Images/key.png");
 		} //can't inspect treasure since game is already won if it is picked up
 			return icon;
 	}
@@ -409,14 +408,14 @@ public class TwoDView extends View implements  ActionListener
 	/**
 	 * Quit method, used to exit the game.
 	 */
-	public void quit() {
+	protected void quit() {
 		System.exit(0);
 	}
 
 	/**
 	 * Reset method, used to start the game anew.
 	 */
-	private void reset(){
+	protected void reset(){
 		while(p.canUndo()){
 			p.doCommand(Command.parse("Undo"));
 		}
@@ -429,7 +428,7 @@ public class TwoDView extends View implements  ActionListener
 	 * Initialize the game with the original monsters and items
 	 * in the case that monsters were defeated, or items were eaten.
 	 */
-	private void resetInitialize() {
+	protected void resetInitialize() {
 		Room west = p.getCurrentRoom().getExit(Direction.WEST);
 		Item r1 = new Item("Apple", 10, 0, false);
 		if (!west.getItems().contains(r1)) {
@@ -455,7 +454,7 @@ public class TwoDView extends View implements  ActionListener
 			west.addMonster(monster1);
 			east.addMonster(monster1);
 			monster1.addItem(new Item("Map", 0, 0, true));
-			monster1.addItem(new Item("Hatchet", 10, 0, true));
+			monster1.addItem(new Item("Claws", 10, 0, true));
 		}
 		Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
 		Monster boss = new Monster(100, 2, "Boss", south);

@@ -24,14 +24,14 @@ public abstract class View extends JFrame{
 	 * its exits and what items it has
 	 *
 	 */
-	public abstract void update();
+	protected abstract void update();
 
 
 	/**
 	 * Invoked when user types a command not mentioned in the
 	 * CommandWords enum.
 	 */
-	public abstract void gameDone();
+	protected abstract void gameDone();
 
 	/**
 	 * Invoked when a monster is killed, and tells what happens as a
@@ -45,7 +45,7 @@ public abstract class View extends JFrame{
 	/**
 	 * Called when the user hits the Quit button.
 	 */
-	public abstract void quit();
+	protected abstract void quit();
 	
 	protected abstract void updateMapPanel() ;
 	

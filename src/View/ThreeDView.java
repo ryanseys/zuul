@@ -171,7 +171,7 @@ public class ThreeDView extends View implements ActionListener
 	    inventoryPanel.setLayout(new GridLayout(2, 1));
 	    
 	    mapPanel = new JPanel();
-	    mapLabel = new JLabel(new ImageIcon("rooms_startroom.png"));
+	    mapLabel = new JLabel(new ImageIcon("Images/rooms_startroom.png"));
 	    mapPanel.add(mapLabel);
 
 	    new JLabel("Current Room Actions:");
