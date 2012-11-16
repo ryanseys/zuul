@@ -286,14 +286,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	}
 
 	/**
-	 * This method is not used in this milestone.
-	 */
-	@Override
-	public void displayHelp() {/* String is needed, so getObjective and 
-	and getHint methods is used instead.*/}
-
-
-	/**
 	 * This method prints out the objective of the game.
 	 * @return : Returns a string informing the player of the game objective.
 	 */
@@ -373,19 +365,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 		JOptionPane.showMessageDialog(this, s);
 	}
 
-
-	/**
-	 * These methods are implemented from the IView interface, but are not used here.
-	 */
-	@Override	public void monsterMissing() {/* Checked by disabling the button, this will never be called*/}
-	@Override	public void garbageCommand() {/* checked by using buttons, no way to enter garbage*/}
-	@Override	public void invalidRoom() {	/* Checked by disabling buttons*/}
-	@Override	public void eatingWeapon(Item i) {/*// Checked by disabling buttons*/}
-	@Override	public void noItem(Item i) {/* Checked by disabling button*/}
-	@Override	public void itemInvalid(Item i) {/* Checked by disabling button*/}
-	@Override	public void itemError(Item i) {/* Checked by disabling button*/}
-	@Override	public void inCompleteCommand() {/* Impossible with GUI*/}
-	@Override	public void undoRedoUnavailable(CommandWords commandWord) {/* Disabling buttons when appropriate*/}
 
 	/**
 	 * This method is used to update the console showing the player and monster health.

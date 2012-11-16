@@ -44,10 +44,10 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 {
 	private JMenuItem resetGame, objective, hint, quit, undo, redo; //commands
 	private JMenuBar menuBar;
-	private JButton /*undo, redo, northRoom, southRoom, eastRoom, westRoom,*/ pickup,/* fight,*/ eat, drop, inspect;
-	private JLabel currentRoom, mapLabel;
+	private JButton pickup, eat, drop, inspect;
+	private JLabel mapLabel;
 	private JTextArea healthField;
-	private JPanel /*consolePanel,*/ inventoryPanel,/* centralPanel, undoRedoPanel, */mapPanel;
+	private JPanel inventoryPanel, mapPanel;
 	private Player p;
 	private JList inventoryList;
 	private DefaultListModel inventoryModel;
@@ -97,27 +97,12 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    consolePanel.add(backgroundPanel, new Integer(0), 0);
 
 	
-//	    undo = new JButton("UNDO");
-//	    redo = new JButton("REDO");
-//	    northRoom = new JButton("Go North");
-//	    eastRoom = new JButton("Go East");
-//	    westRoom = new JButton("Go West");
-//	    southRoom = new JButton("Go South");
 	    pickup = new JButton("Pickup");
-//	    fight = new JButton ("Fight");
 	    eat = new JButton ("Eat");
 	    drop = new JButton ("Drop");
 	    inspect = new JButton ("Inspect");
 
 
-//	    undo.addActionListener(this);
-//	    redo.addActionListener(this);
-//	    northRoom.addActionListener(this);
-//	    eastRoom.addActionListener(this);
-//	    westRoom.addActionListener(this);
-//	    southRoom.addActionListener(this);
-//	    pickup.addActionListener(this);
-//	    fight.addActionListener(this);
 	    drop.addActionListener(this);
 	    eat.addActionListener(this);
 	    inspect.addActionListener(this);
@@ -131,7 +116,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    chest = new Polygon();
 	    monster = new Polygon();
 	    treasure = new Polygon();
-	    //still some strange instances where mouse is not found inside polygon
+	    //TODO still some strange instances where mouse is not found inside polygon
 	    
 	    doorWest.addPoint(103, 247);
 	    doorWest.addPoint(103, 458);
@@ -172,7 +157,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 			
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				//System.out.println("" + arg0.getX() + " " + arg0.getY());
 				handleCoordinates(arg0.getX(), arg0.getY());
 			}
 			@Override
@@ -187,17 +171,11 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    inventoryPanel = new JPanel();
 	    inventoryPanel.setLayout(new GridLayout(2, 1));
 	    
-//	    centralPanel = new JPanel();
-//	    undoRedoPanel = new JPanel();
 	    mapPanel = new JPanel();
 	    mapLabel = new JLabel(new ImageIcon("rooms_startroom.png"));
 	    mapPanel.add(mapLabel);
 
-	    currentRoom = new JLabel("Current Room Actions:");
-//	    centralPanel.add(currentRoom);
-//	    centralPanel.add(pickup);
-//	    centralPanel.add(fight);
-//	    centralPanel.setBackground(new Color(255, 249, 206));
+	    new JLabel("Current Room Actions:");
 	    inventoryModel = new DefaultListModel();
 	    inventoryList = new JList(inventoryModel);
 
@@ -254,23 +232,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	    interfacePanel.add(mapPanel);
 	    interfacePanel.add(healthField);
 	    interfacePanel.add(inventoryPanel);
-//	    undoRedoPanel.add(undo);
-//	    undoRedoPanel.add(redo);
-//	    consoleField = new JTextArea();
-//	    consoleField.setEditable(false);
-//		consolePanel.add(consoleField);
-
-
-//	    add(undoRedoPanel);
-//	    add(northRoom);
-//	    add(mapPanel);
-//	    add(westRoom);
-//	    add(centralPanel);
-//	    add(eastRoom);
-//	    add(consolePanel);
-//	    add(southRoom);
-//	    add(inventoryPanel);
-	    this.add(interfacePanel, BorderLayout.EAST);//, c);
+	    this.add(interfacePanel, BorderLayout.EAST);
 
 	    JMenu addressMenu = new JMenu( "File" );
 	    menuBar.add( addressMenu );
@@ -312,38 +274,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	 */
 	@Override
 	public void update() {
-		Room currentRoom = p.getCurrentRoom();
-//		if (currentRoom.getExit(Direction.NORTH) == null) {
-//			//northRoom.setEnabled(false);
-//		} else {
-//			//northRoom.setEnabled(true);
-//		}
-//		if (currentRoom.getExit(Direction.SOUTH) == null) {
-//			//southRoom.setEnabled(false);
-//		} else {
-//			//southRoom.setEnabled(true);
-//		}
-//		if (currentRoom.getExit(Direction.EAST)== null) {
-//			//eastRoom.setEnabled(false);
-//		} else {
-//			//eastRoom.setEnabled(true);
-//		}
-//		if (currentRoom.getExit(Direction.WEST) == null) {
-//			//westRoom.setEnabled(false);
-//		} else {
-//			//westRoom.setEnabled(true);
-//		}
-//
-//		if (p.canUndo()) {
-//			//undo.setEnabled(true);
-//		} else {
-//			//undo.setEnabled(false);
-//		}
-//		if (p.canRedo()) {
-//			//redo.setEnabled(true);
-//		} else {
-//			//redo.setEnabled(false);
-//		}
+		p.getCurrentRoom();
 
 		if(p.getPlayerHistory().canUndo()){
 			undo.setEnabled(true);
@@ -366,15 +297,9 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		for (Item i :p.getInventory())
 			inventoryModel.addElement(i);
 
-//		if(p.getCurrentRoom().hasMonsters()) {
-//			//fight.setEnabled(true);
-//		} else {
-//			//fight.setEnabled(false);
-//		}
 		drop.setEnabled(false);
 		eat.setEnabled(false);
 		inspect.setEnabled(false);
-	//	consoleField.setText(updateConsole());
 		updateMapPanel();
 		mapPanel.validate();
 		updateHealthField();
@@ -417,14 +342,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	}
 
 	/**
-	 * This method is not used in this milestone.
-	 */
-	@Override
-	public void displayHelp() {/* String is needed, so getObjective and 
-	and getHint methods is used instead.*/}
-
-
-	/**
 	 * This method prints out the objective of the game.
 	 * @return : Returns a string informing the player of the game objective.
 	 */
@@ -434,17 +351,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		return str;
 	}
 
-
-	/*
-	 * This method is not used in this milestone.
-	 */
-//	public String getCommands(){
-//		String str="Your command words are:\n";
-//		for (CommandWords commandWord : CommandWords.values()) {
-//			str+= commandWord + " ";
-//		}
-//		return str;
-//	}
 
 	/**
 	 * This method pops up a dialog that informs the player of the damage done to and from the player.
@@ -504,19 +410,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		JOptionPane.showMessageDialog(this, s);
 	}
 
-
-	/**
-	 * These methods are implemented from the IView interface, but are not used here.
-	 */
-	@Override	public void monsterMissing() {/* Checked by disabling the button, this will never be called*/}
-	@Override	public void garbageCommand() {/* checked by using buttons, no way to enter garbage*/}
-	@Override	public void invalidRoom() {	/* Checked by disabling buttons*/}
-	@Override	public void eatingWeapon(Item i) {/*// Checked by disabling buttons*/}
-	@Override	public void noItem(Item i) {/* Checked by disabling button*/}
-	@Override	public void itemInvalid(Item i) {/* Checked by disabling button*/}
-	@Override	public void itemError(Item i) {/* Checked by disabling button*/}
-	@Override	public void inCompleteCommand() {/* Impossible with GUI*/}
-	@Override	public void undoRedoUnavailable(CommandWords commandWord) {/* Disabling buttons when appropriate*/}
 
 	/**
 	 * This method is used to update the console showing the player and monster health.
@@ -708,8 +601,11 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 						JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
 					
 			} else {
-				popup = JOptionPane.showOptionDialog(this, "This room does not have any items in it!", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
-						JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
+				String[] options = new String[1];
+				options[0] = "OK";
+				JOptionPane.showOptionDialog(this, "This room does not have any items in it!", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+						JOptionPane.WARNING_MESSAGE, null, options, null);
+				popup = JOptionPane.CLOSED_OPTION;
 					
 			}
 			if (popup != JOptionPane.CLOSED_OPTION) {
@@ -819,6 +715,4 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 		    consolePanel.add(southPanel, new Integer(1), 0);
 		}
 	}
-	
-	
 }

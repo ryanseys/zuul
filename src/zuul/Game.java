@@ -33,40 +33,8 @@ public class Game {
 
   	view = new ThreeDView(p);
   	view.update();
-  	p.setView(view);
 	((ThreeDView)view).setVisible(true);
 
-/* This is only useful for the TextView, so it is commented out for this milestone */
-//  	InputStreamReader converter = new InputStreamReader(System.in);
-//  	BufferedReader in = new BufferedReader(converter);
-//  	String input = in.readLine(); //priming the loop
-
-//  	while (true) { // keep playing until the player quits or he is killed by a monster
-//  		Command c = Command.parse(input);
-//  		if (c == null) { //parse returns null if the input command from the user could not be passed
-//  			view.garbageCommand();
-//  			view.update();
-//      		input = in.readLine();
-//          	continue;
-//  		}
-
-//  		if (c.getCommandWord().equals (CommandWords.QUIT)) {
-//  			break;
-//  		}
-
-// 		p.doCommand(c); //making the player eat, fight, pickup, drop, go, etc
-//  		if (p.getHealth() <= 0) { //what if the player died as a result of doing that command.
-//  			break;
-//  		}
-//  		view.update();
-//  		input = in.readLine();
-
-//  	}
-//  	if (p.getHealth() <= 0)
-//  		view.gameDone(); //telling the user that the game is over.
-//  	else {
-//  		view.quit();
-//  	}
   }
 
 
