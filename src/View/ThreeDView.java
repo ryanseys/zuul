@@ -106,11 +106,11 @@ public class ThreeDView extends View
 	    interfacePanel.add(inventoryPanel);
 	    this.add(interfacePanel, BorderLayout.EAST);
 
-	    undo = new JMenuItem ( "Undo" );
+	    undo = new JMenuItem ( UNDO );
 	    addressMenu.add( undo );
 	    undo.addActionListener(this);
 	    
-	    redo = new JMenuItem ( "Redo" );
+	    redo = new JMenuItem ( REDO );
 	    addressMenu.add( redo );
 	    redo.addActionListener(this);
 	    
@@ -253,7 +253,7 @@ public class ThreeDView extends View
 	 */
 	private void handleCoordinates(int x, int y){
 		
-		if(p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
+		if(p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true))){
 			if(treasure.contains(x, y)){
 				win();
 			} 
@@ -295,12 +295,12 @@ public class ThreeDView extends View
 			if (popup != JOptionPane.CLOSED_OPTION) {
 				p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(popup)));
 			}
-			if(p.getInventory().contains(new Item("Treasure", true))){
+			if(p.getInventory().contains(new Item(TREASURE, true))){
 				win();
 			}
 		} else if(monster.contains(x, y) && p.getCurrentRoom().hasMonsters()){
 			Monster m = p.getCurrentRoom().getMonster();
-			p.doCommand(Command.parse("Fight"));
+			p.doCommand(Command.parse(FIGHT));
 			if(p.getHealth()<=0){
 				this.gameDone();
 			} else {
@@ -332,7 +332,7 @@ public class ThreeDView extends View
 		JLabel fixLabel = new JLabel(new ImageIcon("Images/fix.png"));
 		
 		JLabel chestLabel = new JLabel(new ImageIcon("Images/chest_in_room.png"));
-		if(!p.getCurrentRoom().hasItem(new Item("Treasure", 100, 0, true))){
+		if(!p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true))){
 			chestPanel.add(chestLabel);
 			chestPanel.setBounds(210,278, 165, 160);
 			chestPanel.setBackground(new Color(185, 122, 87));

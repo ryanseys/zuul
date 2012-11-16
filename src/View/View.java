@@ -36,6 +36,17 @@ import zuul.Player;
 
 @SuppressWarnings("serial")
 public abstract class View extends JFrame implements ActionListener{
+	public static final String REDO = "Redo";
+	public static final String UNDO = "Undo";
+	public static final String HINT = "Hint";
+	public static final String FIGHT = "Fight";
+	public static final String TREASURE = "Treasure";
+	public static final String OBJECTIVE = "Objective";
+	public static final String QUIT = "Quit";
+	private static final String RESET = "Reset";
+	private static final String INSPECT = "Inspect";
+	private static final String DROP = "Drop";
+	public static final String EAT = "Eat";
 	protected Player p;
 	protected boolean unlocked;
 	protected JMenuBar menuBar;
@@ -55,9 +66,9 @@ public abstract class View extends JFrame implements ActionListener{
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
 	    this.setExtendedState(this.MAXIMIZED_BOTH);
-	    eat = new JButton ("Eat");
-	    drop = new JButton ("Drop");
-	    inspect = new JButton ("Inspect");
+	    eat = new JButton (EAT);
+	    drop = new JButton (DROP);
+	    inspect = new JButton (INSPECT);
 	    drop.addActionListener(this);
 	    eat.addActionListener(this);
 	    inspect.addActionListener(this);
@@ -119,22 +130,18 @@ public abstract class View extends JFrame implements ActionListener{
 	    menuBar.add(helpMenu);
 	    
 	    
-	    resetGame = new JMenuItem ( "Reset" );
+	    resetGame = new JMenuItem ( RESET );
 	    resetGame.addActionListener(this);
-	    quit = new JMenuItem ( "Quit" );
+	    quit = new JMenuItem ( QUIT );
 	    quit.addActionListener(this);
-	    objective = new JMenuItem ( "Objective" );
+	    objective = new JMenuItem ( OBJECTIVE );
 	    objective.addActionListener(this);
-	    hint = new JMenuItem("Hint");
+	    hint = new JMenuItem(HINT);
 	    hint.addActionListener(this);
 	    addressMenu.add( resetGame );
 	    helpMenu.add( objective );
 	    helpMenu.add(hint);
 	    
-
-	    
-
-
 	}
 	
 	/**
@@ -193,41 +200,41 @@ public abstract class View extends JFrame implements ActionListener{
 	 */
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Reset")) {
+		if (e.getActionCommand().equals(RESET)) {
 			reset();
 		}
-		else if (e.getActionCommand().equals("Objective")) {
+		else if (e.getActionCommand().equals(OBJECTIVE)) {
 			JOptionPane.showMessageDialog(this, getObjective());
 		}
-		else if(e.getActionCommand().equals("Hint")){
+		else if(e.getActionCommand().equals(HINT)){
 			getHint();
 		}
-		else if (e.getActionCommand().equals("Drop")) {
+		else if (e.getActionCommand().equals(DROP)) {
 			Item selectedItem = ((Item) inventoryList.getSelectedValue());
 			if(selectedItem != null) {
 				p.doCommand(new Command(CommandWords.DROP, selectedItem));
 				updateMapPanel();
 			}
 		}
-		else if (e.getActionCommand().equals("Eat")) {
+		else if (e.getActionCommand().equals(EAT)) {
 			Item selectedItem = ((Item) inventoryList.getSelectedValue());
 			if(selectedItem != null) {
 				p.doCommand(new Command(CommandWords.EAT, selectedItem));
 			}
 		}
-		else if (e.getActionCommand().equals("Inspect")) {
+		else if (e.getActionCommand().equals(INSPECT)) {
 			Item selectedItem = ((Item) inventoryList.getSelectedValue());
 			if(selectedItem != null) {
 		   		JOptionPane.showMessageDialog(this, selectedItem.getDescription(), "Item", getDefaultCloseOperation(), getImageIcon(selectedItem));
 			}
 		}
-		else if (e.getActionCommand().equals("Undo")) {
-			p.doCommand(Command.parse("UNDO"));
+		else if (e.getActionCommand().equals(UNDO)) {
+			p.doCommand(Command.parse(UNDO));
 		}
-		else if (e.getActionCommand().equals("Redo")) {
-			p.doCommand(Command.parse("REDO"));
+		else if (e.getActionCommand().equals(REDO)) {
+			p.doCommand(Command.parse(REDO));
 		}
-		else if (e.getActionCommand().equals("Quit")) {
+		else if (e.getActionCommand().equals(QUIT)) {
 			quit();
 		}
 		update();
@@ -337,7 +344,7 @@ public abstract class View extends JFrame implements ActionListener{
 	 */
 	protected void reset() {
 		while(p.canUndo()){
-			p.doCommand(Command.parse("Undo"));
+			p.doCommand(Command.parse(UNDO));
 		}
 		p.reset();
 		unlocked = false;
