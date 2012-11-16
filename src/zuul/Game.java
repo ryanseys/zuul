@@ -62,15 +62,15 @@ public class Game {
 
 	  	eastRoom.setExit(Direction.WEST, startRoom);
 
-	  	Monster Monster1 = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Monster1", eastRoom);
-	  	eastRoom.addMonster(Monster1);
-	  	Monster1.addItem(new Item("Map", 0, 0, true));
-	  	Monster1.addItem(new Item("Claws", 10, 0, true));
+	  	Monster alien = new Monster(Monster.MAX_HEALTH, Monster.DEFAULT_LEVEL, "Alien", eastRoom);
+	  	eastRoom.addMonster(alien);
+	  	alien.addItem(new Item("Map", 0, 0, true));
+	  	alien.addItem(new Item("Claws", 10, 0, true));
 
-	  	Monster Boss = new Monster(100, 2, "Boss", southRoom);
-	  	southRoom.addMonster(Boss);
-	  	Boss.addItem(new Item("Flamethrower", 30, 0, true));
-	  	Boss.addItem(new Item("Key", 0, 0, true));
+	  	Monster boss = new Monster(100, 2, "Boss", southRoom);
+	  	southRoom.addMonster(boss);
+	  	boss.addItem(new Item("Flamethrower", 30, 0, true));
+	  	boss.addItem(new Item("Key", 0, 0, true));
 
 
 	  	westRoom.setExit(Direction.EAST, startRoom);

@@ -222,23 +222,28 @@ public class ThreeDView extends View
 			north1.addItem(r4);
 		}
 		Room east = p.getCurrentRoom().getExit(Direction.EAST);
-		Monster monster1 = new Monster(Monster.MAX_HEALTH,
-				Monster.DEFAULT_LEVEL, "Monster1", east);
+		Monster alien = new Monster(Monster.MAX_HEALTH,
+				Monster.DEFAULT_LEVEL, "Alien", east);
 		east.removeItem(new Item("Claws", 10, 0, true));
 		east.removeItem(new Item("Map", 0, 0, true));
 		if (!east.hasMonsters()) {
-			east.addMonster(monster1);
-			monster1.addItem(new Item("Map", 0, 0, true));
-			monster1.addItem(new Item("Claws", 10, 0, true));
+			east.addMonster(alien);
+			alien.addItem(new Item("Map", 0, 0, true));
+			alien.addItem(new Item("Claws", 10, 0, true));
+		} else {
+			p.getCurrentRoom().getExit(Direction.EAST).getMonster().setHealth(Monster.MAX_HEALTH);
 		}
 		Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
-		Monster boss = new Monster(100, 2, "Boss", south);
+		int BossLevel = 2;
+		Monster boss = new Monster(Monster.MAX_HEALTH, BossLevel, "Boss", south);
 		south.removeItem(new Item("Key", 0, 0, true));
 		south.removeItem(new Item("Flamethrower", 30, 0, true));
 		if (!south.hasMonsters()) {
 			south.addMonster(boss);
 			boss.addItem(new Item("Flamethrower", 30, 0, true));
 			boss.addItem(new Item("Key", 0, 0, true));
+		} else {
+			p.getCurrentRoom().getExit(Direction.SOUTH).getMonster().setHealth(Monster.MAX_HEALTH);
 		}
 	}
 
