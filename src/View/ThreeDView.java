@@ -120,7 +120,7 @@ public class ThreeDView extends View
 	}
 
 	/**
-	 * Initialises the areas for various GUI objects.
+	 * Initializes the areas for various GUI objects.
 	 */
 	private void addPolygons() {
 		doorWest = new Polygon();
@@ -270,6 +270,7 @@ public class ThreeDView extends View
 				} else {
 					JOptionPane.showMessageDialog(this, "You have opened the door!\nYou see the treasure in front of you!");
 					unlocked = true;
+					p.getCurrentRoom().getExit(Direction.WEST).setLocked(false);
 					p.doCommand(Command.parse("Go West"));
 				}
 			}
@@ -389,8 +390,14 @@ public class ThreeDView extends View
 		    consolePanel.add(eastPanel, new Integer(1), 1);
 		}
 		if(p.getCurrentRoom().getExit(Direction.WEST)!=null){
-			JLabel westLabel = new JLabel(new ImageIcon("Images/west_door.png"));
-		    westPanel.add(westLabel);
+			JLabel westLabel;
+			westPanel.removeAll();
+			if(p.getCurrentRoom().getExit(Direction.WEST).getLocked()){
+				westLabel = new JLabel(new ImageIcon("Images/west_door_locked.png"));
+			} else {
+				westLabel = new JLabel(new ImageIcon("Images/west_door.png"));
+			}
+			westPanel.add(westLabel);
 		    westPanel.setBackground(new Color(185, 122, 87));
 		    westPanel.setBounds(120,158, 80, 310);
 		    consolePanel.add(westPanel, new Integer(1), 0);
