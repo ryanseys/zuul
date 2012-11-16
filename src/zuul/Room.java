@@ -62,9 +62,7 @@ public class Room
    * @return The first monster found in the room
    */
   public Monster getMonster() {
-    if(monsters.isEmpty()) {
-      return null;
-    }
+    if(monsters.isEmpty()) return null;
     return monsters.get(0);
   }
 
@@ -75,12 +73,8 @@ public class Room
    */
   public Item getRealItem(Item item) {
     int index = items.indexOf(item);
-    if(index != -1) {
-      return items.get(index);
-    }
-    else {
-      return null;
-    }
+    if(index != -1) return items.get(index);
+    else return null;
   }
 
   /**
@@ -144,9 +138,8 @@ public class Room
   {
     String returnString = EXIT_STRING;
     Set<Direction> directions = exits.keySet();
-    for(Direction exit : directions) {
+    for(Direction exit : directions)
       returnString += " " + exit.name();
-    }
     return returnString + "\n";
   }
 
@@ -154,13 +147,10 @@ public class Room
    * @return A string listing all the monsters in the room
    */
   private String getMonsterString() {
-    if(monsters.isEmpty()) {
-      return "";
-    }
+    if(monsters.isEmpty()) return "";
     String returnString = MONSTER_STRING;
-    for(Monster m: monsters) {
+    for(Monster m: monsters)
       returnString += " " + m + "\n" + m.getInventoryString() + "\n" + HEALTH_STRING + m.getHealth();
-    }
     return returnString + "\n";
   }
 
@@ -168,13 +158,10 @@ public class Room
    * @return A string listing all the items in the room
    */
   private String getItemString() {
-    if(items.isEmpty()) {
-      return "";
-    }
+    if(items.isEmpty()) return "";
     String returnString = ITEM_STRING;
-    for(Item i: items) {
+    for(Item i: items)
       returnString += " " + i;
-    }
     return returnString + "\n";
   }
 

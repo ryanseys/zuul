@@ -21,20 +21,10 @@ public enum Direction {
    * @return The opposite direction of one specified
    */
   public Direction getOpposite() {
-    if(equals(Direction.NORTH)) {
-      return Direction.SOUTH;
-    }
-    else if(equals(Direction.EAST)) {
-      return Direction.WEST;
-    }
-    else if(equals(Direction.SOUTH)) {
-      return Direction.NORTH;
-    }
-    else if(equals(Direction.WEST)) {
-      return Direction.EAST;
-    }
-    else {
-      return null;
-    }
+    if(equals(Direction.NORTH)) return Direction.SOUTH;
+    else if(equals(Direction.EAST)) return Direction.WEST;
+    else if(equals(Direction.SOUTH)) return Direction.NORTH;
+    else if(equals(Direction.WEST)) return Direction.EAST;
+    else return null;
   }
 }
