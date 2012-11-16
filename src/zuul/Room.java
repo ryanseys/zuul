@@ -230,4 +230,12 @@ public class Room
   public void setLocked(boolean b){
     locked = b;
   }
+  
+  /**
+   * @return whether or not the room currently has any items in it.
+   */
+  public boolean hasItems(){
+	  return !items.isEmpty();
+  }
+  
 }

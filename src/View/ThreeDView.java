@@ -330,8 +330,13 @@ public class ThreeDView extends View
 		consolePanel.add(backgroundPanel, new Integer(0), 0);
 		
 		JLabel fixLabel = new JLabel(new ImageIcon("Images/fix.png"));
-		
-		JLabel chestLabel = new JLabel(new ImageIcon("Images/chest_in_room.png"));
+		chestPanel.removeAll();
+		JLabel chestLabel;
+		if(p.getCurrentRoom().hasItems()){
+			chestLabel = new JLabel(new ImageIcon("Images/chest_in_room_filled.png"));
+		} else {
+			chestLabel = new JLabel(new ImageIcon("Images/chest_in_room.png"));
+		}
 		if(!p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true))){
 			chestPanel.add(chestLabel);
 			chestPanel.setBounds(210,278, 165, 160);
