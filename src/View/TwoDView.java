@@ -37,7 +37,7 @@ import zuul.Player;
 import zuul.Room;
 
 @SuppressWarnings("serial")
-public class TwoDView extends JFrame implements IView, ActionListener
+public class TwoDView extends View implements  ActionListener
 {
 	private JMenuItem resetGame, objective, hint, quit; //commands
 	private JMenuBar menuBar;
@@ -191,7 +191,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	 * It will change buttons as required and enables/disables them.
 	 * It updates all of the panels as well.
 	 */
-	@Override
 	public void update() {
 		Room currentRoom = p.getCurrentRoom();
 		if (currentRoom.getExit(Direction.NORTH) == null) {
@@ -255,7 +254,7 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	 * If there is no map in the players inventory, 
 	 * then a picture message is shown telling the player to find the map.
 	 */
-    private void updateMapPanel(){
+    protected void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
 		   mapPanel.remove(mapLabel);
 	   if(p.getInventory().contains(new Item("Map", true))){
@@ -333,7 +332,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	/**
 	 * This method pops up a dialog that informs the player that they have been defeated by a monster.
 	 */
-	@Override
 	public void gameDone() {
 		JOptionPane.showMessageDialog(this, "You have been defeated!");
 		quit();
@@ -353,7 +351,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	 * This method creates a popup that shows the items that the monster dropped.
 	 * @param m : The monster that has died.
 	 */
-	@Override
 	public void monsterDead(Monster m) {
 		String s = ("You defeated " + m.getName() + "!\n");
 		if(!m.getInventory().isEmpty()){
@@ -412,7 +409,6 @@ public class TwoDView extends JFrame implements IView, ActionListener
 	/**
 	 * Quit method, used to exit the game.
 	 */
-	@Override
 	public void quit() {
 		System.exit(0);
 	}

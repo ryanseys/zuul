@@ -1,5 +1,7 @@
 package View;
 
+import javax.swing.JFrame;
+
 import zuul.Monster;
  /**
  * This class is intended to display the current state of the model
@@ -11,7 +13,8 @@ import zuul.Monster;
  * @version 2012.10.26
  */
 
-public interface IView {
+@SuppressWarnings("serial")
+public abstract class View extends JFrame{
 
 	/**
 	 * This method is invoked very frequently, and tells the status of the
@@ -21,14 +24,14 @@ public interface IView {
 	 * its exits and what items it has
 	 *
 	 */
-	public void update();
+	public abstract void update();
 
 
 	/**
 	 * Invoked when user types a command not mentioned in the
 	 * CommandWords enum.
 	 */
-	public void gameDone();
+	public abstract void gameDone();
 
 	/**
 	 * Invoked when a monster is killed, and tells what happens as a
@@ -36,11 +39,15 @@ public interface IView {
 	 * @param m : The monster that has died, so that info about it can be
 	 * displayed.
 	 */
-	public void monsterDead(Monster m);
+	protected abstract void monsterDead(Monster m);
 
 
 	/**
 	 * Called when the user hits the Quit button.
 	 */
-	public void quit();
+	public abstract void quit();
+	
+	protected abstract void updateMapPanel() ;
+	
+	
 }

@@ -18,6 +18,7 @@ public class Player extends Humanoid  {
 
 	private PlayerHistory playerHistory;
 	private Room currentRoom;
+//	private IView v;
 
 	/**
 	 * The Constructor for the player.
@@ -49,6 +50,7 @@ public class Player extends Humanoid  {
 	 */
 	public void doCommand(Command c){
 		boolean b = false;	//boolean variable, used to keep undo/redo off of the stack when not wanted.
+		Command temp = c;
 		if (c.getCommandWord().equals(CommandWords.UNDO)){	//If the undo command is called on another command(drop, pickup, go)
 			c = playerHistory.undo();						//Undo the command
 			b = true;
@@ -57,29 +59,55 @@ public class Player extends Humanoid  {
 			b = true;
 		}
 
+		if (b == true && c == null) { 						//If there is nothing on the stack
+//			v.undoRedoUnavailable(temp.getCommandWord());	//Print an error accordingly
+			return;
+		}
+
+
 		if (c.getCommandWord().equals(CommandWords.GO)){	//If the command is go
 			Direction d = (Direction) c.getSecondWord();	//set the second word to be the direction
+			if (d == null) {								//If the direction is null
+//				v.inCompleteCommand();						//Print an error accordingly
+				return;
+			}
 
-			Room r = currentRoom.getExit(d); // Get the exit room in the
-												// specified direction
-			currentRoom = r; // the new room is the room in the specified
-								// direction
+			Room r = currentRoom.getExit(d);				//Get the exit room in the specified direction
+			if(r!=null){									//if the room isn't null
+				currentRoom = r;							//the new room is the room in the specified direction
+			} else {
+//				v.invalidRoom();							//The room does not exist, print an error accordingly
+				return;
+			}
 			if(b == false){									//If b is false, the command is not an undo or a redo
 				playerHistory.addStep(c);					//Only add the step if this is the case, to prevent stack problems
 			}
 
 		} else if (c.getCommandWord().equals(CommandWords.FIGHT)){	//If the command is fight
 			Monster m = currentRoom.getMonster();					//get the monster in the room
-			m.removeHealth(this.getBestItem().getValue());					//Remove health from the monster depending on the value of the best item in inventory
-			this.removeHealth((m.getBestItem().getValue()) * m.getLevel());	//Remove health from the player depending on the value of the best item on the monster multiplied with the monster's level
-			if(m.getHealth()<=0){											//Monster has died if its health is less than or equal to zero
-				m.dropItems();												//Drop all of the monster's items and add them to the room
-				currentRoom.removeMonster(m);								//Remove the monster from the room
+			if(m==null){											//If there are no monsters in the room, this will be null
+//				v.monsterMissing();									//Print an error accordingly
+			} else {
+				m.removeHealth(this.getBestItem().getValue());					//Remove health from the monster depending on the value of the best item in inventory
+				this.removeHealth((m.getBestItem().getValue()) * m.getLevel());	//Remove health from the player depending on the value of the best item on the monster multiplied with the monster's level
+				if(m.getHealth()<=0){											//Monster has died if its health is less than or equal to zero
+					m.dropItems();												//Drop all of the monster's items and add them to the room
+					currentRoom.removeMonster(m);								//Remove the monster from the room
+				}
 			}
 
 		} else if (c.getCommandWord().equals(CommandWords.PICKUP)){ //If the command is pickup
 			Item i = (Item) c.getSecondWord();						//Get the item from the second word
+			if (i == null) {										//If there is no input for the item
+//				v.inCompleteCommand();								//Print an error accordingly
+				return;
+			}
+			Item temp1 = i;
 			i = currentRoom.getRealItem(i);							//Determine if the item is real or not
+			if ( i == null) {										//If the item is null, it is not a real item
+//				v.itemInvalid(temp1);								//Print an error accordingly
+				return;
+			}
 			if(currentRoom.hasItem(i)){								//If the real item is in the current room
 				addItem(i);											//Add this item to your inventory
 				currentRoom.removeItem(i);							//Remove this item from the room
@@ -90,9 +118,18 @@ public class Player extends Humanoid  {
 
 		} else if (c.getCommandWord().equals(CommandWords.DROP)){	//If the command is drop
 			Item i = (Item) c.getSecondWord();						//Get the item from the second word
+			if (i == null) {										//If there is no input for the item
+//				v.inCompleteCommand();								//Print an error accordingly
+				return;
+			}
+			Item temp2 = i;
 
 			i = getRealItem(i);										//Determine if the item is real or not
 
+			if ( i == null) {										//If the item is null, it is not a real item
+//				v.itemInvalid(temp2);								//Print an error accordingly
+				return;
+			}
 			if(getInventory().contains(i)){							//If the item is in the player's inventory
 				currentRoom.addItem(i);								//Add the item to the room
 				removeItem(i);										//Remove the item from the player's inventory
@@ -104,6 +141,15 @@ public class Player extends Humanoid  {
 
 		} else if (c.getCommandWord().equals(CommandWords.EAT)){	//If the command is eat
 			Item i = (Item) c.getSecondWord();						//Get the item from the second word
+			if (i == null) {										//If there is no input for the item
+//				v.inCompleteCommand();								//Print an error accordingly
+				return;
+			}
+
+			if (!inventory.contains(i)) {							//If the inventory does not contain the item
+//				v.noItem(i);										//Print an error accordingly
+				return;
+			}
 
 			for(Item in: inventory){								//For each of the items in the inventory
 				if(in.equals(i)){									//If the item is in the inventory
@@ -118,11 +164,22 @@ public class Player extends Humanoid  {
 				removeItem(i);										//Remove the item from the inventory, you can't eat it twice
 				playerHistory.removeItem(i);
 			}
+			else {
+//				v.eatingWeapon(i);									//Print an error if the item attempting to be eaten is a weapon
+			}
 
 		}
 
 		return;
 	}
+
+//	/**
+//	 * Setter for the view.
+//	 * @param v : The view.
+//	 */
+//	public void setView(IView v){
+//		this.v = v;
+//	}
 
 	/**
 	 * Getter for the current room.

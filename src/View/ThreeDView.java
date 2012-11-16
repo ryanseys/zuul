@@ -19,7 +19,6 @@ import java.awt.event.MouseListener;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JList;
@@ -40,7 +39,7 @@ import zuul.Player;
 import zuul.Room;
 
 @SuppressWarnings("serial")
-public class ThreeDView extends JFrame implements IView, ActionListener
+public class ThreeDView extends View implements ActionListener
 {
 	private JMenuItem resetGame, objective, hint, quit, undo, redo; //commands
 	private JMenuBar menuBar;
@@ -272,7 +271,6 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	 * It will change buttons as required and enables/disables them.
 	 * It updates all of the panels as well.
 	 */
-	@Override
 	public void update() {
 		p.getCurrentRoom();
 
@@ -310,7 +308,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 	 * If there is no map in the players inventory, 
 	 * then a picture message is shown telling the player to find the map.
 	 */
-    private void updateMapPanel(){
+    protected void updateMapPanel(){
 		String s = p.getCurrentRoom().getRoomName();
 		   mapPanel.removeAll();
 
@@ -614,7 +612,7 @@ public class ThreeDView extends JFrame implements IView, ActionListener
 			if(p.getInventory().contains(new Item("Treasure", true))){
 				win();
 			}
-		} else if(monster.contains(x, y)){
+		} else if(monster.contains(x, y) && p.getCurrentRoom().hasMonsters()){
 			Monster m = p.getCurrentRoom().getMonster();
 			p.doCommand(Command.parse("Fight"));
 			if(p.getHealth()<=0){

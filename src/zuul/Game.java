@@ -1,7 +1,6 @@
 package zuul;
 import java.io.IOException;
 
-import View.IView;
 import View.ThreeDView;
 
  /**
@@ -23,7 +22,7 @@ import View.ThreeDView;
 
 public class Game {
 
-  private static IView view;
+  private static ThreeDView view;
   private static Room startRoom;
 
   public static void main(String[] args) throws IOException {
@@ -33,7 +32,7 @@ public class Game {
 
   	view = new ThreeDView(p);
   	view.update();
-	((ThreeDView)view).setVisible(true);
+	view.setVisible(true);
 
   }
 
