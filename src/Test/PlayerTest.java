@@ -5,7 +5,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import View.IView;
 
 import zuul.Command;
 import zuul.Item;
@@ -16,13 +15,11 @@ import zuul.Room;
 
 public class PlayerTest {
 
-	IView v;
 	Player p;
 	Room r;
 
 	@Before
 	public void setUp() throws Exception {
-		v = null;
 		r = new Room("Current Room");
 		p = new Player(r);
 	}
