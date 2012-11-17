@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 
 import zuul.Command;
 import zuul.CommandWords;
+import zuul.Game;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Player;
@@ -60,8 +61,8 @@ public abstract class View extends JFrame implements ActionListener{
 	
 	
 	@SuppressWarnings("static-access")
-	public View(Player p) {
-		this.p = p;
+	public View() {
+		this.p = new Player (Player.MAX_HEALTH, Game.initialize(), "Player");;
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar( );
 	    setJMenuBar( menuBar );
@@ -343,19 +344,9 @@ public abstract class View extends JFrame implements ActionListener{
 	 * Reset method, used to start the game anew.
 	 */
 	protected void reset() {
-		while(p.canUndo()){
-			p.doCommand(Command.parse(UNDO));
-		}
 		p.reset();
 		unlocked = false;
-		resetInitialize();
 	}
-	
-	/**
-	 * Initialize the game with the original monsters and items
-	 * in the case that monsters were defeated, or items were eaten.
-	 */
-	protected abstract void resetInitialize();
 	
 	/**
 	 * This method pops up a dialog that informs the player of the damage done to and from the player.

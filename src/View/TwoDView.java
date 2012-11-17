@@ -22,7 +22,6 @@ import zuul.CommandWords;
 import zuul.Direction;
 import zuul.Item;
 import zuul.Monster;
-import zuul.Player;
 import zuul.Room;
 
 @SuppressWarnings("serial")
@@ -33,9 +32,8 @@ public class TwoDView extends View
 	private JTextArea consoleField;
 	private JPanel consolePanel, centralPanel, undoRedoPanel;
 
-	public TwoDView (Player p) {
-		super(p);
-
+	public TwoDView () {
+		super();
 	    undo = new JButton(UNDO);
 	    redo = new JButton(REDO);
 	    northRoom = new JButton("Go North");
@@ -157,46 +155,6 @@ public class TwoDView extends View
 		return s;
 	}
 	
-
-	@Override
-	protected void resetInitialize() {
-		Room west = p.getCurrentRoom().getExit(Direction.WEST);
-		Item r1 = new Item("Apple", 10, 0, false);
-		if (!west.getItems().contains(r1)) {
-			west.addItem(r1);
-		}
-		Item r2 = new Item("Orange", 15, 0, false);
-		if (!west.getItems().contains(r2)) {
-			west.addItem(r2);
-		}
-		Item r3 = new Item("Pear", 20, 0, false);
-		if (!west.getItems().contains(r3)) {
-			west.addItem(r3);
-		}
-		Room north1 = p.getCurrentRoom().getExit(Direction.NORTH);
-		Item r4 = new Item("Bread", 30, 0, false);
-		if (!north1.getItems().contains(r4)) {
-			north1.addItem(r4);
-		}
-		Room east = p.getCurrentRoom().getExit(Direction.EAST);
-		Monster monster1 = new Monster(Monster.MAX_HEALTH,
-				Monster.DEFAULT_LEVEL, "Monster1", east);
-		if (!east.getItems().contains(monster1)) {
-			west.addMonster(monster1);
-			east.addMonster(monster1);
-			monster1.addItem(new Item("Map", 0, 0, true));
-			monster1.addItem(new Item("Claws", 10, 0, true));
-		}
-		Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
-		Monster boss = new Monster(100, 2, "Boss", south);
-		if (!east.getItems().contains(boss)) {
-			west.addMonster(boss);
-			south.addMonster(boss);
-			boss.addItem(new Item("Flamethrower", 30, 0, true));
-			boss.addItem(new Item("Key", 0, 0, true));
-		}
-	}
-
 
 	/**
 	 * This method gets an action from a button press and reacts accordingly.

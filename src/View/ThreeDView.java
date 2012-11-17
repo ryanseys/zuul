@@ -27,8 +27,6 @@ import zuul.CommandWords;
 import zuul.Direction;
 import zuul.Item;
 import zuul.Monster;
-import zuul.Player;
-import zuul.Room;
 
 @SuppressWarnings("serial")
 public class ThreeDView extends View 
@@ -56,9 +54,8 @@ public class ThreeDView extends View
 	private JPanel fixPanel3 = new JPanel();
 
 	
-	public ThreeDView (Player p) {
-		super(p);
-		 
+	public ThreeDView () {
+		super();
 	    this.setLayout(new BorderLayout());
 	    scene.setLayout(new BorderLayout());
 	    consolePanel = new JLayeredPane();
@@ -201,54 +198,6 @@ public class ThreeDView extends View
 		healthField.setText(s);
 	}
 	
-	@Override
-	protected void resetInitialize() {
-		Room west = p.getCurrentRoom().getExit(Direction.WEST);
-		Item r1 = new Item("Apple", 10, 0, false);
-		if (!west.getItems().contains(r1)) {
-			west.addItem(r1);
-		}
-		Item r2 = new Item("Orange", 15, 0, false);
-		if (!west.getItems().contains(r2)) {
-			west.addItem(r2);
-		}
-		Item r3 = new Item("Pear", 20, 0, false);
-		if (!west.getItems().contains(r3)) {
-			west.addItem(r3);
-		}
-		Room north1 = p.getCurrentRoom().getExit(Direction.NORTH);
-		Item r4 = new Item("Bread", 30, 0, false);
-		if (!north1.getItems().contains(r4)) {
-			north1.addItem(r4);
-		}
-		Room east = p.getCurrentRoom().getExit(Direction.EAST);
-		Monster alien = new Monster(Monster.MAX_HEALTH,
-				Monster.DEFAULT_LEVEL, "Alien", east);
-		east.removeItem(new Item("Claws", 10, 0, true));
-		east.removeItem(new Item("Map", 0, 0, true));
-		if (!east.hasMonsters()) {
-			east.addMonster(alien);
-			alien.addItem(new Item("Map", 0, 0, true));
-			alien.addItem(new Item("Claws", 10, 0, true));
-		} else {
-			p.getCurrentRoom().getExit(Direction.EAST).getMonster().setHealth(Monster.MAX_HEALTH);
-		}
-		Room south = p.getCurrentRoom().getExit(Direction.SOUTH);
-		int BossLevel = 2;
-		Monster boss = new Monster(Monster.MAX_HEALTH, BossLevel, "Boss", south);
-		south.removeItem(new Item("Key", 0, 0, true));
-		south.removeItem(new Item("Flamethrower", 30, 0, true));
-		if (!south.hasMonsters()) {
-			south.addMonster(boss);
-			boss.addItem(new Item("Flamethrower", 30, 0, true));
-			boss.addItem(new Item("Key", 0, 0, true));
-		} else {
-			p.getCurrentRoom().getExit(Direction.SOUTH).getMonster().setHealth(Monster.MAX_HEALTH);
-		}
-	}
-
-
-		
 	/**
 	 * This method uses the coordinates from the mouse to determine
 	 * on which object the user clicked. Once it has determined that,

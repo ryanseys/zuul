@@ -23,15 +23,9 @@ import View.View;
 
 public class Game {
 
-  private static Room startRoom;
-
   public static void main(String[] args) throws IOException {
 
-  	initialize();
-  	Player p = new Player (Player.MAX_HEALTH, startRoom, "Player");
-
-  	View view;
-    view = new ThreeDView(p);
+  	View view = new ThreeDView();
   	view.update();
 	view.setVisible(true);
 
@@ -42,8 +36,8 @@ public class Game {
    * Initialization method, to set up the game.
    * Sets up the rooms, the monsters and the items in the game.
    */
-  public static void initialize(){
-	    startRoom = new Room("StartRoom");
+  public static Room initialize(){
+	    Room startRoom = new Room("StartRoom");
 	  	Room northRoom1 = new Room("NorthRoom1");
 	  	northRoom1.addItem(new Item("Bread", 30, 0, false));
 	  	Room southRoom = new Room("SouthRoom");
@@ -83,6 +77,8 @@ public class Game {
 	  	northWestRoom.setExit(Direction.EAST, northRoom2);
 	  	northWestRoom.setLocked(true);
 	  	northWestRoom.addItem(new Item("Treasure", 100, 0, true));
+	  	
+	  	return startRoom;
   }
 
 }

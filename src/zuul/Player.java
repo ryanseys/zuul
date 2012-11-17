@@ -186,6 +186,7 @@ public class Player extends Humanoid  {
 
 	public void reset(){
 		playerHistory.clear();
+		currentRoom = Game.initialize();
 		setHealth(MAX_HEALTH);
 	}
 }
