@@ -1,18 +1,19 @@
 package zuul;
+
 import java.util.Stack;
 
 /**
- * This class keeps track of the history of a player. Where
- * all it has been currently, where all to go when the user
- * hits the undo or the redo button.
- *
- * @author  Vinayak Bansal
+ * This class keeps track of the history of a player. Where all it has been
+ * currently, where all to go when the user hits the undo or the redo button.
+ * 
+ * @author Vinayak Bansal
  * @version 2012.10.22
  */
 
 public class PlayerHistory {
 
-	private Stack<Command> undoStack; // top contains what the last move of the player was
+	private Stack<Command> undoStack; // top contains what the last move of the
+										// player was
 	private Stack<Command> redoStack;
 
 	public PlayerHistory() {
@@ -22,9 +23,9 @@ public class PlayerHistory {
 
 	/**
 	 * This method is called when the player makes a move
-	 *
-	 * @Return <code>true</code> if command was undoable,
-	 * <code>false</code> otherwise
+	 * 
+	 * @Return <code>true</code> if command was undoable, <code>false</code>
+	 *         otherwise
 	 */
 	public boolean addStep(Command c) {
 		if (c == null) { // then we should not add it to our stacks
@@ -32,20 +33,19 @@ public class PlayerHistory {
 		}
 		if (c.isUndoable()) {
 			undoStack.push(c);
-			redoStack.clear(); //you have decided to go on a new path.
+			redoStack.clear(); // you have decided to go on a new path.
 			return true;
 		}
-		return false; //the command cannot be undone. so we have to do nothing with the stack
+		return false; // the command cannot be undone. so we have to do nothing
+						// with the stack
 
 	}
 
 	/**
-	 * Calculates and returns the command that needs to be
-	 * executed to get back to state
-	 * where the player was one move ago.
-	 * Can return <code>null</code>. Will do it in the case where the player
-	 * has not even made its first move.
-	 *
+	 * Calculates and returns the command that needs to be executed to get back
+	 * to state where the player was one move ago. Can return <code>null</code>.
+	 * Will do it in the case where the player has not even made its first move.
+	 * 
 	 */
 	public Command undo() {
 		if (!undoStack.isEmpty()) {
@@ -59,11 +59,9 @@ public class PlayerHistory {
 	}
 
 	/**
-	 * Calculates and returns the Command to be executed
-	 * in case the player changed his mind about changing his
-	 * mind.
-	 * Will return null in case the user has decided to go
-	 * on a new path, and has not hit the undo yet.
+	 * Calculates and returns the Command to be executed in case the player
+	 * changed his mind about changing his mind. Will return null in case the
+	 * user has decided to go on a new path, and has not hit the undo yet.
 	 */
 	public Command redo() {
 		if (!redoStack.isEmpty()) {
@@ -77,8 +75,8 @@ public class PlayerHistory {
 	}
 
 	/**
-	 * Wipes the player history clean, in case the player dies
-	 * or decides to start over again.
+	 * Wipes the player history clean, in case the player dies or decides to
+	 * start over again.
 	 */
 	public void clear() {
 		undoStack.clear();
@@ -87,6 +85,7 @@ public class PlayerHistory {
 
 	/**
 	 * This method tells if the undo button should be available or not
+	 * 
 	 * @return
 	 */
 	public boolean canUndo() {
@@ -95,6 +94,7 @@ public class PlayerHistory {
 
 	/**
 	 * This method tells if the redo button should be available or not
+	 * 
 	 * @return
 	 */
 	public boolean canRedo() {
@@ -102,10 +102,11 @@ public class PlayerHistory {
 	}
 
 	/**
-	 * When  an item is eaten, its no longer undoable, so we need
-	 * to remove it from all the stacks.
-	 *
-	 * @param i - the item that has been eaten
+	 * When an item is eaten, its no longer undoable, so we need to remove it
+	 * from all the stacks.
+	 * 
+	 * @param i
+	 *            - the item that has been eaten
 	 */
 
 	public void removeItem(Item i) {

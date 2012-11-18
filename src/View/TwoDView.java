@@ -7,6 +7,7 @@
  * change sets associated with this file on GitHub
  */
 package View;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -25,66 +26,64 @@ import zuul.Monster;
 import zuul.Room;
 
 @SuppressWarnings("serial")
-public class TwoDView extends View 
-{
-	private JButton pickup, undo, redo, northRoom, southRoom, eastRoom, westRoom, fight;
+public class TwoDView extends View {
+	private JButton pickup, undo, redo, northRoom, southRoom, eastRoom,
+			westRoom, fight;
 	private JLabel currentRoom;
 	private JTextArea consoleField;
 	private JPanel consolePanel, centralPanel, undoRedoPanel;
 
-	public TwoDView () {
+	public TwoDView() {
 		super();
-	    undo = new JButton(UNDO);
-	    redo = new JButton(REDO);
-	    northRoom = new JButton("Go North");
-	    eastRoom = new JButton("Go East");
-	    westRoom = new JButton("Go West");
-	    southRoom = new JButton("Go South");
-	    fight = new JButton (FIGHT);
-	    pickup = new JButton("Pickup");
-	    
+		undo = new JButton(UNDO);
+		redo = new JButton(REDO);
+		northRoom = new JButton("Go North");
+		eastRoom = new JButton("Go East");
+		westRoom = new JButton("Go West");
+		southRoom = new JButton("Go South");
+		fight = new JButton(FIGHT);
+		pickup = new JButton("Pickup");
 
-	    undo.addActionListener(this);
-	    redo.addActionListener(this);
-	    northRoom.addActionListener(this);
-	    eastRoom.addActionListener(this);
-	    westRoom.addActionListener(this);
-	    southRoom.addActionListener(this);
-	    pickup.addActionListener(this);
-	    fight.addActionListener(this);
+		undo.addActionListener(this);
+		redo.addActionListener(this);
+		northRoom.addActionListener(this);
+		eastRoom.addActionListener(this);
+		westRoom.addActionListener(this);
+		southRoom.addActionListener(this);
+		pickup.addActionListener(this);
+		fight.addActionListener(this);
 
-	    consolePanel = new JPanel();
-	    consolePanel.setLayout(new GridLayout(3, 2));
-	    inventoryPanel.setLayout(new GridLayout(1, 2));
-	    centralPanel = new JPanel();
-	    undoRedoPanel = new JPanel();
+		consolePanel = new JPanel();
+		consolePanel.setLayout(new GridLayout(3, 2));
+		inventoryPanel.setLayout(new GridLayout(1, 2));
+		centralPanel = new JPanel();
+		undoRedoPanel = new JPanel();
 
-	    currentRoom = new JLabel("Current Room Actions:");
-	    centralPanel.add(currentRoom);
-	    centralPanel.add(pickup);
-	    centralPanel.add(fight);
-	    centralPanel.setBackground(new Color(255, 249, 206));
+		currentRoom = new JLabel("Current Room Actions:");
+		centralPanel.add(currentRoom);
+		centralPanel.add(pickup);
+		centralPanel.add(fight);
+		centralPanel.setBackground(new Color(255, 249, 206));
 
-	    undoRedoPanel.add(undo);
-	    undoRedoPanel.add(redo);
-	    consoleField = new JTextArea();
-	    consoleField.setEditable(false);
+		undoRedoPanel.add(undo);
+		undoRedoPanel.add(redo);
+		consoleField = new JTextArea();
+		consoleField.setEditable(false);
 		consolePanel.add(consoleField);
 
+		add(undoRedoPanel);
+		add(northRoom);
+		add(mapPanel);
+		add(westRoom);
+		add(centralPanel);
+		add(eastRoom);
+		add(consolePanel);
+		add(southRoom);
+		add(inventoryPanel);
 
-	    add(undoRedoPanel);
-	    add(northRoom);
-	    add(mapPanel);
-	    add(westRoom);
-	    add(centralPanel);
-	    add(eastRoom);
-	    add(consolePanel);
-	    add(southRoom);
-	    add(inventoryPanel);
+		addressMenu.add(quit);
 
-	    addressMenu.add( quit );
-
-	    update();
+		update();
 	}
 
 	@Override
@@ -100,7 +99,7 @@ public class TwoDView extends View
 		} else {
 			southRoom.setEnabled(true);
 		}
-		if (currentRoom.getExit(Direction.EAST)== null) {
+		if (currentRoom.getExit(Direction.EAST) == null) {
 			eastRoom.setEnabled(false);
 		} else {
 			eastRoom.setEnabled(true);
@@ -122,15 +121,14 @@ public class TwoDView extends View
 			redo.setEnabled(false);
 		}
 
-
-		if(!p.getCurrentRoom().getItems().isEmpty()){
+		if (!p.getCurrentRoom().getItems().isEmpty()) {
 			pickup.setEnabled(true);
 		} else {
 			pickup.setEnabled(false);
 		}
 
 		super.update();
-		if(p.getCurrentRoom().hasMonsters()) {
+		if (p.getCurrentRoom().hasMonsters()) {
 			fight.setEnabled(true);
 		} else {
 			fight.setEnabled(false);
@@ -138,75 +136,80 @@ public class TwoDView extends View
 		consoleField.setText(updateConsole());
 	}
 
-
-
-
-
 	/**
-	 * This method is used to update the console showing the player and monster health.
+	 * This method is used to update the console showing the player and monster
+	 * health.
+	 * 
 	 * @return : The string that should be placed onto the console.
 	 */
-	protected String updateConsole(){
+	protected String updateConsole() {
 		String s = "";
 		s += ("Player Health: " + p.getHealth() + "\n");
-		if(p.getCurrentRoom().getMonster()!=null){
-			s+= ("Monster Health: " + p.getCurrentRoom().getMonster().getHealth());
+		if (p.getCurrentRoom().getMonster() != null) {
+			s += ("Monster Health: " + p.getCurrentRoom().getMonster()
+					.getHealth());
 		}
 		return s;
 	}
-	
 
 	/**
 	 * This method gets an action from a button press and reacts accordingly.
-	 * @param e : The actionEvent when a button or menu item is clicked.
+	 * 
+	 * @param e
+	 *            : The actionEvent when a button or menu item is clicked.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Go North")) {
 			p.doCommand(Command.parse("Go North"));
-		}
-		else if (e.getActionCommand().equals("Go East")) {
+		} else if (e.getActionCommand().equals("Go East")) {
 			p.doCommand(Command.parse("Go East"));
-		}
-		else if (e.getActionCommand().equals("Go West")) {
-			if(p.getCurrentRoom().getExit(Direction.WEST).getLocked()!=true || unlocked==true){
+		} else if (e.getActionCommand().equals("Go West")) {
+			if (p.getCurrentRoom().getExit(Direction.WEST).getLocked() != true
+					|| unlocked == true) {
 				p.doCommand(Command.parse("Go West"));
 			} else {
-				if(!p.getInventory().contains(new Item("Key", true))){
-					JOptionPane.showMessageDialog(this, "The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
+				if (!p.getInventory().contains(new Item("Key", true))) {
+					JOptionPane
+							.showMessageDialog(
+									this,
+									"The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
 				} else {
-					JOptionPane.showMessageDialog(this, "You have opened the door!\nYou see the treasure in front of you!");
+					JOptionPane
+							.showMessageDialog(this,
+									"You have opened the door!\nYou see the treasure in front of you!");
 					unlocked = true;
 					p.doCommand(Command.parse("Go West"));
 				}
 			}
-		}
-		else if (e.getActionCommand().equals("Go South")) {
+		} else if (e.getActionCommand().equals("Go South")) {
 			p.doCommand(Command.parse("Go South"));
-		}
-		else if (e.getActionCommand().equals("Pickup")) {
+		} else if (e.getActionCommand().equals("Pickup")) {
 			pickup.setEnabled(true);
-				int popup = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
-					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
-				if (popup != JOptionPane.CLOSED_OPTION) {
-					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(popup)));
-				}
-				if(p.getInventory().contains(new Item(TREASURE, true))){
-					win();
-				}
-		}
-		else if (e.getActionCommand().equals(FIGHT)) {
+			int popup = JOptionPane.showOptionDialog(this,
+					"You are in the current room", "Current Room",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom()
+							.getItems().toArray(), null);
+			if (popup != JOptionPane.CLOSED_OPTION) {
+				p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom()
+						.getItems().get(popup)));
+			}
+			if (p.getInventory().contains(new Item(TREASURE, true))) {
+				win();
+			}
+		} else if (e.getActionCommand().equals(FIGHT)) {
 			Monster m = p.getCurrentRoom().getMonster();
 			p.doCommand(Command.parse(FIGHT));
-			if(p.getHealth()<=0){
+			if (p.getHealth() <= 0) {
 				this.gameDone();
 			} else {
-				if(p.getCurrentRoom().hasMonsters()){
+				if (p.getCurrentRoom().hasMonsters()) {
 					m.setHealth(p.getCurrentRoom().getMonster().getHealth());
 				} else {
 					m.setHealth(0);
 				}
-				if(m.getHealth()<=0){
+				if (m.getHealth() <= 0) {
 					monsterDead(m);
 				} else {
 					fightPopUp();
