@@ -1,5 +1,4 @@
 package zuul;
-import java.util.ArrayList;
 
 /**
  * Monster Class.
@@ -18,7 +17,6 @@ public class Monster extends Humanoid {
 
 	private final int level;
 	public static final int DEFAULT_LEVEL = 1;
-	private Room currentRoom;
 
 	/**
 	 * The Constructor for the monster.
@@ -28,9 +26,8 @@ public class Monster extends Humanoid {
 	 * @param name : The name of the monster
 	 */
 	public Monster(int health, int level, String name, Room room){
-		super(health, name);
+		super(health, name, room);
 		this.level = level;
-		currentRoom = room;
 	}
 
 	/**
@@ -38,9 +35,8 @@ public class Monster extends Humanoid {
 	 * Sets the monsters level to the default level.
 	 */
 	public Monster(Room room){
-		super();
+		super(room);
 		this.level = DEFAULT_LEVEL;
-		currentRoom = room;
 	}
 
 	/**
@@ -54,15 +50,6 @@ public class Monster extends Humanoid {
 		return false;
 	}
 
-	/**
-	 * This method drops all of the items that the monster is carrying into the room it is in.
-	 */
-	public void dropItems(){
-		ArrayList<Item> inventory = this.getInventory();
-		for(Item i: inventory){
-			currentRoom.addItem(i);
-		}
-	}
 
 	/**
 	 * Getter for the monster's level.

@@ -22,6 +22,7 @@ public abstract class Humanoid{
 	private String name;
 	public static final int MAX_HEALTH = 100;
 	protected ArrayList<Item> inventory;
+	private Room currentRoom;
 
 	/**
 	 * This is the constructor for the Humanoid.
@@ -30,7 +31,7 @@ public abstract class Humanoid{
 	 * @param maxHealth : The health of the humanoid
 	 * @param name : The name of the humanoid
 	 */
-	public Humanoid(int maxHealth, String name){
+	public Humanoid(int maxHealth, String name, Room room){
 		if(name == null) {
 			this.name = getClass().getName();
 		} else {
@@ -38,14 +39,15 @@ public abstract class Humanoid{
 		}
 		health = maxHealth;
 		inventory = new ArrayList<Item>();
+		this.currentRoom = room;
 	}
 
 	/**
 	 * Default constructor for the Humanoid.
 	 * Calls the constructor above with the default health and no name.
 	 */
-	public Humanoid(){
-		this(MAX_HEALTH, null);
+	public Humanoid(Room room){
+		this(MAX_HEALTH, null, room);
 	}
 
 	/**
@@ -182,5 +184,47 @@ public abstract class Humanoid{
 	 */
 	public String getName(){
 		return name;
+	}
+	
+	/**
+	 * This method drops all of the items that the monster is carrying into the room it is in.
+	 */
+	public void dropItems(){
+		ArrayList<Item> inventory = this.getInventory();
+		for(Item i: inventory){
+			currentRoom.addItem(i);
+		}
+	}
+	
+	/**
+	 * Getter for the current room.
+	 * @return : The room the player is current in.
+	 */
+	public Room getCurrentRoom() {
+		return currentRoom;
+	}
+	
+	/**
+	 * Setter for the current room.
+	 */
+	protected void setCurrentRoom(Room room) { //protected because we dont want to change the room of a monster
+		if (this instanceof Player) {
+			currentRoom = room; //you cannot chagne the current room of a monster
+		} else {
+			//TODO report an error
+		}
+	}
+	/**
+	 * Set the humanoid back to its default state
+	 */
+	public void reset(){
+		setHealth(MAX_HEALTH);
+		if (this instanceof Player) { //you cannot chagne the current room of a monster
+			currentRoom = Game.initialize();
+			inventory.clear();
+		} else {
+			//TODO error: reset makes no sense on a monster
+		}
+		
 	}
 }

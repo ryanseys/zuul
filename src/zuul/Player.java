@@ -17,7 +17,6 @@ package zuul;
 public class Player extends Humanoid  {
 
 	private PlayerHistory playerHistory;
-	private Room currentRoom;
 
 	/**
 	 * The Constructor for the player.
@@ -27,8 +26,7 @@ public class Player extends Humanoid  {
 	 * @param name : The name of the player.
 	 */
 	public Player(int health, Room room, String name){
-		super(health, name);
-		currentRoom = room;
+		super(health, name, room);
 		playerHistory = new PlayerHistory();
 	}
 
@@ -38,8 +36,7 @@ public class Player extends Humanoid  {
 	 * @param room : The current room of the player.
 	 */
 	public Player(Room room){
-		super();
-		currentRoom = room;
+		super(room);
 		playerHistory = new PlayerHistory();
 	}
 
@@ -48,6 +45,7 @@ public class Player extends Humanoid  {
 	 * @param c : The command to be performed
 	 */
 	public void doCommand(Command c){
+		Room currentRoom = getCurrentRoom();
 		boolean b = false;	//boolean variable, used to keep undo/redo off of the stack when not wanted.
 		if (c.getCommandWord().equals(CommandWords.UNDO)){	//If the undo command is called on another command(drop, pickup, go)
 			c = playerHistory.undo();						//Undo the command
@@ -70,7 +68,7 @@ public class Player extends Humanoid  {
 
 			Room r = currentRoom.getExit(d);				//Get the exit room in the specified direction
 			if(r!=null){									//if the room isn't null
-				currentRoom = r;							//the new room is the room in the specified direction
+				setCurrentRoom(r);							//the new room is the room in the specified direction
 			} else {
 				return;
 			}
@@ -155,14 +153,6 @@ public class Player extends Humanoid  {
 		return;
 	}
 
-	/**
-	 * Getter for the current room.
-	 * @return : The room the player is current in.
-	 */
-	public Room getCurrentRoom() {
-		return currentRoom;
-	}
-	
 	
 	/**
 	 * Asking the player if it can go back.
@@ -186,7 +176,6 @@ public class Player extends Humanoid  {
 
 	public void reset(){
 		playerHistory.clear();
-		currentRoom = Game.initialize();
-		setHealth(MAX_HEALTH);
+		super.reset();
 	}
 }
