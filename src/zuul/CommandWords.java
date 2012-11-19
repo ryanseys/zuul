@@ -11,6 +11,6 @@ package zuul;
 
 public enum CommandWords {
   // All possible commands
-  GO, PICKUP, DROP, FIGHT, HELP, QUIT, UNDO, REDO, EAT; // all words for
-                                                        // firstWord in Commands
+  //all words for firstWord in Commands
+  GO, PICKUP, DROP, FIGHT, HELP, QUIT, UNDO, REDO, EAT; 
 }

@@ -27,6 +27,7 @@ import zuul.Room;
 
 @SuppressWarnings("serial")
 public class TwoDView extends View {
+  private static final String PICKUP2 = "Pickup";
   private JButton pickup, undo, redo, northRoom, southRoom, eastRoom, westRoom,
       fight;
   private JLabel currentRoom;
@@ -37,12 +38,12 @@ public class TwoDView extends View {
     super();
     undo = new JButton(UNDO);
     redo = new JButton(REDO);
-    northRoom = new JButton("Go North");
-    eastRoom = new JButton("Go East");
-    westRoom = new JButton("Go West");
-    southRoom = new JButton("Go South");
+    northRoom = new JButton(GO_NORTH);
+    eastRoom = new JButton(GO_EAST);
+    westRoom = new JButton(GO_WEST);
+    southRoom = new JButton(GO_SOUTH);
     fight = new JButton(FIGHT);
-    pickup = new JButton("Pickup");
+    pickup = new JButton(PICKUP2);
 
     undo.addActionListener(this);
     redo.addActionListener(this);
@@ -136,13 +137,13 @@ public class TwoDView extends View {
    */
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getActionCommand().equals("Go North")) p.doCommand(Command
-        .parse("Go North"));
-    else if (e.getActionCommand().equals("Go East")) p.doCommand(Command
-        .parse("Go East"));
-    else if (e.getActionCommand().equals("Go West")) {
+    if (e.getActionCommand().equals(GO_NORTH)) p.doCommand(Command
+        .parse(GO_NORTH));
+    else if (e.getActionCommand().equals(GO_EAST)) p.doCommand(Command
+        .parse(GO_EAST));
+    else if (e.getActionCommand().equals(GO_WEST)) {
       if ((p.getCurrentRoom().getExit(Direction.WEST).getLocked() != true)
-          || (unlocked == true)) p.doCommand(Command.parse("Go West"));
+          || (unlocked == true)) p.doCommand(Command.parse(GO_WEST));
       else if (!p.getInventory().contains(new Item("Key", true))) JOptionPane
           .showMessageDialog(
               this,
@@ -151,11 +152,11 @@ public class TwoDView extends View {
         JOptionPane.showMessageDialog(this,
             "You have opened the door!\nYou see the treasure in front of you!");
         unlocked = true;
-        p.doCommand(Command.parse("Go West"));
+        p.doCommand(Command.parse(GO_WEST));
       }
-    } else if (e.getActionCommand().equals("Go South")) p.doCommand(Command
-        .parse("Go South"));
-    else if (e.getActionCommand().equals("Pickup")) {
+    } else if (e.getActionCommand().equals(GO_SOUTH)) p.doCommand(Command
+        .parse(GO_SOUTH));
+    else if (e.getActionCommand().equals(PICKUP2)) {
       pickup.setEnabled(true);
       int popup = JOptionPane.showOptionDialog(this,
           "You are in the current room", "Current Room",

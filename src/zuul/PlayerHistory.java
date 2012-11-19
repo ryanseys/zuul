@@ -34,8 +34,8 @@ public class PlayerHistory {
       redoStack.clear(); // you have decided to go on a new path.
       return true;
     }
-    return false; // the command cannot be undone. so we have to do nothing
-    // with the stack
+    // the command cannot be undone. so we have to do nothing with the stack
+    return false; 
 
   }
 
