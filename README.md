@@ -114,9 +114,10 @@ Milestone 3
   Responsble for Humanoid.java, Item.java, Monster.java and Player.java classes, UML Diagram
 
 **All:**
-  Responsible for reporting issues/bugs to Github (https://github.com/ryanseys/zuul/issues)
-  Responsible for the GUI building and testing
-  Responsible for writing tests for their respective class files
+
+  * Responsible for reporting issues/bugs to Github (https://github.com/ryanseys/zuul/issues)
+  * Responsible for the GUI building and testing
+  * Responsible for writing tests for their respective class files
 
 ## Changes made for Milestone 1
 
@@ -153,6 +154,7 @@ Milestone 3
   * Clickable item chests (to pickup)
   * Clickable monsters (to fight)
   * Drop/Eat/Inspect buttons for item actions
+  * Very large refactoring of codebase.
 
 # User manual
 
@@ -160,7 +162,9 @@ The goal of the game is to find the long lost treasure of zuul. Once you find th
 
 If you click a door (or the downward arrow in the interface) you will go through it if the door is unlocked. If the door is not unlocked, you must find and pickup the key associated with that door to unlock it.
 
-To fight a monster, you can click it. If you are holding a weapon you will do damage to the monster, if you aren't holding a weapon then you will do no damage. When you attack a monster, it will immediately attack back, doing some damage to you. This will depleat your health by a certain amount. If your health depleats to zero (0) then you will lose the game and it will quit automatically.
+To fight a monster, you can click it. If you are holding a weapon you will do damage to the monster, if you aren't holding a weapon then you will do no damage. When you attack a monster, it will immediately attack back, doing some damage to you. This will depleat your health by a certain amount. If your health depleats to zero (0) then you will lose the game and it will quit automatically. If you defeat a monster, it will disappear from the room and it may drop some new items into the room you are in. In this case, you can now pick them up to use them.
+
+To recover some health, eat food items. If you select an item you have in your inventory, and the "Eat" button is highlighted, it means that you can eat it. If the button is not highlighted, it means that you cannot eat that item.
 
 To reset the game, you can select File-->Reset. This will reset everything in the same way that quitting and restarting the game would do.
 
