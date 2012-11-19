@@ -79,28 +79,20 @@ Milestone 3
 * drop.png
 * eat.png
 * fight.png
-* Garbage.png
 * Go.png
-* pickup.png
 * help.png
-* quit.png
-* UndoRedo.png
-
-### Class Diagrams and Sequence Diagrams
-
-* SecondMilestoneUML.png
-* TestUML.png
 * hint.png
-* objective.png
-* reset.png
-* quit.png
-* pickup.png
 * Inspect.png
-* Go.png
-* fight.png
-* eat.png
-* drop.png
+* objective.png
+* pickup.png
+* quit.png
+* reset.png
 * UndoRedo.png
+
+### Class Diagrams
+
+* ThirdMilestoneUML.png
+
 
 ## Authors and Their Roles
 
