@@ -146,7 +146,9 @@ Milestone 3
   * Clickable item chests (to pickup)
   * Clickable monsters (to fight)
   * Drop/Eat/Inspect buttons for item actions
-  * Very large refactoring of codebase.
+* Very large refactoring of codebase.
+  * Moved all compared Strings into constants
+  * Extracted many similar methods from the different views into a superclass
 
 # User manual
 

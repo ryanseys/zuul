@@ -28,8 +28,7 @@ public class TextView {
   }
 
   public void displayHelp() {
-    System.out
-        .println("You are lost. You are alone. You wander around in a cave.\n");
+    System.out.println("You are lost. You are alone. You wander around in a cave.\n");
     System.out.println("Your command words are:");
     for (CommandWords commandWord : CommandWords.values())
       System.out.print(commandWord + " ");
@@ -75,8 +74,7 @@ public class TextView {
   }
 
   public void inCompleteCommand() {
-    System.out
-        .println("You typed in a correct command, but one that expects a second piece of info. Please try again");
+    System.out.println("You typed in a correct command, but one that expects a second piece of info. Please try again");
   }
 
   public void undoRedoUnavailable(CommandWords commandWord) {
