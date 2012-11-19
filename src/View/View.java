@@ -360,5 +360,26 @@ public abstract class View extends JFrame implements ActionListener {
             + " attacked " + p.getName() + " and did "
             + (m.getBestItem().getValue() * m.getLevel()) + " Damage\n");
   }
+  
+  /**
+   * asks the user what kind of a view he wants
+   * @return: a 2D or a 3D view depending on what the user wanted.
+   */
+  public static View getInstance() {
+	  String[] s = new String[2];
+	  s[0] = "2D";
+	  s[1] = "3D";
+	  int popup = JOptionPane.showOptionDialog(null, "Please select a view:",
+          "View Selection", JOptionPane.YES_NO_CANCEL_OPTION,
+          JOptionPane.INFORMATION_MESSAGE, null, s, null);
+	  View view;
+	  if(popup == 0){
+		  view = new TwoDView();
+	  } else {
+		  view = new ThreeDView();
+	  }
+	  return view;
+	  
+  }
 
 }

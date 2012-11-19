@@ -137,96 +137,66 @@ public class TwoDView extends View {
    * @param e
    *          : The actionEvent when a button or menu item is clicked.
    */
-  @Override
-  public void actionPerformed(ActionEvent e) {
-	  if (e.getActionCommand().equals("Reset")) {
-			reset();
-		}
-		else if (e.getActionCommand().equals("Objective")) {
-			JOptionPane.showMessageDialog(this, getObjective());
-		}
-		else if(e.getActionCommand().equals("Hint")){
-			getHint();
-		}
-		else if (e.getActionCommand().equals("Go North")) {
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Go North")) {
 			p.doCommand(Command.parse("Go North"));
-		}
-		else if (e.getActionCommand().equals("Go East")) {
+		} else if (e.getActionCommand().equals("Go East")) {
 			p.doCommand(Command.parse("Go East"));
-		}
-		else if (e.getActionCommand().equals("Go West")) {
-			if(p.getCurrentRoom().getExit(Direction.WEST).getLocked()!=true || unlocked==true){
+		} else if (e.getActionCommand().equals("Go West")) {
+			if (p.getCurrentRoom().getExit(Direction.WEST).getLocked() != true
+					|| unlocked == true) {
 				p.doCommand(Command.parse("Go West"));
 			} else {
-				if(!p.getInventory().contains(new Item("Key", true))){
-					JOptionPane.showMessageDialog(this, "The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
+				if (!p.getInventory().contains(new Item("Key", true))) {
+					JOptionPane
+							.showMessageDialog(
+									this,
+									"The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
 				} else {
-					JOptionPane.showMessageDialog(this, "You have opened the door!\nYou see the treasure in front of you!");
+					JOptionPane
+							.showMessageDialog(this,
+									"You have opened the door!\nYou see the treasure in front of you!");
 					unlocked = true;
 					p.doCommand(Command.parse("Go West"));
 				}
 			}
-		}
-		else if (e.getActionCommand().equals("Go South")) {
+		} else if (e.getActionCommand().equals("Go South")) {
 			p.doCommand(Command.parse("Go South"));
-		}
-		else if (e.getActionCommand().equals("Pickup")) {
+		} else if (e.getActionCommand().equals("Pickup")) {
 			pickup.setEnabled(true);
-				int popup = JOptionPane.showOptionDialog(this, "You are in the current room", "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
-					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom().getItems().toArray(), null);
-				if (popup != JOptionPane.CLOSED_OPTION) {
-					p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom().getItems().get(popup)));
-				}
-				if(p.getInventory().contains(new Item("Treasure", true))){
-					win();
-				}
-		}
-		else if (e.getActionCommand().equals("Drop")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-				p.doCommand(new Command(CommandWords.DROP, selectedItem));
-				updateMapPanel();
+			int popup = JOptionPane.showOptionDialog(this,
+					"You are in the current room", "Current Room",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom()
+							.getItems().toArray(), null);
+			if (popup != JOptionPane.CLOSED_OPTION) {
+				p.doCommand(new Command(CommandWords.PICKUP, p.getCurrentRoom()
+						.getItems().get(popup)));
 			}
-		}
-		else if (e.getActionCommand().equals("Fight")) {
+			if (p.getInventory().contains(new Item("Treasure", true))) {
+				win();
+			}
+		} else if (e.getActionCommand().equals("Fight")) {
 			Monster m = p.getCurrentRoom().getMonster();
 			p.doCommand(Command.parse("Fight"));
-			if(p.getHealth()<=0){
+			if (p.getHealth() <= 0) {
 				this.gameDone();
 			} else {
-				if(p.getCurrentRoom().hasMonsters()){
+				if (p.getCurrentRoom().hasMonsters()) {
 					m.setHealth(p.getCurrentRoom().getMonster().getHealth());
 				} else {
 					m.setHealth(0);
 				}
-				if(m.getHealth()<=0){
+				if (m.getHealth() <= 0) {
 					monsterDead(m);
 				} else {
 					fightPopUp();
 				}
 			}
-		}
-		else if (e.getActionCommand().equals("Eat")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-				p.doCommand(new Command(CommandWords.EAT, selectedItem));
-			}
-		}
-		else if (e.getActionCommand().equals("Inspect")) {
-			Item selectedItem = ((Item) inventoryList.getSelectedValue());
-			if(selectedItem != null) {
-		   		JOptionPane.showMessageDialog(this, selectedItem.getDescription(), "Item", getDefaultCloseOperation(), getImageIcon(selectedItem));
-			}
-		}
-		else if (e.getActionCommand().equals("UNDO")) {
-			p.doCommand(Command.parse("UNDO"));
-		}
-		else if (e.getActionCommand().equals("REDO")) {
-			p.doCommand(Command.parse("REDO"));
-		}
-		else if (e.getActionCommand().equals("Quit")) {
-			quit();
+		} else {
+			super.actionPerformed(e);
 		}
 		update();
-  }
+	}
 }

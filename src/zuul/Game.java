@@ -2,10 +2,6 @@ package zuul;
 
 import java.io.IOException;
 
-import javax.swing.JOptionPane;
-
-import View.ThreeDView;
-import View.TwoDView;
 import View.View;
 
 /**
@@ -92,18 +88,7 @@ public class Game {
   }
 
   public static void main(String[] args) throws IOException {
-	  String[] s = new String[2];
-	  s[0] = "2D";
-	  s[1] = "3D";
-	  int popup = JOptionPane.showOptionDialog(null, "Choose one:",
-          "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
-          JOptionPane.INFORMATION_MESSAGE, null, s, null);
-	  View view;
-	  if(popup == 0){
-		  view = new TwoDView();
-	  } else {
-		  view = new ThreeDView();
-	  }
+	  View view = View.getInstance();
       view.update();
       view.setVisible(true);
 
