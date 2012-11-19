@@ -72,20 +72,14 @@ public class Player extends Humanoid {
    */
   public void doCommand(Command c) {
     Room currentRoom = getCurrentRoom();
-    boolean b = false; // boolean variable, used to keep undo/redo off of the
-                       // stack when not wanted.
-    if (c.getCommandWord().equals(CommandWords.UNDO)) { // If the undo command
-                                                        // is called on another
-                                                        // command(drop, pickup,
-                                                        // go)
+    // boolean variable, used to keep undo/redo off of the stack when not wanted.
+    boolean b = false; 
+    // If the undo command is called on another command(drop, pickup, go)
+    if (c.getCommandWord().equals(CommandWords.UNDO)) { 
       c = playerHistory.undo(); // Undo the command
       b = true;
-    } else if (c.getCommandWord().equals(CommandWords.REDO)) { // If the undo
-                                                               // command is
-                                                               // called on
-                                                               // another
-                                                               // command(drop,
-                                                               // pickup, go)
+      // If the undo command is called on another command(drop, pickup, go)
+    } else if (c.getCommandWord().equals(CommandWords.REDO)) { 
       c = playerHistory.redo(); // Redo the command
       b = true;
     }
@@ -93,18 +87,16 @@ public class Player extends Humanoid {
     if ((b == true) && (c == null)) return;
 
     if (c.getCommandWord().equals(CommandWords.GO)) { // If the command is go
-      Direction d = (Direction) c.getSecondWord(); // set the second word to be
-                                                   // the direction
+      // set the second word to be the direction
+      Direction d = (Direction) c.getSecondWord(); 
       if (d == null) return;
-
-      Room r = currentRoom.getExit(d); // Get the exit room in the specified
-                                       // direction
-      if (r != null) setCurrentRoom(r); // the new room is the room in the
-                                        // specified direction
+      // Get the exit room in the specified direction
+      Room r = currentRoom.getExit(d); 
+      // the new room is the room in the specified direction
+      if (r != null) setCurrentRoom(r); 
       else return;
-      if (b == false) playerHistory.addStep(c); // Only add the step if this is
-                                                // the case, to prevent stack
-                                                // problems
+      // Only add the step if this is the case, to prevent stack problems
+      if (b == false) playerHistory.addStep(c); 
 
     } else if (c.getCommandWord().equals(CommandWords.FIGHT)) { // If the
                                                                 // command is
@@ -113,25 +105,12 @@ public class Player extends Humanoid {
       if (m == null) { // If there are no monsters in the room, this will be
                        // null
       } else {
-        m.removeHealth(getBestItem().getValue()); // Remove health from the
-                                                  // monster depending on the
-                                                  // value of the best item in
-                                                  // inventory
-        removeHealth((m.getBestItem().getValue()) * m.getLevel()); // Remove
-                                                                   // health
-                                                                   // from the
-                                                                   // player
-                                                                   // depending
-                                                                   // on the
-                                                                   // value of
-                                                                   // the best
-                                                                   // item on
-                                                                   // the
-                                                                   // monster
-                                                                   // multiplied
-                                                                   // with the
-                                                                   // monster's
-                                                                   // level
+        // Remove health from the monster depending on the value 
+        // of the best item in inventory
+        m.removeHealth(getBestItem().getValue()); 
+        // Remove health from the player depending on the value of 
+        // the best item on the monster multiplied with the monster's level
+        removeHealth((m.getBestItem().getValue()) * m.getLevel()); 
         if (m.getHealth() <= 0) { // Monster has died if its health is less than
                                   // or equal to zero
           m.dropItems(); // Drop all of the monster's items and add them to the
@@ -139,10 +118,8 @@ public class Player extends Humanoid {
           currentRoom.removeMonster(m); // Remove the monster from the room
         }
       }
-
-    } else if (c.getCommandWord().equals(CommandWords.PICKUP)) { // If the
-                                                                 // command is
-                                                                 // pickup
+   // If the command is pickup
+    } else if (c.getCommandWord().equals(CommandWords.PICKUP)) { 
       Item i = (Item) c.getSecondWord(); // Get the item from the second word
       if (i == null) return;
       i = currentRoom.getRealItem(i); // Determine if the item is real or not
@@ -151,12 +128,10 @@ public class Player extends Humanoid {
         addItem(i); // Add this item to your inventory
         currentRoom.removeItem(i); // Remove this item from the room
       }
-      if (b == false) playerHistory.addStep(c); // Only add the step if this is
-                                                // the case, to prevent stack
-                                                // problems
-
-    } else if (c.getCommandWord().equals(CommandWords.DROP)) { // If the command
-                                                               // is drop
+      // Only add the step if this is the case, to prevent stack problems
+      if (b == false) playerHistory.addStep(c); 
+      // If the command is drop
+    } else if (c.getCommandWord().equals(CommandWords.DROP)) { 
       Item i = (Item) c.getSecondWord(); // Get the item from the second word
       if (i == null) return;
 
@@ -168,33 +143,26 @@ public class Player extends Humanoid {
         currentRoom.addItem(i); // Add the item to the room
         removeItem(i); // Remove the item from the player's inventory
       }
-
-      if (b == false) playerHistory.addStep(c); // Only add the step if this is
-                                                // the case, to prevent stack
-                                                // problems
-
-    } else if (c.getCommandWord().equals(CommandWords.EAT)) { // If the command
-                                                              // is eat
+      // Only add the step if this is the case, to prevent stack problems
+      if (b == false) playerHistory.addStep(c); 
+      // If the command is eat
+    } else if (c.getCommandWord().equals(CommandWords.EAT)) { 
       Item i = (Item) c.getSecondWord(); // Get the item from the second word
       if (i == null) return;
 
       if (!inventory.contains(i)) return;
 
       for (Item in : inventory)
-        if (in.equals(i)) i = in; // Then assign the item to the actual item
-                                  // object in the inventory
+        // Then assign the item to the actual item object in the inventory
+        if (in.equals(i)) i = in; 
       if (!i.isWeapon()) { // If the item is not a weapon
         addHealth(i.getValue()); // Add the value of the item to the current
                                  // health
-        if (getHealth() > MAX_HEALTH) setHealth(MAX_HEALTH); // Set the health
-                                                             // to the maximum
-                                                             // health (i.e.
-                                                             // Your health
-                                                             // cannot exceed
-                                                             // the maximum
-                                                             // health)
-        removeItem(i); // Remove the item from the inventory, you can't eat it
-                       // twice
+        // Set the health to the maximum health (i.e. 
+        //Your health cannot exceed the maximum health)
+        if (getHealth() > MAX_HEALTH) setHealth(MAX_HEALTH);
+        // Remove the item from the inventory, you can't eat it twice
+        removeItem(i); 
         playerHistory.removeItem(i);
       }
     }

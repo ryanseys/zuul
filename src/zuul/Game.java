@@ -23,40 +23,59 @@ import View.View;
 
 public class Game {
 
+  public static final String KEY = "Key";
+  public static final String FLAMETHROWER = "Flamethrower";
+  public static final String BOSS2 = "Boss";
+  public static final String CLAWS = "Claws";
+  public static final String MAP = "Map";
+  public static final String ALIEN2 = "Alien";
+  public static final String PEAR = "Pear";
+  public static final String ORANGE = "Orange";
+  public static final String APPLE = "Apple";
+  public static final String SWORD = "Sword";
+  public static final String NORTH_ROOM2 = "NorthRoom2";
+  public static final String NORTH_WEST_ROOM = "NorthWestRoom";
+  public static final String WEST_ROOM = "WestRoom";
+  public static final String EAST_ROOM = "EastRoom";
+  public static final String SOUTH_ROOM = "SouthRoom";
+  public static final String BREAD = "Bread";
+  public static final String NORTH_ROOM1 = "NorthRoom1";
+  public static final String START_ROOM = "StartRoom";
+
   /**
    * Initialization method, to set up the game. Sets up the rooms, the monsters
    * and the items in the game.
    */
   public static Room initialize() {
-    Room startRoom = new Room("StartRoom");
-    Room northRoom1 = new Room("NorthRoom1");
-    northRoom1.addItem(new Item("Bread", 30, 0, false));
-    Room southRoom = new Room("SouthRoom");
-    Room eastRoom = new Room("EastRoom");
-    Room westRoom = new Room("WestRoom");
-    Room northWestRoom = new Room("NorthWestRoom");
-    Room northRoom2 = new Room("NorthRoom2");
-    startRoom.addItem(new Item("Sword", 50, 0, true));
+    Room startRoom = new Room(START_ROOM);
+    Room northRoom1 = new Room(NORTH_ROOM1);
+    northRoom1.addItem(new Item(BREAD, 30, 0, false));
+    Room southRoom = new Room(SOUTH_ROOM);
+    Room eastRoom = new Room(EAST_ROOM);
+    Room westRoom = new Room(WEST_ROOM);
+    Room northWestRoom = new Room(NORTH_WEST_ROOM);
+    Room northRoom2 = new Room(NORTH_ROOM2);
+    startRoom.addItem(new Item(SWORD, 50, 0, true));
     startRoom.setExit(Direction.NORTH, northRoom1);
     startRoom.setExit(Direction.SOUTH, southRoom);
     startRoom.setExit(Direction.EAST, eastRoom);
     startRoom.setExit(Direction.WEST, westRoom);
-    westRoom.addItem(new Item("Apple", 10, 0, false));
-    westRoom.addItem(new Item("Orange", 15, 0, false));
-    westRoom.addItem(new Item("Pear", 20, 0, false));
+    westRoom.addItem(new Item(APPLE, 10, 0, false));
+    westRoom.addItem(new Item(ORANGE, 15, 0, false));
+    westRoom.addItem(new Item(PEAR, 20, 0, false));
 
     eastRoom.setExit(Direction.WEST, startRoom);
 
     Monster alien = new Monster(Humanoid.MAX_HEALTH, Monster.DEFAULT_LEVEL,
-        "Alien", eastRoom);
+        ALIEN2, eastRoom);
     eastRoom.addMonster(alien);
-    alien.addItem(new Item("Map", 0, 0, true));
-    alien.addItem(new Item("Claws", 10, 0, true));
+    alien.addItem(new Item(MAP, 0, 0, true));
+    alien.addItem(new Item(CLAWS, 10, 0, true));
 
-    Monster boss = new Monster(100, 2, "Boss", southRoom);
+    Monster boss = new Monster(100, 2, BOSS2, southRoom);
     southRoom.addMonster(boss);
-    boss.addItem(new Item("Flamethrower", 30, 0, true));
-    boss.addItem(new Item("Key", 0, 0, true));
+    boss.addItem(new Item(FLAMETHROWER, 30, 0, true));
+    boss.addItem(new Item(KEY, 0, 0, true));
 
     westRoom.setExit(Direction.EAST, startRoom);
     northRoom1.setExit(Direction.SOUTH, startRoom);

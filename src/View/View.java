@@ -49,6 +49,10 @@ public abstract class View extends JFrame implements ActionListener {
   private static final String INSPECT = "Inspect";
   private static final String DROP = "Drop";
   public static final String EAT = "Eat";
+  public static final String GO_SOUTH = "Go South";
+  public static final String GO_NORTH = "Go North";
+  public static final String GO_EAST = "Go East";
+  public static final String GO_WEST = "Go West";
   protected Player p;
   protected boolean unlocked;
   protected JMenuBar menuBar;

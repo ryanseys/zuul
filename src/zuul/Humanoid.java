@@ -219,10 +219,10 @@ public abstract class Humanoid {
   /**
    * Setter for the current room.
    */
-  protected void setCurrentRoom(Room room) { // protected because we dont want
-                                             // to change the room of a monster
-    if (this instanceof Player) currentRoom = room; // you cannot chagne the
-                                                    // current room of a monster
+  //protected because we dont want to change the room of a monster
+  protected void setCurrentRoom(Room room) { 
+    // you cannot chagne the current room of a monster
+    if (this instanceof Player) currentRoom = room; 
     else {
       // TODO report an error
     }

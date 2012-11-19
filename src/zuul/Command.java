@@ -27,8 +27,8 @@ public class Command {
     CommandWords cmdword;
     // try to get the enum for that word
     try {
-      cmdword = CommandWords.valueOf(first); // get the first word for the
-                                             // command
+      // get the first word for the command
+      cmdword = CommandWords.valueOf(first); 
     }
     catch (Exception e) {
       return null;
@@ -47,8 +47,8 @@ public class Command {
       if (dir != null) return new Command(cmdword, dir);
     } else if ((cmdword == CommandWords.DROP)
         || (cmdword == CommandWords.PICKUP) || (cmdword == CommandWords.EAT)) return new Command(
-        cmdword, new Item(second, 0, 0, false)); // assume weight and value to
-                                                 // be zero
+         // assume weight and value to be zero
+        cmdword, new Item(second, 0, 0, false)); 
     return null;
   }
   private CommandWords firstWord;

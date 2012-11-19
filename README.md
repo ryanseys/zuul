@@ -161,3 +161,6 @@ To recover some health, eat food items. If you select an item you have in your i
 To reset the game, you can select File-->Reset. This will reset everything in the same way that quitting and restarting the game would do.
 
 To undo an action, you can click the undo button in the File menu. This will only undo actions that could seamingly be undone in real life. As such, eating a food item is NOT undoable, neither is fighting a monster, or dying. You also cannot undo a reset. Travelling between rooms is undoable, as is picking up and dropping an item. You can also undo your undos by clicking the "Redo" button from the File menu.
+
+**NOTE:**
+Clicking on the objects sometimes isn't detected for some reason we cannot explain. We detect using the Polygon library whether the point we click is within the box we have generated around the object, and yet sometimes clicks that are clearly within the space defined are not detected. For this we recommend moving your mouse a little bit and trying to click the object again.

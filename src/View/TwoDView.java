@@ -27,6 +27,7 @@ import zuul.Room;
 
 @SuppressWarnings("serial")
 public class TwoDView extends View {
+  private static final String PICKUP2 = "Pickup";
   private JButton pickup, undo, redo, northRoom, southRoom, eastRoom, westRoom,
       fight;
   private JLabel currentRoom;
@@ -37,13 +38,15 @@ public class TwoDView extends View {
     super();
     undo = new JButton(UNDO);
     redo = new JButton(REDO);
-    northRoom = new JButton("Go North");
-    eastRoom = new JButton("Go East");
-    westRoom = new JButton("Go West");
-    southRoom = new JButton("Go South");
+    northRoom = new JButton(GO_NORTH);
+    eastRoom = new JButton(GO_EAST);
+    westRoom = new JButton(GO_WEST);
+    southRoom = new JButton(GO_SOUTH);
     fight = new JButton(FIGHT);
-    pickup = new JButton("Pickup");
-
+    pickup = new JButton(PICKUP2);
+    
+    this.setLayout(new GridLayout(3, 3));
+    
     undo.addActionListener(this);
     redo.addActionListener(this);
     northRoom.addActionListener(this);
@@ -52,7 +55,7 @@ public class TwoDView extends View {
     southRoom.addActionListener(this);
     pickup.addActionListener(this);
     fight.addActionListener(this);
-    this.setLayout(new GridLayout(3, 3));
+
     consolePanel = new JPanel();
     consolePanel.setLayout(new GridLayout(3, 2));
     inventoryPanel.setLayout(new GridLayout(1, 2));
@@ -225,5 +228,6 @@ public class TwoDView extends View {
 			quit();
 		}
 		update();
+    
   }
 }
