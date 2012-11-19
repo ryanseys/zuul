@@ -21,12 +21,15 @@ import javax.swing.JTextArea;
 import zuul.Command;
 import zuul.CommandWords;
 import zuul.Direction;
+import zuul.Game;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Room;
 
 @SuppressWarnings("serial")
 public class TwoDView extends View {
+  private static final String FIGHT2 = "Fight";
+  private static final String CURRENT_ROOM = "Current Room";
   private static final String PICKUP2 = "Pickup";
   private JButton pickup, undo, redo, northRoom, southRoom, eastRoom, westRoom,
       fight;
@@ -139,16 +142,16 @@ public class TwoDView extends View {
    */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Go North")) {
-			p.doCommand(Command.parse("Go North"));
-		} else if (e.getActionCommand().equals("Go East")) {
-			p.doCommand(Command.parse("Go East"));
-		} else if (e.getActionCommand().equals("Go West")) {
+		if (e.getActionCommand().equals(GO_NORTH)) {
+			p.doCommand(Command.parse(GO_NORTH));
+		} else if (e.getActionCommand().equals(GO_EAST)) {
+			p.doCommand(Command.parse(GO_EAST));
+		} else if (e.getActionCommand().equals(GO_WEST)) {
 			if (p.getCurrentRoom().getExit(Direction.WEST).getLocked() != true
 					|| unlocked == true) {
-				p.doCommand(Command.parse("Go West"));
+				p.doCommand(Command.parse(GO_WEST));
 			} else {
-				if (!p.getInventory().contains(new Item("Key", true))) {
+				if (!p.getInventory().contains(new Item(Game.KEY, true))) {
 					JOptionPane
 							.showMessageDialog(
 									this,
@@ -158,15 +161,15 @@ public class TwoDView extends View {
 							.showMessageDialog(this,
 									"You have opened the door!\nYou see the treasure in front of you!");
 					unlocked = true;
-					p.doCommand(Command.parse("Go West"));
+					p.doCommand(Command.parse(GO_WEST));
 				}
 			}
-		} else if (e.getActionCommand().equals("Go South")) {
-			p.doCommand(Command.parse("Go South"));
-		} else if (e.getActionCommand().equals("Pickup")) {
+		} else if (e.getActionCommand().equals(GO_SOUTH)) {
+			p.doCommand(Command.parse(GO_SOUTH));
+		} else if (e.getActionCommand().equals(PICKUP2)) {
 			pickup.setEnabled(true);
 			int popup = JOptionPane.showOptionDialog(this,
-					"You are in the current room", "Current Room",
+					"You are in the current room", CURRENT_ROOM,
 					JOptionPane.YES_NO_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, null, p.getCurrentRoom()
 							.getItems().toArray(), null);
@@ -177,9 +180,9 @@ public class TwoDView extends View {
 			if (p.getInventory().contains(new Item("Treasure", true))) {
 				win();
 			}
-		} else if (e.getActionCommand().equals("Fight")) {
+		} else if (e.getActionCommand().equals(FIGHT2)) {
 			Monster m = p.getCurrentRoom().getMonster();
-			p.doCommand(Command.parse("Fight"));
+			p.doCommand(Command.parse(FIGHT2));
 			if (p.getHealth() <= 0) {
 				this.gameDone();
 			} else {
