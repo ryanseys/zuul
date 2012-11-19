@@ -11,9 +11,9 @@ import java.util.Stack;
  */
 
 public class PlayerHistory {
-
-  private Stack<Command> undoStack; // top contains what the last move of the
-  // player was
+  
+  //top contains what the last move of the player was
+  private Stack<Command> undoStack; 
   private Stack<Command> redoStack;
 
   public PlayerHistory() {
