@@ -14,11 +14,6 @@ public class DirectionTest {
   }
 
   @Test
-  public void oppositeWestIsEast() {
-    assertTrue(Direction.WEST.getOpposite().equals(Direction.EAST));
-  }
-
-  @Test
   public void oppositeNorthIsSouth() {
     assertTrue(Direction.NORTH.getOpposite().equals(Direction.SOUTH));
   }
@@ -26,5 +21,10 @@ public class DirectionTest {
   @Test
   public void oppositeSouthIsNorth() {
     assertTrue(Direction.SOUTH.getOpposite().equals(Direction.NORTH));
+  }
+
+  @Test
+  public void oppositeWestIsEast() {
+    assertTrue(Direction.WEST.getOpposite().equals(Direction.EAST));
   }
 }

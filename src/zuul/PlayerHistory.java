@@ -12,123 +12,114 @@ import java.util.Stack;
 
 public class PlayerHistory {
 
-	private Stack<Command> undoStack; // top contains what the last move of the
-										// player was
-	private Stack<Command> redoStack;
+  private Stack<Command> undoStack; // top contains what the last move of the
+  // player was
+  private Stack<Command> redoStack;
 
-	public PlayerHistory() {
-		undoStack = new Stack<Command>();
-		redoStack = new Stack<Command>();
-	}
+  public PlayerHistory() {
+    undoStack = new Stack<Command>();
+    redoStack = new Stack<Command>();
+  }
 
-	/**
-	 * This method is called when the player makes a move
-	 * 
-	 * @Return <code>true</code> if command was undoable, <code>false</code>
-	 *         otherwise
-	 */
-	public boolean addStep(Command c) {
-		if (c == null) { // then we should not add it to our stacks
-			return false;
-		}
-		if (c.isUndoable()) {
-			undoStack.push(c);
-			redoStack.clear(); // you have decided to go on a new path.
-			return true;
-		}
-		return false; // the command cannot be undone. so we have to do nothing
-						// with the stack
+  /**
+   * This method is called when the player makes a move
+   * 
+   * @Return <code>true</code> if command was undoable, <code>false</code>
+   *         otherwise
+   */
+  public boolean addStep(Command c) {
+    if (c == null) return false;
+    if (c.isUndoable()) {
+      undoStack.push(c);
+      redoStack.clear(); // you have decided to go on a new path.
+      return true;
+    }
+    return false; // the command cannot be undone. so we have to do nothing
+    // with the stack
 
-	}
+  }
 
-	/**
-	 * Calculates and returns the command that needs to be executed to get back
-	 * to state where the player was one move ago. Can return <code>null</code>.
-	 * Will do it in the case where the player has not even made its first move.
-	 * 
-	 */
-	public Command undo() {
-		if (!undoStack.isEmpty()) {
-			Command toReturn = undoStack.pop();
-			toReturn = toReturn.getOpposite();
-			redoStack.push(toReturn);
-			return toReturn;
+  /**
+   * This method tells if the redo button should be available or not
+   * 
+   * @return
+   */
+  public boolean canRedo() {
+    return !redoStack.isEmpty();
+  }
 
-		}
-		return null;
-	}
+  /**
+   * This method tells if the undo button should be available or not
+   * 
+   * @return
+   */
+  public boolean canUndo() {
+    return !undoStack.isEmpty();
+  }
 
-	/**
-	 * Calculates and returns the Command to be executed in case the player
-	 * changed his mind about changing his mind. Will return null in case the
-	 * user has decided to go on a new path, and has not hit the undo yet.
-	 */
-	public Command redo() {
-		if (!redoStack.isEmpty()) {
-			Command toReturn = redoStack.pop();
-			toReturn = toReturn.getOpposite();
-			undoStack.push(toReturn);
-			return toReturn;
+  /**
+   * Wipes the player history clean, in case the player dies or decides to start
+   * over again.
+   */
+  public void clear() {
+    undoStack.clear();
+    redoStack.clear();
+  }
 
-		}
-		return null;
-	}
+  /**
+   * Calculates and returns the Command to be executed in case the player
+   * changed his mind about changing his mind. Will return null in case the user
+   * has decided to go on a new path, and has not hit the undo yet.
+   */
+  public Command redo() {
+    if (!redoStack.isEmpty()) {
+      Command toReturn = redoStack.pop();
+      toReturn = toReturn.getOpposite();
+      undoStack.push(toReturn);
+      return toReturn;
 
-	/**
-	 * Wipes the player history clean, in case the player dies or decides to
-	 * start over again.
-	 */
-	public void clear() {
-		undoStack.clear();
-		redoStack.clear();
-	}
+    }
+    return null;
+  }
 
-	/**
-	 * This method tells if the undo button should be available or not
-	 * 
-	 * @return
-	 */
-	public boolean canUndo() {
-		return !undoStack.isEmpty();
-	}
+  /**
+   * When an item is eaten, its no longer undoable, so we need to remove it from
+   * all the stacks.
+   * 
+   * @param i
+   *          - the item that has been eaten
+   */
 
-	/**
-	 * This method tells if the redo button should be available or not
-	 * 
-	 * @return
-	 */
-	public boolean canRedo() {
-		return !redoStack.isEmpty();
-	}
+  public void removeItem(Item i) {
+    Stack<Command> temp = new Stack<Command>();
+    while (!undoStack.isEmpty()) {
+      Command top = undoStack.pop();
+      if (!top.getSecondWord().equals(i)) temp.add(top);
+    }
+    while (!temp.isEmpty())
+      undoStack.add(temp.pop());
 
-	/**
-	 * When an item is eaten, its no longer undoable, so we need to remove it
-	 * from all the stacks.
-	 * 
-	 * @param i
-	 *            - the item that has been eaten
-	 */
+    while (!redoStack.isEmpty()) {
+      Command top = redoStack.pop();
+      if (!top.getSecondWord().equals(i)) temp.add(top);
+    }
+    while (!temp.isEmpty())
+      redoStack.add(temp.pop());
+  }
 
-	public void removeItem(Item i) {
-		Stack<Command> temp = new Stack<Command>();
-		while (!undoStack.isEmpty()) {
-			Command top = undoStack.pop();
-			if (!top.getSecondWord().equals(i)) {
-				temp.add(top);
-			}
-		}
-		while (!temp.isEmpty()) {
-			undoStack.add(temp.pop());
-		}
+  /**
+   * Calculates and returns the command that needs to be executed to get back to
+   * state where the player was one move ago. Can return <code>null</code>. Will
+   * do it in the case where the player has not even made its first move.
+   */
+  public Command undo() {
+    if (!undoStack.isEmpty()) {
+      Command toReturn = undoStack.pop();
+      toReturn = toReturn.getOpposite();
+      redoStack.push(toReturn);
+      return toReturn;
 
-		while (!redoStack.isEmpty()) {
-			Command top = redoStack.pop();
-			if (!top.getSecondWord().equals(i)) {
-				temp.add(top);
-			}
-		}
-		while (!temp.isEmpty()) {
-			redoStack.add(temp.pop());
-		}
-	}
+    }
+    return null;
+  }
 }
