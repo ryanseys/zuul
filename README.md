@@ -3,7 +3,7 @@ zuul (Github : http://github.com/ryanseys/zuul)
 
 Authors: Ryan Seys, Vinayak Bansal, Jarred Linthorne-Shaw
 
-Milestone 2
+Milestone 3
 ===========
 
 ## Deliverables
@@ -25,9 +25,10 @@ Milestone 2
 
 ### View package
 
-* IView.java
 * TextView.java
+* ThreeDView.java
 * TwoDView.java
+* View.java
 
 ### Test package
 
@@ -43,11 +44,20 @@ Milestone 2
 ### Image files
 
 * apple.png
+* background_plain.png
+* boss1_in_room.png
+* boss2_in_room.png
 * bread.gif
+* chest_in_room_filled.png
+* chest_in_room.png
+* claws.png
+* east_door.png
+* fix.png
 * flamethrower.jpg
-* hatchet.png
 * key.png
 * map.jpg
+* monster_in_room.png
+* north_door.png
 * orange.png
 * pear.png
 * rooms_eastroom.png
@@ -58,7 +68,11 @@ Milestone 2
 * rooms_southroom.png
 * rooms_startroom.png
 * rooms_westroom.png
+* south_door.png
 * sword.png
+* treasure_in_room.png
+* west_door_locked.png
+* west_door.png
 
 ### Sequence Diagrams
 
@@ -131,3 +145,23 @@ Milestone 2
 * Added lots of unit tests for the classes
 * Splitted the project into multiple packages
 * Added reset functionality
+
+## Changes made for Milestone 3
+
+* Added 3D GUI Interface
+  * Clickable doors (to travel through)
+  * Clickable item chests (to pickup)
+  * Clickable monsters (to fight)
+  * Drop/Eat/Inspect buttons for item actions
+
+# User manual
+
+The goal of the game is to find the long lost treasure of zuul. Once you find the treasure the game will quit. The only other time the game will quit is if you die, or click File ---> Quit.
+
+If you click a door (or the downward arrow in the interface) you will go through it if the door is unlocked. If the door is not unlocked, you must find and pickup the key associated with that door to unlock it.
+
+To fight a monster, you can click it. If you are holding a weapon you will do damage to the monster, if you aren't holding a weapon then you will do no damage. When you attack a monster, it will immediately attack back, doing some damage to you. This will depleat your health by a certain amount. If your health depleats to zero (0) then you will lose the game and it will quit automatically.
+
+To reset the game, you can select File-->Reset. This will reset everything in the same way that quitting and restarting the game would do.
+
+To undo an action, you can click the undo button in the File menu. This will only undo actions that could seamingly be undone in real life. As such, eating a food item is NOT undoable, neither is fighting a monster, or dying. You also cannot undo a reset. Travelling between rooms is undoable, as is picking up and dropping an item. You can also undo your undos by clicking the "Redo" button from the File menu.
