@@ -1,5 +1,10 @@
 package zuul;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * Command class represents a combination of one or two CommandWords, which
  * together form a full instruction for the player to execute. e.g. Combining
@@ -11,7 +16,7 @@ package zuul;
  * @version 2012.11.02
  */
 
-public class Command {
+public class Command implements Serializable{
 
   /**
    * Static parsing method parses a command and returns a command object which
@@ -148,4 +153,25 @@ public class Command {
   public boolean isUnknown() {
     return (firstWord == null);
   }
+  
+  public void save(ObjectOutputStream input) throws IOException{
+	  firstWord.save(input);
+	  if (secondWord instanceof Item) {
+		  input.writeBoolean(true);
+		  ((Item) secondWord).save(input);
+	  } else {
+		  input.writeBoolean(false);
+		  ((Direction) secondWord).save(input);
+	  }
+  }
+  
+  public static Command retrieve(ObjectInputStream input) throws IOException {
+	  CommandWords firstWord = CommandWords.retrieve(input);
+	  boolean isItem = input.readBoolean();
+	  if (isItem) {
+		  return new Command(firstWord, Item.retrieve(input));
+	  } else {
+		  return new Command(firstWord, Direction.retrieve(input));
+	  }
+	}
 }

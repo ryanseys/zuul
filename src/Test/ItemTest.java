@@ -56,7 +56,8 @@ public class ItemTest {
 			oos.close();
 			Item retrieve = Item.retrieve(in);
 			assertTrue(i.equals(retrieve));
-			assertFalse(i.equals(13));
+			assertFalse(i.equals(i3));
+			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
