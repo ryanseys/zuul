@@ -1,5 +1,6 @@
 package zuul;
 
+import java.io.Serializable;
 import java.util.Stack;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Stack;
  * @version 2012.10.22
  */
 
-public class PlayerHistory {
+public class PlayerHistory implements Serializable{
   
   //top contains what the last move of the player was
   private Stack<Command> undoStack; 

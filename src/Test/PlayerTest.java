@@ -3,11 +3,17 @@ package Test;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import zuul.Command;
+import zuul.Game;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Player;
@@ -116,5 +122,34 @@ public class PlayerTest {
 
   @After
   public void tearDown() throws Exception {
+  }
+  
+//  @Test
+//  public void testEquals() {
+//	  assertTrue(p.equals(p));
+//	  r.addItem(new Item("Gold", false));
+//	  p.doCommand(Command.parse("Eat Gold"));
+//	  assertFalse(p.equals(new Player(new Room("Current Room"))));
+//  }
+  
+  @Test
+  public void testSaveRetrieve() {
+	  FileOutputStream fos;
+		ObjectOutputStream oos;
+		ObjectInputStream in;
+		try {
+			fos = new FileOutputStream("myFile.txt");
+			oos = new ObjectOutputStream(fos);
+			Player p = new Player(Game.initialize());
+			oos.writeObject(p);
+			oos.close();
+			in = new ObjectInputStream(new FileInputStream("myFile.txt"));
+			Player retrieve = (Player) in.readObject();
+			in.close();
+			assertTrue(retrieve.getHealth() == p.getHealth());
+			assertTrue(retrieve.getInventoryString().equals(p.getInventoryString()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
   }
 }

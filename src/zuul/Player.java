@@ -1,5 +1,10 @@
 package zuul;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 /**
  * Player Class. This class is in charge of the Player. This class has a
  * reference to the current room that the player is in. As well, there is a
@@ -12,7 +17,7 @@ package zuul;
  * @version 2012.10.23
  */
 
-public class Player extends Humanoid {
+public class Player extends Humanoid  implements Serializable{
 
   private PlayerHistory playerHistory;
 
@@ -175,4 +180,21 @@ public class Player extends Humanoid {
     playerHistory.clear();
     super.reset();
   }
+  
+  public void save(ObjectOutputStream input) throws IOException{
+	  input.writeObject(this);
+  }
+  
+  public static Player retrieve(ObjectInputStream input) throws Exception{
+	  Object o = input.readObject();
+	  return (Player)o;
+  }
+  
+//  @Override
+//  public boolean equals(Object o) {
+//	  if (!(o instanceof Player))
+//		  return false;
+//	  Player p = (Player)o;
+//	  return playerHistory.equals(p.playerHistory) && super.equals(o);
+//  }
 }
