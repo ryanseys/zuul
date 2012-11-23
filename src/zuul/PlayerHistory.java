@@ -13,6 +13,10 @@ import java.util.Stack;
 
 public class PlayerHistory implements Serializable{
   
+  /**
+   * Serial version UID
+   */
+  private static final long serialVersionUID = 1L;
   //top contains what the last move of the player was
   private Stack<Command> undoStack; 
   private Stack<Command> redoStack;

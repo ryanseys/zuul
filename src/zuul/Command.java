@@ -19,6 +19,11 @@ import java.io.Serializable;
 public class Command implements Serializable{
 
   /**
+   * Serial version UID
+   */
+  private static final long serialVersionUID = 1L;
+  
+  /**
    * Static parsing method parses a command and returns a command object which
    * can instruct the player to do a certain thing.
    */

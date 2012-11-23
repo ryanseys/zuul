@@ -20,7 +20,11 @@ import java.util.ArrayList;
 
 public abstract class Humanoid implements Serializable {
 
-	private int health;
+	/**
+   * Serial version UID
+   */
+  private static final long serialVersionUID = 1L;
+  private int health;
 	private String name;
 	public static final int MAX_HEALTH = 100;
 	protected ArrayList<Item> inventory;

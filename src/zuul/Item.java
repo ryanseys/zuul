@@ -22,6 +22,10 @@ import java.io.Serializable;
 
 public class Item implements Comparable<Item>, Serializable {
 
+  /**
+   * Serial version UID
+   */
+  private static final long serialVersionUID = 1L;
 	private String name;
 	private int value;
 	private int weight;

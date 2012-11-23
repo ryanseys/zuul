@@ -17,6 +17,11 @@ import java.util.Set;
  */
 
 public class Room implements Serializable{
+  
+  /**
+   * Serial version UID
+   */
+  private static final long serialVersionUID = 1L;
   private String description;
   private List<Item> items;
   private List<Monster> monsters;

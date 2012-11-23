@@ -14,6 +14,10 @@ package zuul;
 
 public class Monster extends Humanoid {
 
+  /**
+   * Serial version UID
+   */
+  private static final long serialVersionUID = 1L;
   private final int level;
   public static final int DEFAULT_LEVEL = 1;
 

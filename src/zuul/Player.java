@@ -19,6 +19,10 @@ import java.io.Serializable;
 
 public class Player extends Humanoid  implements Serializable{
 
+  /**
+   * Serial version UID
+   */
+  private static final long serialVersionUID = 1L;
   private PlayerHistory playerHistory;
 
   /**
