@@ -5,6 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -26,6 +30,8 @@ import zuul.Humanoid;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Player;
+
+	
 
 /**
  * This class is intended to display the current state of the model in different
@@ -58,7 +64,7 @@ public abstract class View extends JFrame implements ActionListener {
   protected JMenuBar menuBar;
   protected JList inventoryList;
   protected DefaultListModel inventoryModel;
-  protected JMenuItem resetGame, objective, hint, quit;
+  protected JMenuItem resetGame, objective, hint, quit, save, open;
   protected JButton eat, drop, inspect;
   protected JPanel inventoryPanel, mapPanel;
   protected JLabel mapLabel;
@@ -139,6 +145,10 @@ public abstract class View extends JFrame implements ActionListener {
 
     resetGame = new JMenuItem(RESET);
     resetGame.addActionListener(this);
+    save = new JMenuItem("Save");
+    save.addActionListener(this);
+    open = new JMenuItem("Open");
+    open.addActionListener(this);
     quit = new JMenuItem(QUIT);
     quit.addActionListener(this);
     objective = new JMenuItem(OBJECTIVE);
@@ -146,6 +156,8 @@ public abstract class View extends JFrame implements ActionListener {
     hint = new JMenuItem(HINT);
     hint.addActionListener(this);
     addressMenu.add(resetGame);
+    addressMenu.add(open);
+    addressMenu.add(save);
     helpMenu.add(objective);
     helpMenu.add(hint);
 
@@ -208,10 +220,15 @@ public abstract class View extends JFrame implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    if (e.getActionCommand().equals(RESET)) reset();
-    else if (e.getActionCommand().equals(OBJECTIVE)) JOptionPane
-        .showMessageDialog(this, getObjective());
-    else if (e.getActionCommand().equals(HINT)) getHint();
+    if (e.getActionCommand().equals(RESET)) {
+    	reset();
+    }
+    else if (e.getActionCommand().equals(OBJECTIVE)) {
+    	JOptionPane.showMessageDialog(this, getObjective());
+    }
+    else if (e.getActionCommand().equals(HINT)) {
+    	getHint();
+    }
     else if (e.getActionCommand().equals(DROP)) {
       Item selectedItem = ((Item) inventoryList.getSelectedValue());
       if (selectedItem != null) {
@@ -224,16 +241,73 @@ public abstract class View extends JFrame implements ActionListener {
           selectedItem));
     } else if (e.getActionCommand().equals(INSPECT)) {
       Item selectedItem = ((Item) inventoryList.getSelectedValue());
-      if (selectedItem != null) JOptionPane.showMessageDialog(this,
+      if (selectedItem != null){
+    	  JOptionPane.showMessageDialog(this,
           selectedItem.getDescription(), "Item", getDefaultCloseOperation(),
           getImageIcon(selectedItem));
-    } else if (e.getActionCommand().equals(UNDO)) p.doCommand(Command
-        .parse(UNDO));
-    else if (e.getActionCommand().equals(REDO)) p
-        .doCommand(Command.parse(REDO));
-    else if (e.getActionCommand().equals(QUIT)) quit();
+      }
+    } else if (e.getActionCommand().equals(UNDO)) {
+    	p.doCommand(Command.parse(UNDO));
+    }
+    else if (e.getActionCommand().equals(REDO)) {
+    	p.doCommand(Command.parse(REDO));
+    }
+    else if (e.getActionCommand().equals(QUIT)) {
+    	quit();
+    }
+    else if (e.getActionCommand().equals("Save")) {
+    	saveGame();
+    }
+    else if(e.getActionCommand().equals("Open")) {
+ 		ObjectInputStream in;
+ 		try {
+ 			in = new ObjectInputStream(new FileInputStream("zuul.txt"));
+ 			p = (Player) in.readObject();
+ 			unlocked = in.readBoolean();
+ 			in.close();
+ 		} catch (Exception e1) {
+ 			e1.printStackTrace();
+ 		}
+    }
     update();
   }
+
+/**
+ * TODO
+ */
+private void saveGame() {
+	
+//	Display display = new Display();
+//    Shell shell = new Shell(display);
+//    shell.open();
+//    FileDialog dialog = new FileDialog(shell, SWT.SAVE);
+//    dialog
+//        .setFilterNames(new String[] { "Batch Files", "All Files (*.*)" });
+//    dialog.setFilterExtensions(new String[] { "*.bat", "*.*" }); // Windows
+//                                    // wild
+//                                    // cards
+//    dialog.setFilterPath("c:\\"); // Windows path
+//    dialog.setFileName("fred.bat");
+//    System.out.println("Save to: " + dialog.open());
+//    while (!shell.isDisposed()) {
+//      if (!display.readAndDispatch())
+//        display.sleep();
+//    }
+//    display.dispose();
+  
+
+	FileOutputStream fos;
+	ObjectOutputStream oos;
+	try {
+		fos = new FileOutputStream("zuul.txt");
+		oos = new ObjectOutputStream(fos);
+		oos.writeObject(p);
+		oos.writeBoolean(unlocked);
+		oos.close();
+	} catch (Exception e1) {
+		e1.printStackTrace();
+	}
+}
 
   /**
    * This method updates the mapPanel with the images of the minimap. If there

@@ -1,5 +1,6 @@
 package zuul;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Set;
  * @version 2012.11.02
  */
 
-public class Room {
+public class Room implements Serializable{
   private String description;
   private List<Item> items;
   private List<Monster> monsters;
