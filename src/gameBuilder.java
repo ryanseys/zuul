@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 
 public class gameBuilder extends JFrame implements ActionListener{
@@ -55,12 +55,12 @@ public class gameBuilder extends JFrame implements ActionListener{
 		b15 = new JButton(); 
 		
 		b9.setLayout(new FlowLayout());
-		JTextField f = new JTextField("This is the starting room.");
+		JTextArea f = new JTextArea("Now editing: Rooms\nThis is the starting room.");
 		f.setEditable(false);
-		b9.add(f);// BorderLayout.NORTH);
+		b9.add(f);
 		done = new JButton();
-		done.setText("Click here if done editing Game");
-		b9.add(done);// BorderLayout.CENTER);
+		done.setText("Click here if done editing Rooms");
+		b9.add(done);
 		
 		done.addActionListener(this);
 		
@@ -73,7 +73,6 @@ public class gameBuilder extends JFrame implements ActionListener{
 		b6.addActionListener(this);
 		b7.addActionListener(this); 
 		b8.addActionListener(this);
-		//b9.addActionListener(this); 
 		b10.addActionListener(this);
 		b11.addActionListener(this);
 		b12.addActionListener(this);
@@ -242,6 +241,8 @@ public class gameBuilder extends JFrame implements ActionListener{
 			}
 		} else if (e.getSource() == done){
 			System.out.println("Done with game building");
+			this.setVisible(false);
+			monsterBuilder monBuil = new monsterBuilder(rooms);
 		}
 		mb = new mapBuilder(rooms, 9); //9 is the starting room
 		

@@ -262,4 +262,8 @@ public abstract class Humanoid implements Serializable {
 	public String toString() {
 		return name;
 	}
+	
+	public void setRoom(Room r){
+		currentRoom = r;
+	}
 }
