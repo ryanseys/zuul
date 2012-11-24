@@ -8,24 +8,27 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import zuul.Room;
 
-public class gameBuilder extends JFrame implements ActionListener{
+
+public class gameBuilder extends JPanel implements ActionListener{
 
 	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
 	private JButton done;
 	private JPanel b9;
 	private boolean[] rooms;
 	mapBuilder mb;
+	boolean isDone = false;
 	
 	public gameBuilder(){
 		this.setLayout(new GridLayout(4, 4));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setExtendedState(MAXIMIZED_BOTH);
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		this.setExtendedState(MAXIMIZED_BOTH);
 		initButtons();
 		rooms = new boolean[16];
 		initRooms();
 		mb = new mapBuilder(rooms, 9); //9 is the starting room
-		this.setVisible(true);
+//		this.setVisible(true);
 	}
 	
 	
@@ -241,10 +244,27 @@ public class gameBuilder extends JFrame implements ActionListener{
 			}
 		} else if (e.getSource() == done){
 			System.out.println("Done with game building");
-			this.setVisible(false);
 			monsterBuilder monBuil = new monsterBuilder(rooms);
+		
+			//this.setVisible(false);
+			isDone = true;
+				Room[] roomsArray = monBuil.getRooms();
+				if(roomsArray[0].hasMonsters()){
+					System.out.println("ROOM HAS MONSTERS!");
+				}
+				
+			
+			
 		}
 		mb = new mapBuilder(rooms, 9); //9 is the starting room
 		
 	}
+	public boolean[] getRooms(){
+		return rooms;
+	}
+	
+	public boolean isDone(){
+		return isDone;
+	}
+	
 }

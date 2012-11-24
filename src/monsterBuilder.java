@@ -16,28 +16,51 @@ import zuul.Monster;
 import zuul.Room;
 
 
-public class monsterBuilder extends JFrame implements ActionListener{
+public class monsterBuilder extends JPanel implements ActionListener{
 
 	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
 	private JButton done;
-	private Room r0, r1, r2, r3, r4, r5, r6, r7, r8, r10, r11, r12, r13, r14, r15;
+	private Room r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15;
 	private JPanel b9;
 	private boolean[] rooms;
 	mapBuilder mb;
 	Monster alien;
 	Monster boss;
 	ArrayList<Monster> mArray= new ArrayList<Monster>();
+	boolean isDone = false;
 	
 	public monsterBuilder(boolean[] b){
 		this.setLayout(new GridLayout(4, 4));
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setExtendedState(MAXIMIZED_BOTH);
+//		this.setAlwaysOnTop(true);
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//		this.setExtendedState(MAXIMIZED_BOTH);
 		initButtons();
 		rooms = new boolean[16];
 		initRooms(b);
 		initMonsters();
 		mb = new mapBuilder(rooms, 9); //9 is the starting room
-		this.setVisible(true);
+//		this.setVisible(true);
+	}
+	
+	public Room[] getRooms(){
+		Room[] returnedRooms = new Room[16];
+		returnedRooms[0] = r0;
+		returnedRooms[1] = r1;
+		returnedRooms[2] = r2;
+		returnedRooms[3] = r3;
+		returnedRooms[4] = r4;
+		returnedRooms[5] = r5;
+		returnedRooms[6] = r6;
+		returnedRooms[7] = r7;
+		returnedRooms[8] = r8;
+		returnedRooms[9] = r9;
+		returnedRooms[10] = r10;
+		returnedRooms[11] = r11;
+		returnedRooms[12] = r12;
+		returnedRooms[13] = r13;
+		returnedRooms[14] = r14;
+		returnedRooms[15] = r15;
+		return returnedRooms;
 	}
 	
 	public void initButtons(){
@@ -191,6 +214,7 @@ public class monsterBuilder extends JFrame implements ActionListener{
 		r6 = new Room("6");
 		r7 = new Room("7");
 		r8 = new Room("8");
+		r9 = new Room("9");
 		r10 = new Room("10");
 		r11 = new Room("11");
 		r12 = new Room("12");
@@ -428,9 +452,16 @@ public class monsterBuilder extends JFrame implements ActionListener{
 					 b15.setText("Monster Placed!");
 				 } 
 		} else if (e.getSource() == done){
+			this.setVisible(false);
+			isDone = true;
 			System.out.println("Done with game building");
 		}
 		mb = new mapBuilder(rooms, 9); //9 is the starting room
 		
+	}
+	
+		
+	public boolean getDone(){
+		return isDone;
 	}
 }
