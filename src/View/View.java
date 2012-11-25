@@ -73,8 +73,8 @@ public abstract class View extends JFrame implements ActionListener {
 	protected JLabel mapLabel;
 	protected JMenu addressMenu, helpMenu;
 
-	public View(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
-		p = new Player(Humanoid.MAX_HEALTH, Game.initialize(ib, mb, rb), "Player");
+	public View(Builder b) {
+		p = new Player(Humanoid.MAX_HEALTH, Game.initialize(b), "Player");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -466,7 +466,7 @@ public abstract class View extends JFrame implements ActionListener {
 	 * 
 	 * @return: a 2D or a 3D view depending on what the user wanted.
 	 */
-	public static  View getInstance(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
+	public static  View getInstance(Builder b) {
 		String[] s = new String[2];
 		s[0] = "2D";
 		s[1] = "3D";
@@ -475,9 +475,9 @@ public abstract class View extends JFrame implements ActionListener {
 				JOptionPane.INFORMATION_MESSAGE, null, s, null);
 		View view;
 		if (popup == 0) {
-			view = new TwoDView(ib, mb, rb);
+			view = new TwoDView(b);
 		} else {
-			view = new ThreeDView(ib, mb, rb);
+			view = new ThreeDView(b);
 		}
 		return view;
 

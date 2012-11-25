@@ -37,8 +37,8 @@ public class TwoDView extends View {
   private JTextArea consoleField;
   private JPanel consolePanel, centralPanel, undoRedoPanel;
 
-  public TwoDView(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
-    super(ib, mb, rb);
+  public TwoDView(Builder b) {
+    super(b);
     undo = new JButton(UNDO);
     redo = new JButton(REDO);
     northRoom = new JButton(GO_NORTH);

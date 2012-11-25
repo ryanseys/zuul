@@ -264,8 +264,7 @@ public class RoomBuilder extends JPanel implements ActionListener{
 		return rooms;
 	}
 	
-	public boolean isDone(){
+	public boolean isDone() {
 		return isDone;
 	}
-	
 }

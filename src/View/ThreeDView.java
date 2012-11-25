@@ -69,8 +69,8 @@ public class ThreeDView extends View {
   private JPanel fixPanel2 = new JPanel();
   private JPanel fixPanel3 = new JPanel();
 
-  public ThreeDView(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
-    super(ib, mb, rb);
+  public ThreeDView(Builder b) {
+    super(b);
     setLayout(new BorderLayout());
     scene.setLayout(new BorderLayout());
     consolePanel = new JLayeredPane();

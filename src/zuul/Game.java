@@ -1,9 +1,6 @@
 package zuul;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import Builders.*;
 import View.View;
 
@@ -42,9 +39,6 @@ public class Game {
   public static final String BREAD = "Bread";
   public static final String NORTH_ROOM1 = "NorthRoom1";
   public static final String START_ROOM = "StartRoom";
-  public ItemBuilder itemBuilder;
-  public MonsterBuilder monsterBuilder;
-  public RoomBuilder roomBuilder;
   
 
   /**
@@ -54,7 +48,10 @@ public class Game {
    * @param <MapBuilder>
    * @param <RoomBuilder>
    */
-  public static Room initialize(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
+  public static Room initialize(Builder b) {
+    ItemBuilder ib = b.getItemBuilder();
+    MonsterBuilder mb = b.getMonsterBuilder();
+    RoomBuilder rb = b.getRoomBuilder();
     
     //Old implementation as a default if builder not used
     if(ib == null || mb == null || rb == null) {
@@ -177,7 +174,7 @@ public class Game {
   }
 
   public static void main(String[] args) throws IOException {
-	  View view = View.getInstance(null, null, null);
+	  View view = View.getInstance(new Builder());
     view.update();
     view.setVisible(true);
   }

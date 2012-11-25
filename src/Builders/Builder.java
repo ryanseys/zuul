@@ -1,5 +1,10 @@
 package Builders;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
 
@@ -12,6 +17,7 @@ public class Builder extends JFrame{
   private RoomBuilder rb;
 	private MonsterBuilder mb;
 	private ItemBuilder ib;
+  private ActionEvent e;
 	
 	
 	public Builder(){
@@ -23,7 +29,8 @@ public class Builder extends JFrame{
 		
 		this.add(rb);
 		this.setVisible(true);
-		while(rb.isDone() == false){
+		
+		while(!rb.isDone){
 			//wait for gameBuilder to be done
 			System.out.println("Waiting for roomBuilder to be finished");
 		}
@@ -41,16 +48,29 @@ public class Builder extends JFrame{
 		this.add(ib);
 		this.remove(mb);
 		this.validate();
+
 		while(ib.isDone() == false){
 			//wait for itemBuilder to be done
 			System.out.println("Waiting for itemBuilder to be finished");
 		}
 		this.remove(ib);
 		
-		View view = View.getInstance(ib, mb, rb);
+		View view = View.getInstance(this);
 	  view.update();
 	  view.setVisible(true);
 	}
+	
+	public ItemBuilder getItemBuilder() {
+	  return ib;
+	}
+	
+   public MonsterBuilder getMonsterBuilder() {
+     return mb;
+   }
+	 
+  public RoomBuilder getRoomBuilder() {
+    return rb;
+  }
 	
 	public static void main(String[] args){
 		Builder b = new Builder();

@@ -18,6 +18,8 @@ package zuul;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import Builders.Builder;
+
 public abstract class Humanoid implements Serializable {
 
 	/**
@@ -29,6 +31,7 @@ public abstract class Humanoid implements Serializable {
 	public static final int MAX_HEALTH = 100;
 	protected ArrayList<Item> inventory;
 	private Room currentRoom;
+	Builder b;
 
 	/**
 	 * This is the constructor for the Humanoid. If no name is passed, the
@@ -48,6 +51,7 @@ public abstract class Humanoid implements Serializable {
 		health = maxHealth;
 		inventory = new ArrayList<Item>();
 		currentRoom = room;
+		if(currentRoom != null) b = currentRoom.getBuilder();
 	}
 
 	/**
@@ -222,7 +226,7 @@ public abstract class Humanoid implements Serializable {
 		setHealth(MAX_HEALTH);
 		if (this instanceof Player) { // you cannot chagne the current room of a
 										// monster
-			currentRoom = Game.initialize(null, null, null);
+			currentRoom = Game.initialize(currentRoom.getBuilder());
 			inventory.clear();
 		} else {
 			// TODO error: reset makes no sense on a monster

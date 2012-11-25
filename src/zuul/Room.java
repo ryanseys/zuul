@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import Builders.Builder;
+
 /**
  * Room class for representing a room that a Player can be in. The room can also
  * contain items and monsters. The room also has a specific set of exits which
@@ -31,6 +33,7 @@ public class Room implements Serializable{
   private static final String HEALTH_STRING = "Health:";
   private static final String ITEM_STRING = "Items:";
   private boolean locked = false;
+  Builder b;
 
   /**
    * Create a room described "description". Initially, it has no exits.
@@ -44,6 +47,10 @@ public class Room implements Serializable{
     exits = new HashMap<Direction, Room>();
     monsters = new ArrayList<Monster>();
     items = new ArrayList<Item>();
+  }
+  
+  public Builder getBuilder() {
+    return b;
   }
 
   /**
