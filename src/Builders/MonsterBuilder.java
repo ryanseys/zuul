@@ -32,15 +32,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 	
 	public MonsterBuilder(boolean[] b){
 		this.setLayout(new GridLayout(4, 4));
-//		this.setAlwaysOnTop(true);
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		this.setExtendedState(MAXIMIZED_BOTH);
 		initButtons();
 		rooms = new boolean[16];
 		initRooms(b);
 		initMonsters();
 		mb = new MapBuilder(rooms, 9); //9 is the starting room
-//		this.setVisible(true);
 	}
 	
 	public Room[] getRooms(){

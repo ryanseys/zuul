@@ -107,7 +107,7 @@ public class Game {
       for(int i = 0; i < 16; i++) {
         if(roomStatuses[i] == true) {
           currentRoom = rooms[i];
-          if(monsterRooms[i].hasMonsters()) currentRoom.addMonster(monsterRooms[i].getMonster());
+          if(monsterRooms[i].hasMonsters() && rooms[i].getItems().contains(new Item("Treasure", 100, 0, true)) == false) currentRoom.addMonster(monsterRooms[i].getMonster());
           if(hasNeighbour(i, Direction.NORTH) && roomStatuses[i-4] == true) currentRoom.setExit(Direction.NORTH, rooms[i-4]);
           if(hasNeighbour(i, Direction.EAST) && roomStatuses[i+1] == true) currentRoom.setExit(Direction.EAST, rooms[i+1]);
           if(hasNeighbour(i, Direction.SOUTH) && roomStatuses[i+4] == true) currentRoom.setExit(Direction.SOUTH, rooms[i+4]);

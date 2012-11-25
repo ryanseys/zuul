@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import zuul.Item;
+import zuul.Monster;
 import zuul.Room;
 
 
