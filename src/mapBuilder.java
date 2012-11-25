@@ -92,29 +92,29 @@ public class mapBuilder extends JFrame {
 
 	}
 
-	public static void main(String[] args) {
-		b = new boolean[16];
-		initArray();
-		mapBuilder mb = new mapBuilder(b, pp);
-	}
+//	public static void main(String[] args) {
+//		b = new boolean[16];
+//		initArray();
+//		mapBuilder mb = new mapBuilder(b, pp);
+//	}
 
-	private static void initArray() {
-		b[0] = true;
-		b[1] = true;
-		b[2] = false;
-		b[3] = false;
-		b[4] = false;
-		b[5] = true;
-		b[6] = false;
-		b[7] = false;
-		b[8] = true;
-		b[10] = true;
-		b[11] = false;
-		b[12] = false;
-		b[13] = true;
-		b[14] = false;
-		b[15] = false;
-	}
+//	private static void initArray() {
+//		b[0] = true;
+//		b[1] = true;
+//		b[2] = false;
+//		b[3] = false;
+//		b[4] = false;
+//		b[5] = true;
+//		b[6] = false;
+//		b[7] = false;
+//		b[8] = true;
+//		b[10] = true;
+//		b[11] = false;
+//		b[12] = false;
+//		b[13] = true;
+//		b[14] = false;
+//		b[15] = false;
+//	}
 
 	/**
 	 * This method takes in two coordinates, and draws a brown box that covers up

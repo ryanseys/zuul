@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -228,7 +227,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 		//TODO different option dialog for no monsters
 		if(e.getSource() == b0){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -243,7 +242,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b1){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -258,7 +257,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b2){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -273,7 +272,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b3){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -288,7 +287,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b4){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -303,7 +302,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b5){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -318,7 +317,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b6){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -333,7 +332,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b7){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -348,7 +347,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b8){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -363,7 +362,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b10){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -378,7 +377,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b11){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -393,7 +392,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b12){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -408,7 +407,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b13){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -423,7 +422,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b14){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -438,7 +437,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 				 } 
 		} else if(e.getSource() == b15){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
-			              "Current Room", JOptionPane.YES_NO_CANCEL_OPTION,
+			              "Selected Room", JOptionPane.YES_NO_CANCEL_OPTION,
 			              JOptionPane.INFORMATION_MESSAGE, null, mArray.toArray() , null);
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
@@ -454,14 +453,14 @@ public class monsterBuilder extends JPanel implements ActionListener{
 		} else if (e.getSource() == done){
 			this.setVisible(false);
 			isDone = true;
-			System.out.println("Done with game building");
+			System.out.println("Done with monster building");
 		}
 		mb = new mapBuilder(rooms, 9); //9 is the starting room
 		
 	}
 	
 		
-	public boolean getDone(){
+	public boolean isDone(){
 		return isDone;
 	}
 }

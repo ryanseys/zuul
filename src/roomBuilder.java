@@ -4,14 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import zuul.Room;
 
 
-public class gameBuilder extends JPanel implements ActionListener{
+public class roomBuilder extends JPanel implements ActionListener{
 
 	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
 	private JButton done;
@@ -20,7 +19,7 @@ public class gameBuilder extends JPanel implements ActionListener{
 	mapBuilder mb;
 	boolean isDone = false;
 	
-	public gameBuilder(){
+	public roomBuilder(){
 		this.setLayout(new GridLayout(4, 4));
 //		setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		this.setExtendedState(MAXIMIZED_BOTH);
@@ -32,9 +31,9 @@ public class gameBuilder extends JPanel implements ActionListener{
 	}
 	
 	
-	public static void main(String[] args){
-		gameBuilder g = new gameBuilder();
-	}
+//	public static void main(String[] args){
+//		roomBuilder g = new roomBuilder();
+//	}
 	
 	public void initButtons(){
 
@@ -243,7 +242,7 @@ public class gameBuilder extends JPanel implements ActionListener{
 				rooms[15] = false;
 			}
 		} else if (e.getSource() == done){
-			System.out.println("Done with game building");
+			System.out.println("Done with room building");
 			monsterBuilder monBuil = new monsterBuilder(rooms);
 		
 			//this.setVisible(false);

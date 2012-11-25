@@ -5,8 +5,9 @@ import javax.swing.JFrame;
 
 public class Builder extends JFrame{
 
-	private gameBuilder gb;
+	private roomBuilder rb;
 	private monsterBuilder mb;
+	private itemBuilder ib;
 	
 	
 	public Builder(){
@@ -14,20 +15,28 @@ public class Builder extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setVisible(true);
-		gb = new gameBuilder();
+		rb = new roomBuilder();
 		
-		this.add(gb);
+		this.add(rb);
 		this.setVisible(true);
-		while(gb.isDone() == false){
+		while(rb.isDone() == false){
 			//wait for gameBuilder to be done
-			System.out.println("Waiting for Room to be finished");
+			System.out.println("Waiting for roomBuilder to be finished");
 		}
 		
-		mb = new monsterBuilder(gb.getRooms());
+		mb = new monsterBuilder(rb.getRooms());
 		this.add(mb);
-		this.remove(gb);
+		this.remove(rb);
 		this.validate();
-
+		while(mb.isDone == false){
+			//wait for monsterBuilder to be done
+			System.out.println("Waiting for monsterBuilder to be finished");
+		}
+		
+		ib = new itemBuilder(rb.getRooms());
+		this.add(ib);
+		this.remove(mb);
+		this.validate();
 	}
 	
 	public static void main(String[] args){
