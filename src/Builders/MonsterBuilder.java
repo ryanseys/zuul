@@ -1,3 +1,4 @@
+package Builders;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -15,20 +16,21 @@ import zuul.Monster;
 import zuul.Room;
 
 
-public class monsterBuilder extends JPanel implements ActionListener{
+public class MonsterBuilder extends JPanel implements ActionListener{
 
-	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
+  private static final long serialVersionUID = 1L;
+  private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
 	private JButton done;
 	private Room r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15;
 	private JPanel b9;
 	private boolean[] rooms;
-	mapBuilder mb;
+	MapBuilder mb;
 	Monster alien;
 	Monster boss;
 	ArrayList<Monster> mArray= new ArrayList<Monster>();
 	boolean isDone = false;
 	
-	public monsterBuilder(boolean[] b){
+	public MonsterBuilder(boolean[] b){
 		this.setLayout(new GridLayout(4, 4));
 //		this.setAlwaysOnTop(true);
 //		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -37,7 +39,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 		rooms = new boolean[16];
 		initRooms(b);
 		initMonsters();
-		mb = new mapBuilder(rooms, 9); //9 is the starting room
+		mb = new MapBuilder(rooms, 9); //9 is the starting room
 //		this.setVisible(true);
 	}
 	
@@ -455,7 +457,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 			isDone = true;
 			System.out.println("Done with monster building");
 		}
-		mb = new mapBuilder(rooms, 9); //9 is the starting room
+		mb = new MapBuilder(rooms, 9); //9 is the starting room
 		
 	}
 	

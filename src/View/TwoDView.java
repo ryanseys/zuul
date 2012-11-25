@@ -7,7 +7,7 @@
  * change sets associated with this file on GitHub
  */
 package View;
-
+import Builders.*;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -37,8 +37,8 @@ public class TwoDView extends View {
   private JTextArea consoleField;
   private JPanel consolePanel, centralPanel, undoRedoPanel;
 
-  public TwoDView() {
-    super();
+  public TwoDView(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
+    super(ib, mb, rb);
     undo = new JButton(UNDO);
     redo = new JButton(REDO);
     northRoom = new JButton(GO_NORTH);

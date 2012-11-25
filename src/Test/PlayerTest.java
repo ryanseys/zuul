@@ -140,7 +140,7 @@ public class PlayerTest {
 		try {
 			fos = new FileOutputStream("myFile.txt");
 			oos = new ObjectOutputStream(fos);
-			Player p = new Player(Game.initialize());
+			Player p = new Player(Game.initialize(null, null, null));
 			oos.writeObject(p);
 			oos.close();
 			in = new ObjectInputStream(new FileInputStream("myFile.txt"));

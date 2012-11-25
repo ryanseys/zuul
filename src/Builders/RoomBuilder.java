@@ -1,3 +1,4 @@
+package Builders;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,23 +11,24 @@ import javax.swing.JTextArea;
 import zuul.Room;
 
 
-public class roomBuilder extends JPanel implements ActionListener{
+public class RoomBuilder extends JPanel implements ActionListener{
 
-	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
+  private static final long serialVersionUID = 1L;
+  private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
 	private JButton done;
 	private JPanel b9;
 	private boolean[] rooms;
-	mapBuilder mb;
+	MapBuilder mb;
 	boolean isDone = false;
 	
-	public roomBuilder(){
+	public RoomBuilder(){
 		this.setLayout(new GridLayout(4, 4));
 //		setDefaultCloseOperation(EXIT_ON_CLOSE);
 //		this.setExtendedState(MAXIMIZED_BOTH);
 		initButtons();
 		rooms = new boolean[16];
 		initRooms();
-		mb = new mapBuilder(rooms, 9); //9 is the starting room
+		mb = new MapBuilder(rooms, 9); //9 is the starting room
 //		this.setVisible(true);
 	}
 	
@@ -243,7 +245,7 @@ public class roomBuilder extends JPanel implements ActionListener{
 			}
 		} else if (e.getSource() == done){
 			System.out.println("Done with room building");
-			monsterBuilder monBuil = new monsterBuilder(rooms);
+			MonsterBuilder monBuil = new MonsterBuilder(rooms);
 		
 			//this.setVisible(false);
 			isDone = true;
@@ -255,7 +257,7 @@ public class roomBuilder extends JPanel implements ActionListener{
 			
 			
 		}
-		mb = new mapBuilder(rooms, 9); //9 is the starting room
+		mb = new MapBuilder(rooms, 9); //9 is the starting room
 		
 	}
 	public boolean[] getRooms(){

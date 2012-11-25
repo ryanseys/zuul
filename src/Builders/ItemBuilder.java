@@ -1,3 +1,4 @@
+package Builders;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,9 +14,10 @@ import zuul.Item;
 import zuul.Room;
 
 
-public class itemBuilder extends JPanel implements ActionListener{
+public class ItemBuilder extends JPanel implements ActionListener{
 
-	private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
+  private static final long serialVersionUID = 1L;
+  private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
 	private JButton done;
 	private Room r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15;
 	private JPanel b9;
@@ -26,7 +28,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 	ArrayList<Item> iArray= new ArrayList<Item>();
 	boolean isDone = false;
 	
-	public itemBuilder(boolean[] b){
+	public ItemBuilder(boolean[] b){
 		this.setLayout(new GridLayout(4, 4));
 		initButtons();
 		rooms = new boolean[16];
@@ -34,7 +36,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 		initItems();
 	}
 	
-	public Room[] getRooms(){
+	public Room[] getRooms() {
 		Room[] returnedRooms = new Room[16];
 		returnedRooms[0] = r0;
 		returnedRooms[1] = r1;

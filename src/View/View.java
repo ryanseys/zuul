@@ -1,4 +1,5 @@
 package View;
+import Builders.*;
 
 import java.awt.FileDialog;
 import java.awt.GridLayout;
@@ -39,6 +40,9 @@ import zuul.Player;
  * 
  * @author Vinayak Bansal
  * @version 2012.10.26
+ * @param <ItemBuilder>
+ * @param <MapBuilder>
+ * @param <RoomBuilder>
  */
 
 @SuppressWarnings("serial")
@@ -69,9 +73,8 @@ public abstract class View extends JFrame implements ActionListener {
 	protected JLabel mapLabel;
 	protected JMenu addressMenu, helpMenu;
 
-	public View() {
-		p = new Player(Humanoid.MAX_HEALTH, Game.initialize(), "Player");
-		;
+	public View(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
+		p = new Player(Humanoid.MAX_HEALTH, Game.initialize(ib, mb, rb), "Player");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -457,10 +460,13 @@ public abstract class View extends JFrame implements ActionListener {
 
 	/**
 	 * asks the user what kind of a view he wants
+	 * @param <ItemBuilder>
+	 * @param <MapBuilder>
+	 * @param <RoomBuilder>
 	 * 
 	 * @return: a 2D or a 3D view depending on what the user wanted.
 	 */
-	public static View getInstance() {
+	public static  View getInstance(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
 		String[] s = new String[2];
 		s[0] = "2D";
 		s[1] = "3D";
@@ -469,9 +475,9 @@ public abstract class View extends JFrame implements ActionListener {
 				JOptionPane.INFORMATION_MESSAGE, null, s, null);
 		View view;
 		if (popup == 0) {
-			view = new TwoDView();
+			view = new TwoDView(ib, mb, rb);
 		} else {
-			view = new ThreeDView();
+			view = new ThreeDView(ib, mb, rb);
 		}
 		return view;
 

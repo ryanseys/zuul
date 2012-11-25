@@ -7,6 +7,7 @@
  * change sets associated with this file on GitHub
  */
 package View;
+import Builders.*;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -68,8 +69,8 @@ public class ThreeDView extends View {
   private JPanel fixPanel2 = new JPanel();
   private JPanel fixPanel3 = new JPanel();
 
-  public ThreeDView() {
-    super();
+  public ThreeDView(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
+    super(ib, mb, rb);
     setLayout(new BorderLayout());
     scene.setLayout(new BorderLayout());
     consolePanel = new JLayeredPane();

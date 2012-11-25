@@ -1,7 +1,7 @@
 package zuul;
 
 import java.io.IOException;
-
+import Builders.*;
 import View.View;
 
 /**
@@ -15,6 +15,8 @@ import View.View;
  * 
  * @author Vinayak Bansal
  * @version 2012.10.22
+ * @param <ItemBuilder>
+ * @param <ItemBuilder>
  */
 
 public class Game {
@@ -37,13 +39,40 @@ public class Game {
   public static final String BREAD = "Bread";
   public static final String NORTH_ROOM1 = "NorthRoom1";
   public static final String START_ROOM = "StartRoom";
+  public ItemBuilder itemBuilder;
+  public MonsterBuilder monsterBuilder;
+  public RoomBuilder roomBuilder;
+  
 
   /**
    * Initialization method, to set up the game. Sets up the rooms, the monsters
    * and the items in the game.
+   * @param <ItemBuilder>
+   * @param <MapBuilder>
+   * @param <RoomBuilder>
    */
-  public static Room initialize() {
-    Room startRoom = new Room(START_ROOM);
+  public static Room initialize(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
+    
+    Room[] rooms = ib.getRooms();
+    boolean[] roomStatuses = rb.getRooms();
+    Room startRoom = null;
+    Room currentRoom = null;
+    for(int i = 0; i < 16; i++) {
+      if(roomStatuses[i] == true) {
+        currentRoom = rooms[i];
+        if(hasNeighbour(i, Direction.NORTH) && roomStatuses[i-4] == true) currentRoom.setExit(Direction.NORTH, rooms[i-4]);
+        if(hasNeighbour(i, Direction.EAST) && roomStatuses[i+1] == true) currentRoom.setExit(Direction.EAST, rooms[i+1]);
+        if(hasNeighbour(i, Direction.SOUTH) && roomStatuses[i+4] == true) currentRoom.setExit(Direction.SOUTH, rooms[i+4]);
+        if(hasNeighbour(i, Direction.WEST) && roomStatuses[i-1] == true) currentRoom.setExit(Direction.WEST, rooms[i-1]);
+      }
+      if(i == 9) startRoom = currentRoom;
+    }
+    
+    
+    
+    // OLD Implementation
+    //Room startRoom = new Room(START_ROOM);
+    /*
     Room northRoom1 = new Room(NORTH_ROOM1);
     northRoom1.addItem(new Item(BREAD, 30, 0, false));
     Room southRoom = new Room(SOUTH_ROOM);
@@ -83,15 +112,68 @@ public class Game {
     northWestRoom.setExit(Direction.EAST, northRoom2);
     northWestRoom.setLocked(true);
     northWestRoom.addItem(new Item("Treasure", 100, 0, true));
-
+ */
     return startRoom;
+  }
+  
+  public static boolean hasNeighbour(int id, Direction d) {
+    switch(id) {
+      case 0:
+        if(d.equals(Direction.NORTH)) return false;
+        if(d.equals(Direction.WEST)) return false;
+        return true;
+      case 1:
+        if(d.equals(Direction.NORTH)) return false;
+        return true;
+      case 2:
+        if(d.equals(Direction.NORTH)) return false;
+        return true;
+      case 3:
+        if(d.equals(Direction.NORTH)) return false;
+        if(d.equals(Direction.EAST)) return false;
+        return true;
+      case 4:
+        if(d.equals(Direction.WEST)) return false;
+        return true;
+      case 5:
+        return true;
+      case 6:
+        return true;
+      case 7:
+        if(d.equals(Direction.EAST)) return false;
+        return true;
+      case 8:
+        if(d.equals(Direction.WEST)) return false;
+        return true;
+      case 9:
+        return true;
+      case 10:
+        return true;
+      case 11:
+        if(d.equals(Direction.EAST)) return false;
+        return true;
+      case 12:
+        if(d.equals(Direction.SOUTH)) return false;
+        if(d.equals(Direction.WEST)) return false;
+        return true;
+      case 13:
+        if(d.equals(Direction.SOUTH)) return false;
+        return true;
+      case 14:
+        if(d.equals(Direction.SOUTH)) return false;
+        return true;
+      case 15:
+        if(d.equals(Direction.EAST)) return false;
+        if(d.equals(Direction.SOUTH)) return false;
+        return true;
+    }
+    return false;
   }
 
   public static void main(String[] args) throws IOException {
-	  View view = View.getInstance();
-      view.update();
-      view.setVisible(true);
-
+	  View view = View.getInstance(null, null, null);
+    view.update();
+    view.setVisible(true);
   }
 
 }

@@ -1,6 +1,5 @@
+package Builders;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
@@ -9,9 +8,10 @@ import View.View;
 
 public class Builder extends JFrame{
 
-	private roomBuilder rb;
-	private monsterBuilder mb;
-	private itemBuilder ib;
+  private static final long serialVersionUID = 1L;
+  private RoomBuilder rb;
+	private MonsterBuilder mb;
+	private ItemBuilder ib;
 	
 	
 	public Builder(){
@@ -19,7 +19,7 @@ public class Builder extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setExtendedState(MAXIMIZED_BOTH);
 		this.setVisible(true);
-		rb = new roomBuilder();
+		rb = new RoomBuilder();
 		
 		this.add(rb);
 		this.setVisible(true);
@@ -28,7 +28,7 @@ public class Builder extends JFrame{
 			System.out.println("Waiting for roomBuilder to be finished");
 		}
 		
-		mb = new monsterBuilder(rb.getRooms());
+		mb = new MonsterBuilder(rb.getRooms());
 		this.add(mb);
 		this.remove(rb);
 		this.validate();
@@ -37,7 +37,7 @@ public class Builder extends JFrame{
 			System.out.println("Waiting for monsterBuilder to be finished");
 		}
 		
-		ib = new itemBuilder(rb.getRooms());
+		ib = new ItemBuilder(rb.getRooms());
 		this.add(ib);
 		this.remove(mb);
 		this.validate();
@@ -46,10 +46,10 @@ public class Builder extends JFrame{
 			System.out.println("Waiting for itemBuilder to be finished");
 		}
 		this.remove(ib);
-
-		  View view = View.getInstance();
-	      view.update();
-	      view.setVisible(true);
+		
+		View view = View.getInstance(ib, mb, rb);
+	  view.update();
+	  view.setVisible(true);
 	}
 	
 	public static void main(String[] args){

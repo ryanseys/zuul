@@ -1,3 +1,4 @@
+package Builders;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -6,14 +7,16 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+
 /**
  * This class will create an image of the minimap to be used in the View.
  * @author Jarred
  *
  */
-public class mapBuilder extends JFrame {
+public class MapBuilder extends JFrame {
 
-	BufferedImage image = null, overlay = null;
+  private static final long serialVersionUID = 1L;
+  BufferedImage image = null, overlay = null;
 	BufferedImage combined;
 	BufferedImage player;
 	File path = new File("Images");
@@ -26,7 +29,7 @@ public class mapBuilder extends JFrame {
 	 * @param b : A boolean array used to determine which rooms have been chosen for use
 	 * @param room : An integer correlating the rooms to which room the player is currently in.
 	 */
-	public mapBuilder(boolean[] b, int room) {
+	public MapBuilder(boolean[] b, int room) {
 
 		try {
 			image = ImageIO.read(new File(path, "full_map.png"));
