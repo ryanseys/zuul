@@ -228,7 +228,10 @@ public class ThreeDView extends View {
     if (p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true))) if (treasure
         .contains(x, y)) win();
 
-    if (doorEast.contains(x, y)) p.doCommand(Command.parse(GO_EAST));
+    if (doorEast.contains(x, y)) {
+    	p.doCommand(Command.parse(GO_EAST));
+    	currentMapRoom++;
+    }
     else if (doorWest.contains(x, y)) {
       if ((p.getCurrentRoom().getExit(Direction.WEST).getLocked() != true)
           || (unlocked == true)) p.doCommand(Command.parse(GO_WEST));
@@ -242,9 +245,16 @@ public class ThreeDView extends View {
         unlocked = true;
         p.getCurrentRoom().getExit(Direction.WEST).setLocked(false);
         p.doCommand(Command.parse(GO_WEST));
+        currentMapRoom--;
       }
-    } else if (doorNorth.contains(x, y)) p.doCommand(Command.parse(GO_NORTH));
-    else if (doorSouth.contains(x, y)) p.doCommand(Command.parse(GO_SOUTH));
+    } else if (doorNorth.contains(x, y)) {
+    	p.doCommand(Command.parse(GO_NORTH));
+    	currentMapRoom -= 4;
+    }
+    else if (doorSouth.contains(x, y)){
+    	p.doCommand(Command.parse(GO_SOUTH));
+    	currentMapRoom += 4;
+    }
     else if (chest.contains(x, y)) {
       int popup;
       if (!p.getCurrentRoom().getItems().isEmpty()) popup = JOptionPane

@@ -72,8 +72,13 @@ public abstract class View extends JFrame implements ActionListener {
 	protected JPanel inventoryPanel, mapPanel;
 	protected JLabel mapLabel;
 	protected JMenu addressMenu, helpMenu;
+	protected int currentMapRoom = 9;
+	protected Builder b;
 
 	public View(Builder b) {
+		
+		this.b = b;
+		
 		p = new Player(Humanoid.MAX_HEALTH, Game.initialize(b), "Player");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar();
@@ -87,8 +92,8 @@ public abstract class View extends JFrame implements ActionListener {
 		inspect.addActionListener(this);
 		inventoryPanel = new JPanel();
 		mapPanel = new JPanel();
-		mapLabel = new JLabel(new ImageIcon("Images/rooms_startroom.png"));
-		mapPanel.add(mapLabel);
+		//mapLabel = new JLabel(new ImageIcon("Images/rooms_startroom.png"));
+		//smapPanel.add(mapLabel);
 
 		inventoryModel = new DefaultListModel();
 		inventoryList = new JList(inventoryModel);
@@ -326,41 +331,16 @@ public abstract class View extends JFrame implements ActionListener {
 	 * telling the player to find the map.
 	 */
 	protected void updateMapPanel() {
-		String s = p.getCurrentRoom().getRoomName();
 		mapPanel.removeAll();
-
-		if (p.getInventory().contains(new Item("Map", true))) {
-			if (s.equals("NorthRoom1"))
-				mapLabel = new JLabel(new ImageIcon(
-						"Images/rooms_northroom1.png"));
-			else if (s.equals("EastRoom"))
-				mapLabel = new JLabel(
-						new ImageIcon("Images/rooms_eastRoom.png"));
-			else if (s.equals("StartRoom"))
-				mapLabel = new JLabel(new ImageIcon(
-						"Images/rooms_startRoom.png"));
-			else if (s.equals("EastRoom"))
-				mapLabel = new JLabel(
-						new ImageIcon("Images/rooms_eastRoom.png"));
-			else if (s.equals("WestRoom"))
-				mapLabel = new JLabel(
-						new ImageIcon("Images/rooms_westRoom.png"));
-			else if (s.equals("SouthRoom"))
-				mapLabel = new JLabel(new ImageIcon(
-						"Images/rooms_southRoom.png"));
-			else if (s.equals("NorthRoom2"))
-				mapLabel = new JLabel(new ImageIcon(
-						"Images/rooms_northroom2.png"));
-			else if (s.equals("NorthWestRoom"))
-				mapLabel = new JLabel(new ImageIcon(
-						"Images/rooms_northWestRoom.png"));
-
+		b.getRoomBuilder().getMapBuilder().drawPlayer(currentMapRoom);
+		if(p.getInventory().contains(new Item("Map", true))){
+			mapLabel = new JLabel(new ImageIcon("Images/combined_with_player.png"));
+			validate();
 		} else {
-			mapPanel.remove(mapLabel);
 			mapLabel = new JLabel(new ImageIcon("Images/rooms_noMap.png"));
 		}
-
-		mapPanel.add(mapLabel);
+			mapPanel.add(mapLabel);
+			mapPanel.validate();
 	}
 
 	/**

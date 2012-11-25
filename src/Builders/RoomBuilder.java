@@ -23,19 +23,11 @@ public class RoomBuilder extends JPanel implements ActionListener{
 	
 	public RoomBuilder(){
 		this.setLayout(new GridLayout(4, 4));
-//		setDefaultCloseOperation(EXIT_ON_CLOSE);
-//		this.setExtendedState(MAXIMIZED_BOTH);
 		initButtons();
 		rooms = new boolean[16];
 		initRooms();
-		mb = new MapBuilder(rooms, 9); //9 is the starting room
-//		this.setVisible(true);
+		mb = new MapBuilder(rooms);
 	}
-	
-	
-//	public static void main(String[] args){
-//		roomBuilder g = new roomBuilder();
-//	}
 	
 	public void initButtons(){
 
@@ -257,7 +249,7 @@ public class RoomBuilder extends JPanel implements ActionListener{
 			
 			
 		}
-		mb = new MapBuilder(rooms, 9); //9 is the starting room
+		mb = new MapBuilder(rooms); 
 		
 	}
 	public boolean[] getRooms(){
@@ -266,5 +258,9 @@ public class RoomBuilder extends JPanel implements ActionListener{
 	
 	public boolean isDone() {
 		return isDone;
+	}
+	
+	public MapBuilder getMapBuilder(){
+		return mb;
 	}
 }

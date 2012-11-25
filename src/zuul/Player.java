@@ -37,6 +37,7 @@ public class Player extends Humanoid  implements Serializable{
    */
   public Player(int health, Room room, String name) {
     super(health, name, room);
+    //addItem(new Item("Map", 0, 0, true));
     playerHistory = new PlayerHistory();
   }
 

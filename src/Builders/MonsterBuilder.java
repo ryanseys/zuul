@@ -36,7 +36,7 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 		rooms = new boolean[16];
 		initRooms(b);
 		initMonsters();
-		mb = new MapBuilder(rooms, 9); //9 is the starting room
+		//mb = new MapBuilder(rooms); //9 is the starting room
 	}
 	
 	public Room[] getRooms(){
@@ -453,7 +453,7 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 			isDone = true;
 			System.out.println("Done with monster building");
 		}
-		mb = new MapBuilder(rooms, 9); //9 is the starting room
+		//mb = new MapBuilder(rooms); //9 is the starting room
 		
 	}
 	

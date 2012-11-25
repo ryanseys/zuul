@@ -29,16 +29,16 @@ public class MapBuilder extends JFrame {
 	 * @param b : A boolean array used to determine which rooms have been chosen for use
 	 * @param room : An integer correlating the rooms to which room the player is currently in.
 	 */
-	public MapBuilder(boolean[] b, int room) {
+	public MapBuilder(boolean[] b) {
 
 		try {
-			image = ImageIO.read(new File(path, "full_map.png"));
+			image = ImageIO.read(new File(path, "full_map_test.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			overlay = ImageIO.read(new File(path, "room_empty.png"));
+			overlay = ImageIO.read(new File(path, "room_empty_test.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,36 +63,41 @@ public class MapBuilder extends JFrame {
 		if (b[1] == false) drawImage(90, 0);
 		if (b[2] == false) drawImage(180, 0);
 		if (b[3] == false) drawImage(270, 0);
-		if (b[4] == false) drawImage(0, 60);
-		if (b[5] == false) drawImage(90, 60);
-		if (b[6] == false) drawImage(180, 60);
-		if (b[7] == false) drawImage(270, 60);
-		if (b[8] == false) drawImage(0, 120);
-		if (b[10] == false) drawImage(180, 120);
-		if (b[11] == false) drawImage(270, 120);
-		if (b[12] == false) drawImage(0, 180);
-		if (b[13] == false) drawImage(90, 180);
-		if (b[14] == false) drawImage(180, 180);
-		if (b[15] == false) drawImage(270, 180);
+		if (b[4] == false) drawImage(0, 54);
+		if (b[5] == false) drawImage(90, 54);
+		if (b[6] == false) drawImage(180, 54);
+		if (b[7] == false) drawImage(270, 54);
+		if (b[8] == false) drawImage(0, 108);
+		if (b[10] == false) drawImage(180, 108);
+		if (b[11] == false) drawImage(270, 108);
+		if (b[12] == false) drawImage(0, 162);
+		if (b[13] == false) drawImage(90, 162);
+		if (b[14] == false) drawImage(180, 162);
+		if (b[15] == false) drawImage(270, 162);
 
-		//Draw the player into hichever room they are in.
-		if (room == 0) drawPlayer(20, 10);
-		if (room == 1) drawPlayer(110, 10);
-		if (room == 2) drawPlayer(200, 10);
-		if (room == 3) drawPlayer(290, 10);
-		if (room == 4) drawPlayer(20, 70);
-		if (room == 5) drawPlayer(110, 70);
-		if (room == 6) drawPlayer(200, 70);
-		if (room == 7) drawPlayer(290, 70);
-		if (room == 8) drawPlayer(20, 130);
-		if (room == 9) drawPlayer(110, 130);
-		if (room == 10) drawPlayer(200, 130);
-		if (room == 11) drawPlayer(290, 130);
-		if (room == 12) drawPlayer(20, 190);
-		if (room == 13) drawPlayer(110, 190);
-		if (room == 14) drawPlayer(200, 190);
-		if (room == 15) drawPlayer(290, 190);
+		drawPlayer(110, 117);
 
+	}
+	public void drawPlayer(int room){
+		//Draw the player into whichever room they are in.
+
+		if (room == 0) drawPlayer(20, 9);
+		if (room == 1) drawPlayer(110, 9);
+		if (room == 2) drawPlayer(200, 9);
+		if (room == 3) drawPlayer(290, 9);
+		if (room == 4) drawPlayer(20, 63);
+		if (room == 5) drawPlayer(110, 63);
+		if (room == 6) drawPlayer(200, 63);
+		if (room == 7) drawPlayer(290, 63);
+		if (room == 8) drawPlayer(20, 117);
+		if (room == 9) drawPlayer(110, 117);
+		if (room == 10) drawPlayer(200, 117);
+		if (room == 11) drawPlayer(290, 117);
+		if (room == 12) drawPlayer(20, 171);
+		if (room == 13) drawPlayer(110, 171);
+		if (room == 14) drawPlayer(200, 171);
+		if (room == 15) drawPlayer(290, 171);
+		
 	}
 
 //	public static void main(String[] args) {
