@@ -55,6 +55,4 @@ public class Builder extends JFrame{
 	public static void main(String[] args){
 		Builder b = new Builder();
 	}
-
-	
 }
