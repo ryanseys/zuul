@@ -56,24 +56,70 @@ public class Game {
    */
   public static Room initialize(ItemBuilder ib, MonsterBuilder mb, RoomBuilder rb) {
     
-    Room[] rooms = ib.getRooms();
-    boolean[] roomStatuses = rb.getRooms();
-    Room[] monsterRooms = mb.getRooms();
-    
-    Room startRoom = null;
-    Room currentRoom = null;
-    for(int i = 0; i < 16; i++) {
-      if(roomStatuses[i] == true) {
-        currentRoom = rooms[i];
-        if(monsterRooms[i].hasMonsters()) currentRoom.addMonster(monsterRooms[i].getMonster());
-        if(hasNeighbour(i, Direction.NORTH) && roomStatuses[i-4] == true) currentRoom.setExit(Direction.NORTH, rooms[i-4]);
-        if(hasNeighbour(i, Direction.EAST) && roomStatuses[i+1] == true) currentRoom.setExit(Direction.EAST, rooms[i+1]);
-        if(hasNeighbour(i, Direction.SOUTH) && roomStatuses[i+4] == true) currentRoom.setExit(Direction.SOUTH, rooms[i+4]);
-        if(hasNeighbour(i, Direction.WEST) && roomStatuses[i-1] == true) currentRoom.setExit(Direction.WEST, rooms[i-1]);
-      }
-      if(i == 9) startRoom = currentRoom;
+    //Old implementation as a default if builder not used
+    if(ib == null || mb == null || rb == null) {
+      Room startRoom = new Room(START_ROOM);
+      Room northRoom1 = new Room(NORTH_ROOM1);
+      northRoom1.addItem(new Item(BREAD, 30, 0, false));
+      Room southRoom = new Room(SOUTH_ROOM);
+      Room eastRoom = new Room(EAST_ROOM);
+      Room westRoom = new Room(WEST_ROOM);
+      Room northWestRoom = new Room(NORTH_WEST_ROOM);
+      Room northRoom2 = new Room(NORTH_ROOM2);
+      startRoom.addItem(new Item(SWORD, 50, 0, true));
+      startRoom.setExit(Direction.NORTH, northRoom1);
+      startRoom.setExit(Direction.SOUTH, southRoom);
+      startRoom.setExit(Direction.EAST, eastRoom);
+      startRoom.setExit(Direction.WEST, westRoom);
+      westRoom.addItem(new Item(APPLE, 10, 0, false));
+      westRoom.addItem(new Item(ORANGE, 15, 0, false));
+      westRoom.addItem(new Item(PEAR, 20, 0, false));
+
+      eastRoom.setExit(Direction.WEST, startRoom);
+
+      Monster alien = new Monster(Humanoid.MAX_HEALTH, Monster.DEFAULT_LEVEL,
+          ALIEN2, eastRoom);
+      eastRoom.addMonster(alien);
+      alien.addItem(new Item(MAP, 0, 0, true));
+      alien.addItem(new Item(CLAWS, 10, 0, true));
+
+      Monster boss = new Monster(100, 2, BOSS2, southRoom);
+      southRoom.addMonster(boss);
+      boss.addItem(new Item(FLAMETHROWER, 30, 0, true));
+      boss.addItem(new Item(KEY, 0, 0, true));
+
+      westRoom.setExit(Direction.EAST, startRoom);
+      northRoom1.setExit(Direction.SOUTH, startRoom);
+      northRoom1.setExit(Direction.NORTH, northRoom2);
+      southRoom.setExit(Direction.NORTH, startRoom);
+
+      northRoom2.setExit(Direction.SOUTH, northRoom1);
+      northRoom2.setExit(Direction.WEST, northWestRoom);
+      northWestRoom.setExit(Direction.EAST, northRoom2);
+      northWestRoom.setLocked(true);
+      northWestRoom.addItem(new Item("Treasure", 100, 0, true));
+      return startRoom;
     }
-    return startRoom;
+    else {
+      Room[] rooms = ib.getRooms();
+      boolean[] roomStatuses = rb.getRooms();
+      Room[] monsterRooms = mb.getRooms();
+      
+      Room startRoom = null;
+      Room currentRoom = null;
+      for(int i = 0; i < 16; i++) {
+        if(roomStatuses[i] == true) {
+          currentRoom = rooms[i];
+          if(monsterRooms[i].hasMonsters()) currentRoom.addMonster(monsterRooms[i].getMonster());
+          if(hasNeighbour(i, Direction.NORTH) && roomStatuses[i-4] == true) currentRoom.setExit(Direction.NORTH, rooms[i-4]);
+          if(hasNeighbour(i, Direction.EAST) && roomStatuses[i+1] == true) currentRoom.setExit(Direction.EAST, rooms[i+1]);
+          if(hasNeighbour(i, Direction.SOUTH) && roomStatuses[i+4] == true) currentRoom.setExit(Direction.SOUTH, rooms[i+4]);
+          if(hasNeighbour(i, Direction.WEST) && roomStatuses[i-1] == true) currentRoom.setExit(Direction.WEST, rooms[i-1]);
+        }
+        if(i == 9) startRoom = currentRoom;
+      }
+      return startRoom;
+    }
   }
   
   public static boolean hasNeighbour(int id, Direction d) {
