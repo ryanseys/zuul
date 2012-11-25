@@ -238,7 +238,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b0.setEnabled(false);
-					 b0.setText("Monster Placed!");
+					 b0.setText("" + getRooms()[0].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b1){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -253,7 +253,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b1.setEnabled(false);
-					 b1.setText("Monster Placed!");
+					 b1.setText("" + getRooms()[1].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b2){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -268,7 +268,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b2.setEnabled(false);
-					 b2.setText("Monster Placed!");
+					 b2.setText("" + getRooms()[2].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b3){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -283,7 +283,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b3.setEnabled(false);
-					 b3.setText("Monster Placed!");
+					 b3.setText("" + getRooms()[3].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b4){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -298,7 +298,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b4.setEnabled(false);
-					 b4.setText("Monster Placed!");
+					 b4.setText("" + getRooms()[4].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b5){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -313,7 +313,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b5.setEnabled(false);
-					 b5.setText("Monster Placed!");
+					 b5.setText("" + getRooms()[5].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b6){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -328,7 +328,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b6.setEnabled(false);
-					 b6.setText("Monster Placed!");
+					 b6.setText("" + getRooms()[6].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b7){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -343,7 +343,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b7.setEnabled(false);
-					 b7.setText("Monster Placed!");
+					 b7.setText("" + getRooms()[7].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b8){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -358,7 +358,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b8.setEnabled(false);
-					 b8.setText("Monster Placed!");
+					 b8.setText("" + getRooms()[8].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b10){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -373,7 +373,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b10.setEnabled(false);
-					 b10.setText("Monster Placed!");
+					 b10.setText("" + getRooms()[10].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b11){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -388,7 +388,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b11.setEnabled(false);
-					 b11.setText("Monster Placed!");
+					 b11.setText("" + getRooms()[11].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b12){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -403,7 +403,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b12.setEnabled(false);
-					 b12.setText("Monster Placed!");
+					 b12.setText("" + getRooms()[12].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b13){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -418,7 +418,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b13.setEnabled(false);
-					 b13.setText("Monster Placed!");
+					 b13.setText("" + getRooms()[13].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b14){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -433,7 +433,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b14.setEnabled(false);
-					 b14.setText("Monster Placed!");
+					 b14.setText("" + getRooms()[14].getMonster().getName() + " Placed!");
 				 } 
 		} else if(e.getSource() == b15){
 				 int popup = JOptionPane.showOptionDialog(this, "Select a Monster to put in this room:",
@@ -448,7 +448,7 @@ public class monsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(boss);
 					 }
 					 b15.setEnabled(false);
-					 b15.setText("Monster Placed!");
+					 b15.setText("" + getRooms()[15].getMonster().getName() + " Placed!");
 				 } 
 		} else if (e.getSource() == done){
 			this.setVisible(false);

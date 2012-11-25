@@ -239,7 +239,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 						 iArray.remove(treasure);
 						 b0.setEnabled(false);
 					 }
-					 b0.setText("Item Placed!");
+					 b0.setText("" + getRooms()[0].getItems());
 				 } 
 		} else if(e.getSource() == b1){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -261,7 +261,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b1.setEnabled(false);
 				 }
-				 b1.setText("Item Placed!");
+				 b1.setText("" + getRooms()[1].getItems());
 			 } 
 		} else if(e.getSource() == b2){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -283,7 +283,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b2.setEnabled(false);
 				 }
-				 b2.setText("Item Placed!");
+				 b2.setText("" + getRooms()[2].getItems());
 			 } 
 		} else if(e.getSource() == b3){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -305,7 +305,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b3.setEnabled(false);
 				 }
-				 b3.setText("Item Placed!");
+				 b3.setText("" + getRooms()[3].getItems());
 			 } 
 		} else if(e.getSource() == b4){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -327,7 +327,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b4.setEnabled(false);
 				 }
-				 b4.setText("Item Placed!");
+				 b4.setText("" + getRooms()[4].getItems());
 			 } 
 		} else if(e.getSource() == b5){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -349,7 +349,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b5.setEnabled(false);
 				 }
-				 b5.setText("Item Placed!");
+				 b5.setText("" + getRooms()[5].getItems());
 			 } 
 		} else if(e.getSource() == b6){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -371,7 +371,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b6.setEnabled(false);
 				 }
-				 b6.setText("Item Placed!");
+				 b6.setText("" + getRooms()[6].getItems());
 			 } 
 		} else if(e.getSource() == b7){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -393,7 +393,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b7.setEnabled(false);
 				 }
-				 b7.setText("Item Placed!");
+				 b7.setText("" + getRooms()[7].getItems());
 			 } 
 		} else if(e.getSource() == b8){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -415,7 +415,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b8.setEnabled(false);
 				 }
-				 b8.setText("Item Placed!");
+				 b8.setText("" + getRooms()[8].getItems());
 			 } 
 		} else if(e.getSource() == b10){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -437,7 +437,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b10.setEnabled(false);
 				 }
-				 b10.setText("Item Placed!");
+				 b10.setText("" + getRooms()[10].getItems());
 			 } 
 		} else if(e.getSource() == b11){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -459,7 +459,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b11.setEnabled(false);
 				 }
-				 b11.setText("Item Placed!");
+				 b11.setText("" + getRooms()[11].getItems());
 			 } 
 		} else if(e.getSource() == b12){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -481,7 +481,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b12.setEnabled(false);
 				 }
-				 b12.setText("Item Placed!");
+				 b12.setText("" + getRooms()[12].getItems());
 			 } 
 		} else if(e.getSource() == b13){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -503,7 +503,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b13.setEnabled(false);
 				 }
-				 b13.setText("Item Placed!");
+				 b13.setText("" + getRooms()[13].getItems());
 			 } 
 		} else if(e.getSource() == b14){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -525,7 +525,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b14.setEnabled(false);
 				 }
-				 b14.setText("Item Placed!");
+				 b14.setText("" + getRooms()[14].getItems());
 			 } 
 		} else if(e.getSource() == b15){
 			 int popup = JOptionPane.showOptionDialog(this, "Select an Item to put in this room:",
@@ -547,7 +547,7 @@ public class itemBuilder extends JPanel implements ActionListener{
 					 iArray.remove(treasure);
 					 b15.setEnabled(false);
 				 }
-				 b15.setText("Item Placed!");
+				 b15.setText("" + getRooms()[15].getItems());
 			 } 
 		} else if (e.getSource() == done){
 			this.setVisible(false);
