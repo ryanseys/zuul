@@ -49,6 +49,10 @@ public class Room implements Serializable{
     items = new ArrayList<Item>();
   }
   
+  public void setBuilder(Builder builder) {
+    b = builder;
+  }
+  
   public Builder getBuilder() {
     return b;
   }

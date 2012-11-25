@@ -226,7 +226,7 @@ public abstract class Humanoid implements Serializable {
 		setHealth(MAX_HEALTH);
 		if (this instanceof Player) { // you cannot chagne the current room of a
 										// monster
-			currentRoom = Game.initialize(currentRoom.getBuilder());
+			currentRoom = Game.initialize(b);
 			inventory.clear();
 		} else {
 			// TODO error: reset makes no sense on a monster

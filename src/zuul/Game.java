@@ -115,6 +115,7 @@ public class Game {
         }
         if(i == 9) startRoom = currentRoom;
       }
+      startRoom.setBuilder(b);
       return startRoom;
     }
   }
