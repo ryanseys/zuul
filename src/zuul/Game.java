@@ -174,9 +174,10 @@ public class Game {
   }
 
   public static void main(String[] args) throws IOException {
-	  View view = View.getInstance(new Builder());
-    view.update();
-    view.setVisible(true);
+	  new Builder();
+//	  View view = View.getInstance(new Builder());
+//    view.update();
+//    view.setVisible(true);
   }
 
 }
