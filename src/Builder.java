@@ -1,6 +1,10 @@
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+
+import View.View;
 
 
 public class Builder extends JFrame{
@@ -37,6 +41,15 @@ public class Builder extends JFrame{
 		this.add(ib);
 		this.remove(mb);
 		this.validate();
+		while(ib.isDone() == false){
+			//wait for itemBuilder to be done
+			System.out.println("Waiting for itemBuilder to be finished");
+		}
+		this.remove(ib);
+
+		  View view = View.getInstance();
+	      view.update();
+	      view.setVisible(true);
 	}
 	
 	public static void main(String[] args){
