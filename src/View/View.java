@@ -7,11 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -74,6 +78,7 @@ public abstract class View extends JFrame implements ActionListener {
 	protected JMenu addressMenu, helpMenu;
 	protected int currentMapRoom = 9;
 	protected Builder b;
+	File path = new File("Images");
 
 	public View(Builder b) {
 		
@@ -333,9 +338,15 @@ public abstract class View extends JFrame implements ActionListener {
 	 */
 	protected void updateMapPanel() {
 		mapPanel.removeAll();
+		BufferedImage map = null;
 		b.getRoomBuilder().getMapBuilder().drawPlayer(currentMapRoom);
+		try {
+			map  = ImageIO.read(new File(path, "combined_with_player.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		if(p.getInventory().contains(new Item("Map", true))){
-			mapLabel = new JLabel(new ImageIcon("Images/combined_with_player.png"));
+			mapLabel = new JLabel(new ImageIcon(map));
 			validate();
 		} else {
 			mapLabel = new JLabel(new ImageIcon("Images/rooms_noMap.png"));
