@@ -104,63 +104,39 @@ public class MapBuilder extends JFrame {
 		// Draw the player into whichever room they are in.
 
 		if (room == 0)
-			drawPlayer(20, 9);
+			drawPlayer(20, 8);
 		if (room == 1)
-			drawPlayer(110, 9);
+			drawPlayer(110, 8);
 		if (room == 2)
-			drawPlayer(200, 9);
+			drawPlayer(200, 8);
 		if (room == 3)
-			drawPlayer(290, 9);
+			drawPlayer(290, 8);
 		if (room == 4)
-			drawPlayer(20, 63);
+			drawPlayer(20, 62);
 		if (room == 5)
-			drawPlayer(110, 63);
+			drawPlayer(110, 62);
 		if (room == 6)
-			drawPlayer(200, 63);
+			drawPlayer(200, 62);
 		if (room == 7)
-			drawPlayer(290, 63);
+			drawPlayer(290, 62);
 		if (room == 8)
-			drawPlayer(20, 117);
+			drawPlayer(20, 116);
 		if (room == 9)
-			drawPlayer(110, 117);
+			drawPlayer(110, 116);
 		if (room == 10)
-			drawPlayer(200, 117);
+			drawPlayer(200, 116);
 		if (room == 11)
-			drawPlayer(290, 117);
+			drawPlayer(290, 116);
 		if (room == 12)
-			drawPlayer(20, 171);
+			drawPlayer(20, 170);
 		if (room == 13)
-			drawPlayer(110, 171);
+			drawPlayer(110, 170);
 		if (room == 14)
-			drawPlayer(200, 171);
+			drawPlayer(200, 170);
 		if (room == 15)
-			drawPlayer(290, 171);
+			drawPlayer(290, 170);
 
 	}
-
-	// public static void main(String[] args) {
-	// b = new boolean[16];
-	// initArray();
-	// mapBuilder mb = new mapBuilder(b, pp);
-	// }
-
-	// private static void initArray() {
-	// b[0] = true;
-	// b[1] = true;
-	// b[2] = false;
-	// b[3] = false;
-	// b[4] = false;
-	// b[5] = true;
-	// b[6] = false;
-	// b[7] = false;
-	// b[8] = true;
-	// b[10] = true;
-	// b[11] = false;
-	// b[12] = false;
-	// b[13] = true;
-	// b[14] = false;
-	// b[15] = false;
-	// }
 
 	/**
 	 * This method takes in two coordinates, and draws a brown box that covers
