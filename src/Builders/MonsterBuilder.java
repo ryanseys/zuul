@@ -230,6 +230,7 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r0.addMonster(alien);
+						 alien.setRoom(r0);
 						 mArray.remove(alien);
 					 } else {
 						 r0.addMonster(boss);

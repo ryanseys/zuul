@@ -44,7 +44,7 @@ public class Builder extends JFrame{
 			System.out.println("Waiting for monsterBuilder to be finished");
 		}
 		
-		ib = new ItemBuilder(rb.getRooms());
+		ib = new ItemBuilder(rb.getRooms(), mb.getRooms());
 		this.add(ib);
 		this.remove(mb);
 		this.validate();

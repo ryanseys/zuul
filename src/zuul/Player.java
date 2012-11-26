@@ -37,7 +37,7 @@ public class Player extends Humanoid  implements Serializable{
    */
   public Player(int health, Room room, String name) {
     super(health, name, room);
-    //addItem(new Item("Map", 0, 0, true));
+    addItem(new Item("Map", 0, 0, true));
     playerHistory = new PlayerHistory();
   }
 
@@ -103,7 +103,9 @@ public class Player extends Humanoid  implements Serializable{
       // Get the exit room in the specified direction
       Room r = currentRoom.getExit(d); 
       // the new room is the room in the specified direction
-      if (r != null) setCurrentRoom(r); 
+      if (r != null){ 
+    	  setCurrentRoom(r);
+      }
       else return;
       // Only add the step if this is the case, to prevent stack problems
       if (b == false) playerHistory.addStep(c); 
@@ -123,6 +125,7 @@ public class Player extends Humanoid  implements Serializable{
         removeHealth((m.getBestItem().getValue()) * m.getLevel()); 
         if (m.getHealth() <= 0) { // Monster has died if its health is less than
                                   // or equal to zero
+   
           m.dropItems(); // Drop all of the monster's items and add them to the
                          // room
           currentRoom.removeMonster(m); // Remove the monster from the room
