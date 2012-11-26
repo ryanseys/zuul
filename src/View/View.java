@@ -210,6 +210,7 @@ public abstract class View extends JFrame implements ActionListener {
 			for (Item i : m.getInventory())
 				s += i.getName() + "\n";
 		}
+		m.dropItems();
 		JOptionPane.showMessageDialog(this, s);
 	}
 

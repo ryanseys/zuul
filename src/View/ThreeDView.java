@@ -242,6 +242,9 @@ public class ThreeDView extends View {
 			p.doCommand(Command.parse(GO_EAST));
 
 		} else if (doorWest.contains(x, y)) {
+			if (p.getCurrentRoom().getExit(Direction.WEST) != null) {
+				currentMapRoom--;
+			}
 			if ((p.getCurrentRoom().getExit(Direction.WEST).getLocked() != true)
 					|| (unlocked == true))
 				p.doCommand(Command.parse(GO_WEST));
@@ -258,19 +261,17 @@ public class ThreeDView extends View {
 				p.getCurrentRoom().getExit(Direction.WEST).setLocked(false);
 				p.doCommand(Command.parse(GO_WEST));
 			}
-			if (p.getCurrentRoom().getExit(Direction.WEST) != null) {
-				currentMapRoom--;
-			}
+			
 		} else if (doorNorth.contains(x, y)) {
-			p.doCommand(Command.parse(GO_NORTH));
-	    	if (p.getCurrentRoom().getExit(Direction.NORTH)!=null){
+			if (p.getCurrentRoom().getExit(Direction.NORTH)!=null){
 	    		currentMapRoom -= 4;
 	    	}
+			p.doCommand(Command.parse(GO_NORTH));
 		} else if (doorSouth.contains(x, y)) {
-			p.doCommand(Command.parse(GO_SOUTH));
-	    	if (p.getCurrentRoom().getExit(Direction.SOUTH)!=null){
+			if (p.getCurrentRoom().getExit(Direction.SOUTH)!=null){
 	    		currentMapRoom += 4;
 	    	}
+			p.doCommand(Command.parse(GO_SOUTH));
 		} else if (chest.contains(x, y)) {
 			int popup;
 			if (!p.getCurrentRoom().getItems().isEmpty())
