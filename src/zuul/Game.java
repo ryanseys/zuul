@@ -116,6 +116,9 @@ public class Game {
           if(hasNeighbour(i, Direction.EAST) && roomStatuses[i+1] == true) currentRoom.setExit(Direction.EAST, rooms[i+1]);
           if(hasNeighbour(i, Direction.SOUTH) && roomStatuses[i+4] == true) currentRoom.setExit(Direction.SOUTH, rooms[i+4]);
           if(hasNeighbour(i, Direction.WEST) && roomStatuses[i-1] == true) currentRoom.setExit(Direction.WEST, rooms[i-1]);
+          if(rooms[i].getItems().contains(new Item("Treasure", 100, 0, true))){
+        	  rooms[i].setLocked(true);
+          }
         }
         if(i == 9) startRoom = currentRoom;
       }

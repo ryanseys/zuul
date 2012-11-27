@@ -36,10 +36,13 @@ import zuul.Monster;
 public class ThreeDView extends View {
 	private static final String IMAGES_TREASURE_IN_ROOM_PNG = "Images/treasure_in_room.png";
 	private static final String IMAGES_SOUTH_DOOR_PNG = "Images/south_door.png";
+	private static final String IMAGES_SOUTH_DOOR_LOCKED_PNG = "Images/south_door_locked.png";
 	private static final String IMAGES_WEST_DOOR_PNG = "Images/west_door.png";
 	private static final String IMAGES_WEST_DOOR_LOCKED_PNG = "Images/west_door_locked.png";
 	private static final String IMAGES_EAST_DOOR_PNG = "Images/east_door.png";
+	private static final String IMAGES_EAST_DOOR_LOCKED_PNG = "Images/east_door_locked.png";
 	private static final String IMAGES_NORTH_DOOR_PNG = "Images/north_door.png";
+	private static final String IMAGES_NORTH_DOOR_LOCKED_PNG = "Images/north_door_locked.png";
 	private static final String IMAGES_BOSS2_IN_ROOM_PNG = "Images/boss2_in_room.png";
 	private static final String IMAGES_BOSS1_IN_ROOM_PNG = "Images/boss1_in_room.png";
 	private static final String IMAGES_FIX_PNG = "Images/fix.png";
@@ -239,7 +242,22 @@ public class ThreeDView extends View {
 			if (p.getCurrentRoom().getExit(Direction.EAST) != null) {
 				currentMapRoom++;
 			}
-			p.doCommand(Command.parse(GO_EAST));
+			if ((p.getCurrentRoom().getExit(Direction.EAST).getLocked() != true)
+					|| (unlocked == true))
+				p.doCommand(Command.parse(GO_EAST));
+			else if (!p.getInventory().contains(new Item("Key", true)))
+				JOptionPane
+						.showMessageDialog(
+								this,
+								"The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
+			else {
+				JOptionPane
+						.showMessageDialog(this,
+								"You have opened the door!\nYou see the treasure in front of you!");
+				unlocked = true;
+				p.getCurrentRoom().getExit(Direction.EAST).setLocked(false);
+				p.doCommand(Command.parse(GO_EAST));
+			}
 
 		} else if (doorWest.contains(x, y)) {
 			if (p.getCurrentRoom().getExit(Direction.WEST) != null) {
@@ -266,12 +284,42 @@ public class ThreeDView extends View {
 			if (p.getCurrentRoom().getExit(Direction.NORTH)!=null){
 	    		currentMapRoom -= 4;
 	    	}
-			p.doCommand(Command.parse(GO_NORTH));
+			if ((p.getCurrentRoom().getExit(Direction.NORTH).getLocked() != true)
+					|| (unlocked == true))
+				p.doCommand(Command.parse(GO_NORTH));
+			else if (!p.getInventory().contains(new Item("Key", true)))
+				JOptionPane
+						.showMessageDialog(
+								this,
+								"The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
+			else {
+				JOptionPane
+						.showMessageDialog(this,
+								"You have opened the door!\nYou see the treasure in front of you!");
+				unlocked = true;
+				p.getCurrentRoom().getExit(Direction.NORTH).setLocked(false);
+				p.doCommand(Command.parse(GO_NORTH));
+			}
 		} else if (doorSouth.contains(x, y)) {
 			if (p.getCurrentRoom().getExit(Direction.SOUTH)!=null){
 	    		currentMapRoom += 4;
 	    	}
-			p.doCommand(Command.parse(GO_SOUTH));
+			if ((p.getCurrentRoom().getExit(Direction.SOUTH).getLocked() != true)
+					|| (unlocked == true))
+				p.doCommand(Command.parse(GO_SOUTH));
+			else if (!p.getInventory().contains(new Item("Key", true)))
+				JOptionPane
+						.showMessageDialog(
+								this,
+								"The Door is locked!\nYou are sure the treasure is just beyond.\nIf only you had a Key..");
+			else {
+				JOptionPane
+						.showMessageDialog(this,
+								"You have opened the door!\nYou see the treasure in front of you!");
+				unlocked = true;
+				p.getCurrentRoom().getExit(Direction.SOUTH).setLocked(false);
+				p.doCommand(Command.parse(GO_SOUTH));
+			}
 		} else if (chest.contains(x, y)) {
 			int popup;
 			if (!p.getCurrentRoom().getItems().isEmpty())
@@ -373,14 +421,26 @@ public class ThreeDView extends View {
 				consolePanel.add(fixPanel3, new Integer(1), 0);
 			}
 		if (p.getCurrentRoom().getExit(Direction.NORTH) != null) {
-			JLabel northLabel = new JLabel(new ImageIcon(IMAGES_NORTH_DOOR_PNG));
+			JLabel northLabel;
+			northPanel.removeAll();
+			if(p.getCurrentRoom().getExit(Direction.NORTH).getLocked()){
+				northLabel= new JLabel(new ImageIcon(IMAGES_NORTH_DOOR_LOCKED_PNG));
+			} else {
+				northLabel= new JLabel(new ImageIcon(IMAGES_NORTH_DOOR_PNG));
+			}
 			northPanel.add(northLabel);
 			northPanel.setBackground(new Color(185, 122, 87));
 			northPanel.setBounds(385, 146, 100, 180);
 			consolePanel.add(northPanel, new Integer(1), 0);
 		}
 		if (p.getCurrentRoom().getExit(Direction.EAST) != null) {
-			JLabel eastLabel = new JLabel(new ImageIcon(IMAGES_EAST_DOOR_PNG));
+			JLabel eastLabel;
+			eastPanel.removeAll();
+			if(p.getCurrentRoom().getExit(Direction.EAST).getLocked()){
+				eastLabel= new JLabel(new ImageIcon(IMAGES_EAST_DOOR_LOCKED_PNG));
+			} else {
+				eastLabel= new JLabel(new ImageIcon(IMAGES_EAST_DOOR_PNG));
+			}
 			eastPanel.add(eastLabel);
 			eastPanel.setBackground(new Color(185, 122, 87));
 			eastPanel.setBounds(650, 158, 80, 310);
@@ -389,18 +449,24 @@ public class ThreeDView extends View {
 		if (p.getCurrentRoom().getExit(Direction.WEST) != null) {
 			JLabel westLabel;
 			westPanel.removeAll();
-			if (p.getCurrentRoom().getExit(Direction.WEST).getLocked())
-				westLabel = new JLabel(new ImageIcon(
-						IMAGES_WEST_DOOR_LOCKED_PNG));
-			else
+			if (p.getCurrentRoom().getExit(Direction.WEST).getLocked()){
+				westLabel = new JLabel(new ImageIcon(IMAGES_WEST_DOOR_LOCKED_PNG));
+			} else {
 				westLabel = new JLabel(new ImageIcon(IMAGES_WEST_DOOR_PNG));
+			}
 			westPanel.add(westLabel);
 			westPanel.setBackground(new Color(185, 122, 87));
 			westPanel.setBounds(120, 158, 80, 310);
 			consolePanel.add(westPanel, new Integer(1), 0);
 		}
 		if (p.getCurrentRoom().getExit(Direction.SOUTH) != null) {
-			JLabel southLabel = new JLabel(new ImageIcon(IMAGES_SOUTH_DOOR_PNG));
+			JLabel southLabel;
+			southPanel.removeAll();
+			if(p.getCurrentRoom().getExit(Direction.SOUTH).getLocked()){
+				southLabel= new JLabel(new ImageIcon(IMAGES_SOUTH_DOOR_LOCKED_PNG));
+			} else {
+				southLabel= new JLabel(new ImageIcon(IMAGES_SOUTH_DOOR_PNG));
+			}
 			southPanel.add(southLabel);
 			southPanel.setBackground(new Color(69, 43, 29));
 			southPanel.setBounds(385, 490, 90, 90);
@@ -408,6 +474,8 @@ public class ThreeDView extends View {
 		}
 		
 		if (p.getCurrentRoom().hasItem(new Item("Treasure", true))){
+			consolePanel.removeAll();
+			treasurePanel.removeAll();
 			JLabel treasureLabel = new JLabel(new ImageIcon(
 					IMAGES_TREASURE_IN_ROOM_PNG));
 			treasurePanel.add(treasureLabel);
