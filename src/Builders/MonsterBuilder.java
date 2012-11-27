@@ -102,6 +102,9 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 		done = new JButton();
 		done.setText("Click here if done editing Monsters");
 		b9.add(done);
+		JTextArea f2 = new JTextArea("Note: Must add Alien to have Map in game.\n           Must add Boss to have Key in game.");
+		f2.setEditable(false);
+		b9.add(f2);
 		
 		done.addActionListener(this);
 		

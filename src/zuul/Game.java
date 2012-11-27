@@ -184,8 +184,8 @@ public class Game {
 	  String[] s = new String[2];
 		s[0] = "Default";
 		s[1] = "Builder";
-		int popup = JOptionPane.showOptionDialog(null, "Please select a view:",
-				"View Selection", JOptionPane.YES_NO_CANCEL_OPTION,
+		int popup = JOptionPane.showOptionDialog(null, "Please select an option:",
+				"Option Selection", JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.INFORMATION_MESSAGE, null, s, null);
 		if (popup == 0) {
 			new Builder(1);
