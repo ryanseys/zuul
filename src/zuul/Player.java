@@ -37,7 +37,7 @@ public class Player extends Humanoid  implements Serializable{
    */
   public Player(int health, Room room, String name) {
     super(health, name, room);
-    addItem(new Item("Map", 0, 0, true));
+    //addItem(new Item("Map", 0, 0, true));
     playerHistory = new PlayerHistory();
   }
 
@@ -126,7 +126,7 @@ public class Player extends Humanoid  implements Serializable{
         if (m.getHealth() <= 0) { // Monster has died if its health is less than
                                   // or equal to zero
    
-          m.dropItems(); // Drop all of the monster's items and add them to the
+          //m.dropItems(); // Drop all of the monster's items and add them to the
                          // room
           currentRoom.removeMonster(m); // Remove the monster from the room
         }
