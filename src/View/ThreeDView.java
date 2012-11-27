@@ -232,7 +232,7 @@ public class ThreeDView extends View {
 	private void handleCoordinates(int x, int y) {
 
 		if (p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true)))
-			if (treasure.contains(x, y))
+			//if (treasure.contains(x, y))
 				win();
 
 		if (doorEast.contains(x, y)) {
@@ -339,13 +339,9 @@ public class ThreeDView extends View {
 			fixPanel.setBackground(Color.black);
 			fixPanel.setBounds(249, 278, 5, 5);
 			consolePanel.add(fixPanel, new Integer(1), 0);
-		} else {
-			JLabel treasureLabel = new JLabel(new ImageIcon(
-					IMAGES_TREASURE_IN_ROOM_PNG));
-			treasurePanel.add(treasureLabel);
-			treasurePanel.setBounds(75, 0, 700, 500);
-			consolePanel.add(treasurePanel, new Integer(1), 0);
-		}
+		} //else {
+		
+		//}
 		if (p.getCurrentRoom().hasMonsters())
 			if (p.getCurrentRoom().getMonster().getName().equals(Game.BOSS2)) {
 				JLabel bossLabel = new JLabel(new ImageIcon(
@@ -409,6 +405,14 @@ public class ThreeDView extends View {
 			southPanel.setBackground(new Color(69, 43, 29));
 			southPanel.setBounds(385, 490, 90, 90);
 			consolePanel.add(southPanel, new Integer(1), 0);
+		}
+		
+		if (p.getCurrentRoom().hasItem(new Item("Treasure", true))){
+			JLabel treasureLabel = new JLabel(new ImageIcon(
+					IMAGES_TREASURE_IN_ROOM_PNG));
+			treasurePanel.add(treasureLabel);
+			treasurePanel.setBounds(75, 0, 700, 600);
+			consolePanel.add(treasurePanel, new Integer(1), 0);
 		}
 	}
 }

@@ -234,6 +234,7 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 						 mArray.remove(alien);
 					 } else {
 						 r0.addMonster(boss);
+						 boss.setRoom(r0);
 						 mArray.remove(boss);
 					 }
 					 b0.setEnabled(false);
@@ -246,9 +247,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r1.addMonster(alien);
+						 alien.setRoom(r1);
 						 mArray.remove(alien);
 					 } else {
 						 r1.addMonster(boss);
+						 boss.setRoom(r1);
 						 mArray.remove(boss);
 					 }
 					 b1.setEnabled(false);
@@ -261,9 +264,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r2.addMonster(alien);
+						 alien.setRoom(r2);
 						 mArray.remove(alien);
 					 } else {
 						 r2.addMonster(boss);
+						 boss.setRoom(r2);
 						 mArray.remove(boss);
 					 }
 					 b2.setEnabled(false);
@@ -276,9 +281,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r3.addMonster(alien);
+						 alien.setRoom(r3);
 						 mArray.remove(alien);
 					 } else {
 						 r3.addMonster(boss);
+						 boss.setRoom(r3);
 						 mArray.remove(boss);
 					 }
 					 b3.setEnabled(false);
@@ -291,9 +298,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r4.addMonster(alien);
+						 alien.setRoom(r4);
 						 mArray.remove(alien);
 					 } else {
 						 r4.addMonster(boss);
+						 boss.setRoom(r4);
 						 mArray.remove(boss);
 					 }
 					 b4.setEnabled(false);
@@ -306,9 +315,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r5.addMonster(alien);
+						 alien.setRoom(r5);
 						 mArray.remove(alien);
 					 } else {
 						 r5.addMonster(boss);
+						 boss.setRoom(r5);
 						 mArray.remove(boss);
 					 }
 					 b5.setEnabled(false);
@@ -321,9 +332,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r6.addMonster(alien);
+						 alien.setRoom(r6);
 						 mArray.remove(alien);
 					 } else {
 						 r6.addMonster(boss);
+						 boss.setRoom(r6);
 						 mArray.remove(boss);
 					 }
 					 b6.setEnabled(false);
@@ -336,9 +349,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r7.addMonster(alien);
+						 alien.setRoom(r7);
 						 mArray.remove(alien);
 					 } else {
 						 r7.addMonster(boss);
+						 boss.setRoom(r7);
 						 mArray.remove(boss);
 					 }
 					 b7.setEnabled(false);
@@ -351,9 +366,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r8.addMonster(alien);
+						 alien.setRoom(r8);
 						 mArray.remove(alien);
 					 } else {
 						 r8.addMonster(boss);
+						 boss.setRoom(r8);
 						 mArray.remove(boss);
 					 }
 					 b8.setEnabled(false);
@@ -366,9 +383,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r10.addMonster(alien);
+						 alien.setRoom(r10);
 						 mArray.remove(alien);
 					 } else {
 						 r10.addMonster(boss);
+						 boss.setRoom(r10);
 						 mArray.remove(boss);
 					 }
 					 b10.setEnabled(false);
@@ -381,9 +400,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r11.addMonster(alien);
+						 alien.setRoom(r11);
 						 mArray.remove(alien);
 					 } else {
 						 r11.addMonster(boss);
+						 boss.setRoom(r11);
 						 mArray.remove(boss);
 					 }
 					 b11.setEnabled(false);
@@ -396,9 +417,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r12.addMonster(alien);
+						 alien.setRoom(r12);
 						 mArray.remove(alien);
 					 } else {
 						 r12.addMonster(boss);
+						 boss.setRoom(r12);
 						 mArray.remove(boss);
 					 }
 					 b12.setEnabled(false);
@@ -411,9 +434,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r13.addMonster(alien);
+						 alien.setRoom(r13);
 						 mArray.remove(alien);
 					 } else {
 						 r13.addMonster(boss);
+						 boss.setRoom(r13);
 						 mArray.remove(boss);
 					 }
 					 b13.setEnabled(false);
@@ -426,9 +451,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r14.addMonster(alien);
+						 alien.setRoom(r14);
 						 mArray.remove(alien);
 					 } else {
 						 r14.addMonster(boss);
+						 boss.setRoom(r14);
 						 mArray.remove(boss);
 					 }
 					 b14.setEnabled(false);
@@ -441,9 +468,11 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 				 if(popup == 0 || popup ==1){
 					 if(mArray.get(popup).equals(alien)){
 						 r15.addMonster(alien);
+						 alien.setRoom(r15);
 						 mArray.remove(alien);
 					 } else {
 						 r15.addMonster(boss);
+						 boss.setRoom(r15);
 						 mArray.remove(boss);
 					 }
 					 b15.setEnabled(false);

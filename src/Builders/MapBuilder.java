@@ -38,13 +38,13 @@ public class MapBuilder extends JFrame {
 	public MapBuilder(boolean[] b) {
 
 		try {
-			image = ImageIO.read(new File(path, "full_map_test.png"));
+			image = ImageIO.read(new File(path, "full_map.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
-			overlay = ImageIO.read(new File(path, "room_empty_test.png"));
+			overlay = ImageIO.read(new File(path, "room_empty.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
