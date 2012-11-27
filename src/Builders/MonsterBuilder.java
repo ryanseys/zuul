@@ -39,6 +39,20 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 		//mb = new MapBuilder(rooms); //9 is the starting room
 	}
 	
+	public MonsterBuilder(int defaultRooms){
+		//rooms = new boolean[16];
+		initRealRooms();
+		setDefaultMonsters();
+	}
+	
+	private void setDefaultMonsters() {
+		initMonsters();
+		r10.addMonster(alien);
+		alien.setRoom(r10);
+		r13.addMonster(boss);
+		boss.setRoom(r13);
+	}
+
 	public Room[] getRooms(){
 		Room[] returnedRooms = new Room[16];
 		returnedRooms[0] = r0;
@@ -202,6 +216,10 @@ public class MonsterBuilder extends JPanel implements ActionListener{
 			b15.setEnabled(false);
 		}
 		
+		initRealRooms();
+	}
+	
+	public void initRealRooms(){
 		r0 = new Room("0");
 		r1 = new Room("1");
 		r2 = new Room("2");

@@ -35,6 +35,10 @@ public class ItemBuilder extends JPanel implements ActionListener{
 		rooms = new boolean[16];
 		initRooms(b);
 		initItems();
+		setRealRooms(r);
+	}
+	
+	public void setRealRooms(Room[] r){
 		r0 = r[0];
 		r1 = r[1];
 		r2 = r[2];
@@ -53,6 +57,21 @@ public class ItemBuilder extends JPanel implements ActionListener{
 		r15 = r[15];
 	}
 	
+	public ItemBuilder(Room[] r){
+		setRealRooms(r);
+		setDefaultItems();
+	}
+	
+	private void setDefaultItems() {
+		initItems();
+		r0.addItem(treasure);
+		r5.addItem(bread);
+		r8.addItem(orange);
+		r8.addItem(apple);
+		r8.addItem(pear);
+		r9.addItem(sword);
+	}
+
 	public Room[] getRooms() {
 		Room[] returnedRooms = new Room[16];
 		returnedRooms[0] = r0;

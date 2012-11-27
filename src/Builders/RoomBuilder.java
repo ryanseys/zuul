@@ -29,6 +29,13 @@ public class RoomBuilder extends JPanel implements ActionListener{
 		mb = new MapBuilder(rooms);
 	}
 	
+	public RoomBuilder(int defaultRooms){
+		rooms = new boolean[16];
+		initRooms();
+		setDefaultRooms();
+		mb = new MapBuilder(rooms);
+	}
+	
 	public void initButtons(){
 
 		b0 = new JButton(); 
@@ -254,6 +261,16 @@ public class RoomBuilder extends JPanel implements ActionListener{
 	}
 	public boolean[] getRooms(){
 		return rooms;
+	}
+	
+	public void setDefaultRooms(){
+		initRooms();
+		rooms[0] = true;
+		rooms[1] = true;
+		rooms[5] = true;
+		rooms[8] = true;
+		rooms[10] = true;
+		rooms[13] = true;
 	}
 	
 	public boolean isDone() {

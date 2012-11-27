@@ -1,7 +1,12 @@
 package zuul;
 
 import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
 import Builders.*;
+import View.ThreeDView;
+import View.TwoDView;
 import View.View;
 
 /**
@@ -41,21 +46,8 @@ public class Game {
   public static final String START_ROOM = "StartRoom";
   
 
-  /**
-   * Initialization method, to set up the game. Sets up the rooms, the monsters
-   * and the items in the game.
-   * @param <ItemBuilder>
-   * @param <MapBuilder>
-   * @param <RoomBuilder>
-   */
-  public static Room initialize(Builder b) {
-    ItemBuilder ib = b.getItemBuilder();
-    MonsterBuilder mb = b.getMonsterBuilder();
-    RoomBuilder rb = b.getRoomBuilder();
-    
-    //Old implementation as a default if builder not used
-    if(ib == null || mb == null || rb == null) {
-      Room startRoom = new Room(START_ROOM);
+  public static Room initialize(){
+	  Room startRoom = new Room(START_ROOM);
       Room northRoom1 = new Room(NORTH_ROOM1);
       northRoom1.addItem(new Item(BREAD, 30, 0, false));
       Room southRoom = new Room(SOUTH_ROOM);
@@ -96,8 +88,20 @@ public class Game {
       northWestRoom.setLocked(true);
       northWestRoom.addItem(new Item("Treasure", 100, 0, true));
       return startRoom;
-    }
-    else {
+  }
+  
+  /**
+   * Initialization method, to set up the game. Sets up the rooms, the monsters
+   * and the items in the game.
+   * @param <ItemBuilder>
+   * @param <MapBuilder>
+   * @param <RoomBuilder>
+   */
+  public static Room initialize(Builder b) {
+    ItemBuilder ib = b.getItemBuilder();
+    MonsterBuilder mb = b.getMonsterBuilder();
+    RoomBuilder rb = b.getRoomBuilder();
+    
       Room[] rooms = ib.getRooms();
       boolean[] roomStatuses = rb.getRooms();
       Room[] monsterRooms = mb.getRooms();
@@ -117,7 +121,6 @@ public class Game {
       }
       startRoom.setBuilder(b);
       return startRoom;
-    }
   }
   
   public static boolean hasNeighbour(int id, Direction d) {
@@ -175,7 +178,19 @@ public class Game {
   }
 
   public static void main(String[] args) throws IOException {
-	  new Builder();
+	  String[] s = new String[2];
+		s[0] = "Default";
+		s[1] = "Builder";
+		int popup = JOptionPane.showOptionDialog(null, "Please select a view:",
+				"View Selection", JOptionPane.YES_NO_CANCEL_OPTION,
+				JOptionPane.INFORMATION_MESSAGE, null, s, null);
+		if (popup == 0) {
+			new Builder(1);
+		} else {
+			new Builder();
+		}
+		
+
 //	  View view = View.getInstance(new Builder());
 //    view.update();
 //    view.setVisible(true);

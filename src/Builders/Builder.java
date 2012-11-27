@@ -1,10 +1,6 @@
 package Builders;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 import javax.swing.JFrame;
 
@@ -78,6 +74,15 @@ public class Builder extends JFrame{
 	  view.setVisible(true);
 	}
 	
+	public Builder(int defaultLayout){
+		rb = new RoomBuilder(1);
+		mb = new MonsterBuilder(1);
+		ib = new ItemBuilder(mb.getRooms());
+		View view = View.getInstance(this);
+		view.update();
+		view.setVisible(true);	
+	}
+	
 	public ItemBuilder getItemBuilder() {
 	  return ib;
 	}
@@ -93,4 +98,17 @@ public class Builder extends JFrame{
 	public static void main(String[] args){
 		Builder b = new Builder();
 	}
+	
+	public void setRoomBuilder(){
+		rb = null;
+	}
+	
+	public void setItemBuilder(){
+		ib = null;
+	}
+	
+	public void setMonsterBuilder(){
+		mb = null;
+	}
 }
+
