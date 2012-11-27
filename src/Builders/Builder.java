@@ -2,12 +2,14 @@ package Builders;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
+import java.io.Serializable;
+
 import javax.swing.JFrame;
 
 import View.View;
 
 
-public class Builder extends JFrame{
+public class Builder extends JFrame implements Serializable{
 
   private static final long serialVersionUID = 1L;
   private RoomBuilder rb;
