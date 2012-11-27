@@ -19,7 +19,7 @@ public class ItemBuilder extends JPanel implements ActionListener{
 
   private static final long serialVersionUID = 1L;
   private JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b10, b11, b12, b13, b14, b15;
-	private JButton done;
+	private JButton done, startItems;
 	private Room r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10, r11, r12, r13, r14, r15;
 	private JPanel b9;
 	private boolean[] rooms;
@@ -120,9 +120,14 @@ public class ItemBuilder extends JPanel implements ActionListener{
 		b9.add(f);
 		done = new JButton();
 		done.setText("Click here if done editing Items");
+		startItems = new JButton();
+		startItems.setText("Click here to add Items to Start Room");
 		b9.add(done);
+		b9.add(startItems);
 		
 		done.addActionListener(this);
+		startItems.addActionListener(this);
+		
 		
 		b0.addActionListener(this);
 		b1.addActionListener(this);
@@ -575,6 +580,31 @@ public class ItemBuilder extends JPanel implements ActionListener{
 			this.setVisible(false);
 			isDone = true;
 			System.out.println("Done with item building");
+		} else if (e.getSource() == startItems) {
+			int popup = JOptionPane.showOptionDialog(this,
+					"Select an Item to put in this room:", "Selected Room",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.INFORMATION_MESSAGE, null, iArray.toArray(),
+					null);
+			if (popup == 0 || popup == 1 || popup == 2 || popup == 3
+					|| popup == 4 || popup == 5) {
+				if (iArray.get(popup).equals(bread)) {
+					r9.addItem(bread);
+				} else if (iArray.get(popup).equals(sword)) {
+					r9.addItem(sword);
+				} else if (iArray.get(popup).equals(apple)) {
+					r9.addItem(apple);
+				} else if (iArray.get(popup).equals(orange)) {
+					r9.addItem(orange);
+				} else if (iArray.get(popup).equals(pear)) {
+					r9.addItem(pear);
+				} else if (iArray.get(popup).equals(treasure)) {
+					r9.addItem(treasure);
+					iArray.remove(treasure);
+					startItems.setEnabled(false);
+				}
+				startItems.setText("Start Room: " + getRooms()[9].getItems());
+			}
 		}
 	}
 	
