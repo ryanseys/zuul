@@ -17,9 +17,9 @@ import javax.swing.JFrame;
 public class MapBuilder extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-	BufferedImage image = null, overlay = null;
-	BufferedImage combined;
-	BufferedImage player;
+	static BufferedImage image = null, overlay = null;
+	static BufferedImage combined;
+	static BufferedImage player;
 	File path = new File("Images");
 	static boolean[] b;
 	int i = 0;

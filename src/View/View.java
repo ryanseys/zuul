@@ -85,6 +85,7 @@ public abstract class View extends JFrame implements ActionListener {
 		this.b = b;
 		
 		p = new Player(Humanoid.MAX_HEALTH, Game.initialize(b), "Player");
+		saveGame("default.txt");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -236,7 +237,8 @@ public abstract class View extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals(RESET)) {
-			reset();
+			load("default.txt");
+			currentMapRoom = 9;
 		} else if (e.getActionCommand().equals(OBJECTIVE)) {
 			JOptionPane.showMessageDialog(this, getObjective());
 		} else if (e.getActionCommand().equals(HINT)) {
@@ -265,9 +267,9 @@ public abstract class View extends JFrame implements ActionListener {
 		} else if (e.getActionCommand().equals(QUIT)) {
 			quit();
 		} else if (e.getActionCommand().equals("Save")) {
-			saveGame();
+			saveGame(getFileName());
 		} else if (e.getActionCommand().equals("Open")) {
-			load();
+			load(getFileNameForLoad());
 		}
 		update();
 	}
@@ -275,14 +277,10 @@ public abstract class View extends JFrame implements ActionListener {
 	/**
 	 * TODO
 	 */
-	private void load() {
-		FileDialog dialog = new FileDialog(this, "Open", FileDialog.LOAD);
-		dialog.setVisible(true);
-		String fileName = dialog.getFile();
+	private void load(String fileName) {
 		if (fileName == null) {
-			return; // the user did not want to load
+			return;
 		}
-
 		ObjectInputStream in;
 		try {
 			in = new ObjectInputStream(new FileInputStream(fileName));
@@ -301,17 +299,23 @@ public abstract class View extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * TODO
+	 * @return
 	 */
-	private void saveGame() {
-
-		FileDialog dialog = new FileDialog(this, "Save As", FileDialog.SAVE);
+	private String getFileNameForLoad() {
+		FileDialog dialog = new FileDialog(this, "Open", FileDialog.LOAD);
 		dialog.setVisible(true);
 		String fileName = dialog.getFile();
-		if (fileName == null) {
-			return; // the user did not want to save
-		}
+		return fileName;
+	}
 
+	/**
+	 * TODO
+	 */
+	private void saveGame(String fileName) {
+
+		if (fileName == null){
+			return;
+		}
 		FileOutputStream fos;
 		ObjectOutputStream oos;
 		try {
@@ -329,6 +333,19 @@ public abstract class View extends JFrame implements ActionListener {
 					JOptionPane.ERROR_MESSAGE);
 			e1.printStackTrace();
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	private String getFileName() {
+		FileDialog dialog = new FileDialog(this, "Save As", FileDialog.SAVE);
+		dialog.setVisible(true);
+		String fileName = dialog.getFile();
+		if (fileName == null) {
+			return null; // the user did not want to save
+		}
+		return fileName;
 	}
 
 	/**
