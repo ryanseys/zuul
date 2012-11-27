@@ -4,10 +4,10 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import Builders.*;
-import View.ThreeDView;
-import View.TwoDView;
-import View.View;
+import Builders.Builder;
+import Builders.ItemBuilder;
+import Builders.MonsterBuilder;
+import Builders.RoomBuilder;
 
 /**
  * This class is the main class of the "World of Zuul" application.
@@ -20,183 +20,206 @@ import View.View;
  * 
  * @author Vinayak Bansal
  * @version 2012.10.22
- * @param <ItemBuilder>
- * @param <ItemBuilder>
  */
 
 public class Game {
 
-  public static final String KEY = "Key";
-  public static final String FLAMETHROWER = "Flamethrower";
-  public static final String BOSS2 = "Boss";
-  public static final String CLAWS = "Claws";
-  public static final String MAP = "Map";
-  public static final String ALIEN2 = "Alien";
-  public static final String PEAR = "Pear";
-  public static final String ORANGE = "Orange";
-  public static final String APPLE = "Apple";
-  public static final String SWORD = "Sword";
-  public static final String NORTH_ROOM2 = "NorthRoom2";
-  public static final String NORTH_WEST_ROOM = "NorthWestRoom";
-  public static final String WEST_ROOM = "WestRoom";
-  public static final String EAST_ROOM = "EastRoom";
-  public static final String SOUTH_ROOM = "SouthRoom";
-  public static final String BREAD = "Bread";
-  public static final String NORTH_ROOM1 = "NorthRoom1";
-  public static final String START_ROOM = "StartRoom";
-  
+	public static final String KEY = "Key";
+	public static final String FLAMETHROWER = "Flamethrower";
+	public static final String BOSS2 = "Boss";
+	public static final String CLAWS = "Claws";
+	public static final String MAP = "Map";
+	public static final String ALIEN2 = "Alien";
+	public static final String PEAR = "Pear";
+	public static final String ORANGE = "Orange";
+	public static final String APPLE = "Apple";
+	public static final String SWORD = "Sword";
+	public static final String NORTH_ROOM2 = "NorthRoom2";
+	public static final String NORTH_WEST_ROOM = "NorthWestRoom";
+	public static final String WEST_ROOM = "WestRoom";
+	public static final String EAST_ROOM = "EastRoom";
+	public static final String SOUTH_ROOM = "SouthRoom";
+	public static final String BREAD = "Bread";
+	public static final String NORTH_ROOM1 = "NorthRoom1";
+	public static final String START_ROOM = "StartRoom";
 
-  public static Room initialize(){
-	  Room startRoom = new Room(START_ROOM);
-      Room northRoom1 = new Room(NORTH_ROOM1);
-      northRoom1.addItem(new Item(BREAD, 30, 0, false));
-      Room southRoom = new Room(SOUTH_ROOM);
-      Room eastRoom = new Room(EAST_ROOM);
-      Room westRoom = new Room(WEST_ROOM);
-      Room northWestRoom = new Room(NORTH_WEST_ROOM);
-      Room northRoom2 = new Room(NORTH_ROOM2);
-      startRoom.addItem(new Item(SWORD, 50, 0, true));
-      startRoom.setExit(Direction.NORTH, northRoom1);
-      startRoom.setExit(Direction.SOUTH, southRoom);
-      startRoom.setExit(Direction.EAST, eastRoom);
-      startRoom.setExit(Direction.WEST, westRoom);
-      westRoom.addItem(new Item(APPLE, 10, 0, false));
-      westRoom.addItem(new Item(ORANGE, 15, 0, false));
-      westRoom.addItem(new Item(PEAR, 20, 0, false));
+	public static Room initialize() {
+		Room startRoom = new Room(START_ROOM);
+		Room northRoom1 = new Room(NORTH_ROOM1);
+		northRoom1.addItem(new Item(BREAD, 30, 0, false));
+		Room southRoom = new Room(SOUTH_ROOM);
+		Room eastRoom = new Room(EAST_ROOM);
+		Room westRoom = new Room(WEST_ROOM);
+		Room northWestRoom = new Room(NORTH_WEST_ROOM);
+		Room northRoom2 = new Room(NORTH_ROOM2);
+		startRoom.addItem(new Item(SWORD, 50, 0, true));
+		startRoom.setExit(Direction.NORTH, northRoom1);
+		startRoom.setExit(Direction.SOUTH, southRoom);
+		startRoom.setExit(Direction.EAST, eastRoom);
+		startRoom.setExit(Direction.WEST, westRoom);
+		westRoom.addItem(new Item(APPLE, 10, 0, false));
+		westRoom.addItem(new Item(ORANGE, 15, 0, false));
+		westRoom.addItem(new Item(PEAR, 20, 0, false));
 
-      eastRoom.setExit(Direction.WEST, startRoom);
+		eastRoom.setExit(Direction.WEST, startRoom);
 
-      Monster alien = new Monster(Humanoid.MAX_HEALTH, Monster.DEFAULT_LEVEL,
-          ALIEN2, eastRoom);
-      eastRoom.addMonster(alien);
-      alien.addItem(new Item(MAP, 0, 0, true));
-      alien.addItem(new Item(CLAWS, 10, 0, true));
+		Monster alien = new Monster(Humanoid.MAX_HEALTH, Monster.DEFAULT_LEVEL,
+				ALIEN2, eastRoom);
+		eastRoom.addMonster(alien);
+		alien.addItem(new Item(MAP, 0, 0, true));
+		alien.addItem(new Item(CLAWS, 10, 0, true));
 
-      Monster boss = new Monster(100, 2, BOSS2, southRoom);
-      southRoom.addMonster(boss);
-      boss.addItem(new Item(FLAMETHROWER, 30, 0, true));
-      boss.addItem(new Item(KEY, 0, 0, true));
+		Monster boss = new Monster(100, 2, BOSS2, southRoom);
+		southRoom.addMonster(boss);
+		boss.addItem(new Item(FLAMETHROWER, 30, 0, true));
+		boss.addItem(new Item(KEY, 0, 0, true));
 
-      westRoom.setExit(Direction.EAST, startRoom);
-      northRoom1.setExit(Direction.SOUTH, startRoom);
-      northRoom1.setExit(Direction.NORTH, northRoom2);
-      southRoom.setExit(Direction.NORTH, startRoom);
+		westRoom.setExit(Direction.EAST, startRoom);
+		northRoom1.setExit(Direction.SOUTH, startRoom);
+		northRoom1.setExit(Direction.NORTH, northRoom2);
+		southRoom.setExit(Direction.NORTH, startRoom);
 
-      northRoom2.setExit(Direction.SOUTH, northRoom1);
-      northRoom2.setExit(Direction.WEST, northWestRoom);
-      northWestRoom.setExit(Direction.EAST, northRoom2);
-      northWestRoom.setLocked(true);
-      northWestRoom.addItem(new Item("Treasure", 100, 0, true));
-      return startRoom;
-  }
-  
-  /**
-   * Initialization method, to set up the game. Sets up the rooms, the monsters
-   * and the items in the game.
-   * @param <ItemBuilder>
-   * @param <MapBuilder>
-   * @param <RoomBuilder>
-   */
-  public static Room initialize(Builder b) {
-    ItemBuilder ib = b.getItemBuilder();
-    MonsterBuilder mb = b.getMonsterBuilder();
-    RoomBuilder rb = b.getRoomBuilder();
-    
-      Room[] rooms = ib.getRooms();
-      boolean[] roomStatuses = rb.getRooms();
-      Room[] monsterRooms = mb.getRooms();
-      
-      Room startRoom = null;
-      Room currentRoom = null;
-      for(int i = 0; i < 16; i++) {
-        if(roomStatuses[i] == true) {
-          currentRoom = rooms[i];
-          if(monsterRooms[i].hasMonsters() && rooms[i].getItems().contains(new Item("Treasure", 100, 0, true)) == true) currentRoom.removeMonster(monsterRooms[i].getMonster());
-          if(hasNeighbour(i, Direction.NORTH) && roomStatuses[i-4] == true) currentRoom.setExit(Direction.NORTH, rooms[i-4]);
-          if(hasNeighbour(i, Direction.EAST) && roomStatuses[i+1] == true) currentRoom.setExit(Direction.EAST, rooms[i+1]);
-          if(hasNeighbour(i, Direction.SOUTH) && roomStatuses[i+4] == true) currentRoom.setExit(Direction.SOUTH, rooms[i+4]);
-          if(hasNeighbour(i, Direction.WEST) && roomStatuses[i-1] == true) currentRoom.setExit(Direction.WEST, rooms[i-1]);
-          if(rooms[i].getItems().contains(new Item("Treasure", 100, 0, true))){
-        	  rooms[i].setLocked(true);
-          }
-        }
-        if(i == 9) startRoom = currentRoom;
-      }
-      startRoom.setBuilder(b);
-      return startRoom;
-  }
-  
-  public static boolean hasNeighbour(int id, Direction d) {
-    switch(id) {
-      case 0:
-        if(d.equals(Direction.NORTH)) return false;
-        if(d.equals(Direction.WEST)) return false;
-        return true;
-      case 1:
-        if(d.equals(Direction.NORTH)) return false;
-        return true;
-      case 2:
-        if(d.equals(Direction.NORTH)) return false;
-        return true;
-      case 3:
-        if(d.equals(Direction.NORTH)) return false;
-        if(d.equals(Direction.EAST)) return false;
-        return true;
-      case 4:
-        if(d.equals(Direction.WEST)) return false;
-        return true;
-      case 5:
-        return true;
-      case 6:
-        return true;
-      case 7:
-        if(d.equals(Direction.EAST)) return false;
-        return true;
-      case 8:
-        if(d.equals(Direction.WEST)) return false;
-        return true;
-      case 9:
-        return true;
-      case 10:
-        return true;
-      case 11:
-        if(d.equals(Direction.EAST)) return false;
-        return true;
-      case 12:
-        if(d.equals(Direction.SOUTH)) return false;
-        if(d.equals(Direction.WEST)) return false;
-        return true;
-      case 13:
-        if(d.equals(Direction.SOUTH)) return false;
-        return true;
-      case 14:
-        if(d.equals(Direction.SOUTH)) return false;
-        return true;
-      case 15:
-        if(d.equals(Direction.EAST)) return false;
-        if(d.equals(Direction.SOUTH)) return false;
-        return true;
-    }
-    return false;
-  }
+		northRoom2.setExit(Direction.SOUTH, northRoom1);
+		northRoom2.setExit(Direction.WEST, northWestRoom);
+		northWestRoom.setExit(Direction.EAST, northRoom2);
+		northWestRoom.setLocked(true);
+		northWestRoom.addItem(new Item("Treasure", 100, 0, true));
+		return startRoom;
+	}
 
-  public static void main(String[] args) throws IOException {
-	  String[] s = new String[2];
+	/**
+	 * Initialization method, to set up the game. Sets up the rooms, the
+	 * monsters and the items in the game.
+	 * 
+	 * @param <ItemBuilder>
+	 * @param <MapBuilder>
+	 * @param <RoomBuilder>
+	 */
+	public static Room initialize(Builder b) {
+		ItemBuilder ib = b.getItemBuilder();
+		MonsterBuilder mb = b.getMonsterBuilder();
+		RoomBuilder rb = b.getRoomBuilder();
+
+		Room[] rooms = ib.getRooms();
+		boolean[] roomStatuses = rb.getRooms();
+		Room[] monsterRooms = mb.getRooms();
+
+		Room startRoom = null;
+		Room currentRoom = null;
+		for (int i = 0; i < 16; i++) {
+			if (roomStatuses[i] == true) {
+				currentRoom = rooms[i];
+				if (monsterRooms[i].hasMonsters()
+						&& rooms[i].getItems().contains(
+								new Item("Treasure", 100, 0, true)) == true)
+					currentRoom.removeMonster(monsterRooms[i].getMonster());
+				if (hasNeighbour(i, Direction.NORTH)
+						&& roomStatuses[i - 4] == true)
+					currentRoom.setExit(Direction.NORTH, rooms[i - 4]);
+				if (hasNeighbour(i, Direction.EAST)
+						&& roomStatuses[i + 1] == true)
+					currentRoom.setExit(Direction.EAST, rooms[i + 1]);
+				if (hasNeighbour(i, Direction.SOUTH)
+						&& roomStatuses[i + 4] == true)
+					currentRoom.setExit(Direction.SOUTH, rooms[i + 4]);
+				if (hasNeighbour(i, Direction.WEST)
+						&& roomStatuses[i - 1] == true)
+					currentRoom.setExit(Direction.WEST, rooms[i - 1]);
+				if (rooms[i].getItems().contains(
+						new Item("Treasure", 100, 0, true))) {
+					rooms[i].setLocked(true);
+				}
+			}
+			if (i == 9)
+				startRoom = currentRoom;
+		}
+		startRoom.setBuilder(b);
+		return startRoom;
+	}
+
+	public static boolean hasNeighbour(int id, Direction d) {
+		switch (id) {
+		case 0:
+			if (d.equals(Direction.NORTH))
+				return false;
+			if (d.equals(Direction.WEST))
+				return false;
+			return true;
+		case 1:
+			if (d.equals(Direction.NORTH))
+				return false;
+			return true;
+		case 2:
+			if (d.equals(Direction.NORTH))
+				return false;
+			return true;
+		case 3:
+			if (d.equals(Direction.NORTH))
+				return false;
+			if (d.equals(Direction.EAST))
+				return false;
+			return true;
+		case 4:
+			if (d.equals(Direction.WEST))
+				return false;
+			return true;
+		case 5:
+			return true;
+		case 6:
+			return true;
+		case 7:
+			if (d.equals(Direction.EAST))
+				return false;
+			return true;
+		case 8:
+			if (d.equals(Direction.WEST))
+				return false;
+			return true;
+		case 9:
+			return true;
+		case 10:
+			return true;
+		case 11:
+			if (d.equals(Direction.EAST))
+				return false;
+			return true;
+		case 12:
+			if (d.equals(Direction.SOUTH))
+				return false;
+			if (d.equals(Direction.WEST))
+				return false;
+			return true;
+		case 13:
+			if (d.equals(Direction.SOUTH))
+				return false;
+			return true;
+		case 14:
+			if (d.equals(Direction.SOUTH))
+				return false;
+			return true;
+		case 15:
+			if (d.equals(Direction.EAST))
+				return false;
+			if (d.equals(Direction.SOUTH))
+				return false;
+			return true;
+		}
+		return false;
+	}
+
+	public static void main(String[] args) throws IOException {
+		String[] s = new String[2];
 		s[0] = "Default";
 		s[1] = "Builder";
-		int popup = JOptionPane.showOptionDialog(null, "Please select an option:",
-				"Option Selection", JOptionPane.YES_NO_CANCEL_OPTION,
+		int popup = JOptionPane.showOptionDialog(null,
+				"Please select an option:", "Option Selection",
+				JOptionPane.YES_NO_CANCEL_OPTION,
 				JOptionPane.INFORMATION_MESSAGE, null, s, null);
 		if (popup == 0) {
 			new Builder(1);
 		} else {
 			new Builder();
 		}
-		
-
-//	  View view = View.getInstance(new Builder());
-//    view.update();
-//    view.setVisible(true);
-  }
+	}
 
 }
