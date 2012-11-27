@@ -1,29 +1,20 @@
 package Builders;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
 import zuul.Room;
 
-public class RoomBuilder extends JPanel implements ActionListener {
+public class RoomBuilder extends AbstractBuilder implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private ButtonBuilder b[];
-	private JButton done;
-	private JPanel b9;
-	private boolean[] rooms;
 	MapBuilder mb;
 	boolean isDone = false;
 
 	public RoomBuilder() {
 		this.setLayout(new GridLayout(4, 4));
-		initButtons();
+		initButtons("Rooms");
 		rooms = new boolean[16];
 		initRooms();
 		mb = new MapBuilder(rooms);
@@ -34,32 +25,6 @@ public class RoomBuilder extends JPanel implements ActionListener {
 		initRooms();
 		setDefaultRooms();
 		mb = new MapBuilder(rooms);
-	}
-
-	public void initButtons() {
-
-		b9 = new JPanel();
-		b9.setLayout(new FlowLayout());
-		JTextArea f = new JTextArea(
-				"Now editing: Rooms\nThis is the starting room.");
-		f.setEditable(false);
-		b9.add(f);
-		done = new JButton();
-		done.setText("Click here if done editing Rooms");
-		b9.add(done);
-
-		done.addActionListener(this);
-
-		b = new ButtonBuilder[16];
-		for (int x = 0; x < 16; x++) {
-			b[x] = new ButtonBuilder(x);
-			b[x].addActionListener(this);
-			if (x == 9) {
-				this.add(b9);
-			} else {
-				this.add(b[x]);
-			}
-		}
 	}
 
 	public void initRooms() {
@@ -99,7 +64,7 @@ public class RoomBuilder extends JPanel implements ActionListener {
 
 	}
 
-	public boolean[] getRooms() {
+	public boolean[] getBooleanRooms() {
 		return rooms;
 	}
 
@@ -111,10 +76,6 @@ public class RoomBuilder extends JPanel implements ActionListener {
 		rooms[8] = true;
 		rooms[10] = true;
 		rooms[13] = true;
-	}
-
-	public boolean isDone() {
-		return isDone;
 	}
 
 	public MapBuilder getMapBuilder() {

@@ -101,7 +101,7 @@ public class Game {
 		RoomBuilder rb = b.getRoomBuilder();
 
 		Room[] rooms = ib.getRooms();
-		boolean[] roomStatuses = rb.getRooms();
+		boolean[] roomStatuses = rb.getBooleanRooms();
 		Room[] monsterRooms = mb.getRooms();
 
 		Room startRoom = null;

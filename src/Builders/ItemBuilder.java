@@ -1,36 +1,26 @@
 package Builders;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import zuul.Item;
 import zuul.Room;
 
-public class ItemBuilder extends JPanel implements ActionListener {
+public class ItemBuilder extends AbstractBuilder implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private ButtonBuilder b[];
-	private JButton done;
-	private Room r[];
-	private JPanel b9;
-	private boolean[] rooms;
-
+	
 	private Item bread, sword, apple, orange, pear, treasure;
 
 	ArrayList<Item> iArray = new ArrayList<Item>();
-	boolean isDone = false;
-
+	
 	public ItemBuilder(boolean[] b, Room[] r) {
 		this.setLayout(new GridLayout(4, 4));
-		initButtons();
+		initButtons("Items");
 		rooms = new boolean[16];
 		initRooms(b);
 		initItems();
@@ -56,34 +46,9 @@ public class ItemBuilder extends JPanel implements ActionListener {
 		r[9].addItem(sword);
 	}
 
-	public Room[] getRooms() {
-		return r;
-	}
-
-	public void initButtons() {
-
-		b9 = new JPanel();
-		b9.setLayout(new FlowLayout());
-		JTextArea f = new JTextArea(
-				"Now editing: Items\nThis is the starting room.");
-		f.setEditable(false);
-		b9.add(f);
-		done = new JButton();
-		done.setText("Click here if done editing Items");
-		b9.add(done);
-
-		done.addActionListener(this);
-
-		b = new ButtonBuilder[16];
-		for (int x = 0; x < 16; x++) {
-			b[x] = new ButtonBuilder(x);
-			b[x].addActionListener(this);
-			if (x == 9) {
-				this.add(b9);
-			} else {
-				this.add(b[x]);
-			}
-		}
+	@Override
+	public void initButtons(String type) {
+		super.initButtons(type);
 		b[9].setText("Click here to add Items to Start Room");
 		b9.add(b[9]);
 
@@ -103,17 +68,6 @@ public class ItemBuilder extends JPanel implements ActionListener {
 		iArray.add(orange);
 		iArray.add(pear);
 		iArray.add(treasure);
-	}
-
-	public void initRooms(boolean[] input) {
-		rooms[9] = true; // always true, starting room
-
-		for (int x = 0; x < 16; x++) {
-			rooms[x] = input[x];
-			if (rooms[x] == false) {
-				b[x].setEnabled(false);
-			}
-		}
 	}
 
 	@Override
@@ -143,9 +97,5 @@ public class ItemBuilder extends JPanel implements ActionListener {
 			b[loc].setText(abc + getRooms()[loc].getItems());
 
 		}
-	}
-
-	public boolean isDone() {
-		return isDone;
 	}
 }

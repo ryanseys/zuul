@@ -34,7 +34,7 @@ public class Builder extends JFrame implements Serializable {
 			}
 		}
 
-		mb = new MonsterBuilder(rb.getRooms());
+		mb = new MonsterBuilder(rb.getBooleanRooms());
 		this.add(mb);
 		this.remove(rb);
 		this.validate();
@@ -48,7 +48,7 @@ public class Builder extends JFrame implements Serializable {
 			}
 		}
 
-		ib = new ItemBuilder(rb.getRooms(), mb.getRooms());
+		ib = new ItemBuilder(rb.getBooleanRooms(), mb.getRooms());
 		this.add(ib);
 		this.remove(mb);
 		this.validate();

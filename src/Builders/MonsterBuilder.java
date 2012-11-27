@@ -1,46 +1,35 @@
 package Builders;
 
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import zuul.Humanoid;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Room;
 
-public class MonsterBuilder extends JPanel implements ActionListener {
+public class MonsterBuilder extends AbstractBuilder implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private ButtonBuilder b[];
-	private JButton done;
-	private Room r[];
-	private JPanel b9;
-	private boolean[] rooms;
+
 	MapBuilder mb;
 	Monster alien;
 	Monster boss;
 	ArrayList<Monster> mArray = new ArrayList<Monster>();
-	boolean isDone = false;
 
 	public MonsterBuilder(boolean[] b) {
 		this.setLayout(new GridLayout(4, 4));
-		initButtons();
+		initButtons("Monsters");
 		rooms = new boolean[16];
 		initRooms(b);
 		initMonsters();
-		// mb = new MapBuilder(rooms); //9 is the starting room
 	}
 
 	public MonsterBuilder(int defaultRooms) {
-		// rooms = new boolean[16];
 		initRealRooms();
 		setDefaultMonsters();
 	}
@@ -53,38 +42,7 @@ public class MonsterBuilder extends JPanel implements ActionListener {
 		boss.setRoom(r[13]);
 	}
 
-	public Room[] getRooms() {
-		return r;
-	}
-
-	public void initButtons() {
-		b9 = new JPanel();
-		b9.setLayout(new FlowLayout());
-		JTextArea f = new JTextArea(
-				"Now editing: Monsters\nThis is the starting room.");
-		f.setEditable(false);
-		b9.add(f);
-		done = new JButton();
-		done.setText("Click here if done editing Monsters");
-		b9.add(done);
-		JTextArea f2 = new JTextArea(
-				"Note: Must add Alien to have Map in game.\n           Must add Boss to have Key in game.");
-		f2.setEditable(false);
-		b9.add(f2);
-		done.addActionListener(this);
-
-		b = new ButtonBuilder[16];
-		for (int x = 0; x < 16; x++) {
-			b[x] = new ButtonBuilder(x);
-			b[x].addActionListener(this);
-			if (x == 9) {
-				this.add(b9);
-			} else {
-				this.add(b[x]);
-			}
-		}
-	}
-
+	
 	public void initMonsters() {
 		Room temp = new Room("Temp room");
 		alien = new Monster(Humanoid.MAX_HEALTH, Monster.DEFAULT_LEVEL,
@@ -100,13 +58,9 @@ public class MonsterBuilder extends JPanel implements ActionListener {
 		mArray.add(boss);
 	}
 
+	@Override
 	public void initRooms(boolean[] input) {
-		for (int x = 0; x < 16; x++) {
-			rooms[x] = input[x];
-			if (rooms[x] == false) {
-				b[x].setEnabled(false);
-			}
-		}
+		super.initRooms(input);
 		initRealRooms();
 	}
 
@@ -147,9 +101,5 @@ public class MonsterBuilder extends JPanel implements ActionListener {
 			}
 		}
 
-	}
-
-	public boolean isDone() {
-		return isDone;
 	}
 }
