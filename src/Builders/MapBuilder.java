@@ -196,7 +196,7 @@ public class MapBuilder extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		Graphics g = combined.getGraphics();
 		if (i == 0) {
 			g.drawImage(image, 0, 0, null);
