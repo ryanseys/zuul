@@ -286,6 +286,7 @@ public abstract class View extends JFrame implements ActionListener {
 			in = new ObjectInputStream(new FileInputStream(fileName));
 			p = (Player) in.readObject();
 			unlocked = in.readBoolean();
+			currentMapRoom = in.readInt();
 			in.close();
 			JOptionPane.showMessageDialog(this,
 					"Your game was successfully retrieved!", "Confirmation",
@@ -323,6 +324,7 @@ public abstract class View extends JFrame implements ActionListener {
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(p);
 			oos.writeBoolean(unlocked);
+			oos.writeInt(currentMapRoom);
 			oos.close();
 			JOptionPane.showMessageDialog(this,
 					"Your game was successfully saved!", "Confirmation",
