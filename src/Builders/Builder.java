@@ -32,7 +32,13 @@ public class Builder extends JFrame{
 		
 		while(!rb.isDone){
 			//wait for gameBuilder to be done
-			System.out.println("Waiting for roomBuilder to be finished");
+		  try {
+        Thread.sleep(250);
+      }
+      catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 		}
 		
 		mb = new MonsterBuilder(rb.getRooms());
@@ -41,7 +47,13 @@ public class Builder extends JFrame{
 		this.validate();
 		while(mb.isDone == false){
 			//wait for monsterBuilder to be done
-			System.out.println("Waiting for monsterBuilder to be finished");
+		  try {
+        Thread.sleep(250);
+      }
+      catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
 		}
 		
 		ib = new ItemBuilder(rb.getRooms(), mb.getRooms());
@@ -51,8 +63,14 @@ public class Builder extends JFrame{
 
 		while(ib.isDone() == false){
 			//wait for itemBuilder to be done
-			System.out.println("Waiting for itemBuilder to be finished");
-		}
+		  try {
+        Thread.sleep(250);
+      }
+      catch (InterruptedException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
 		this.remove(ib);
 		
 		View view = View.getInstance(this);
