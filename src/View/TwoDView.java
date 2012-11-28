@@ -7,7 +7,6 @@
  * change sets associated with this file on GitHub
  */
 package View;
-import Builders.*;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -21,10 +20,10 @@ import javax.swing.JTextArea;
 import zuul.Command;
 import zuul.CommandWords;
 import zuul.Direction;
-import zuul.Game;
 import zuul.Item;
 import zuul.Monster;
 import zuul.Room;
+import Builders.Builder;
 
 @SuppressWarnings("serial")
 public class TwoDView extends View {
