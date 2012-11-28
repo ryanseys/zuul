@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import zuul.Item;
 import zuul.Room;
@@ -51,7 +52,9 @@ public class ItemBuilder extends AbstractBuilder implements ActionListener {
 		super.initButtons(type);
 		b[9].setText("Click here to add Items to Start Room");
 		b9.add(b[9]);
-
+		JTextArea f = new JTextArea("Note: Treasure must be added in order to win game.");
+		f.setEditable(false);
+		b9.add(f);
 	}
 
 	public void initItems() {

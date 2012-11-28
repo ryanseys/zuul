@@ -162,7 +162,7 @@ public abstract class View extends JFrame implements ActionListener {
 		resetGame.addActionListener(this);
 		save = new JMenuItem("Save");
 		save.addActionListener(this);
-		open = new JMenuItem("Open");
+		open = new JMenuItem("Load");
 		open.addActionListener(this);
 		quit = new JMenuItem(QUIT);
 		quit.addActionListener(this);
@@ -268,7 +268,7 @@ public abstract class View extends JFrame implements ActionListener {
 			quit();
 		} else if (e.getActionCommand().equals("Save")) {
 			saveGame(getFileName());
-		} else if (e.getActionCommand().equals("Open")) {
+		} else if (e.getActionCommand().equals("Load")) {
 			load(getFileNameForLoad());
 		}
 		update();

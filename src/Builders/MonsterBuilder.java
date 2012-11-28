@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import zuul.Humanoid;
 import zuul.Item;
@@ -42,7 +43,14 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
 		boss.setRoom(r[13]);
 	}
 
-	
+	@Override
+	public void initButtons(String type) {
+		super.initButtons(type);
+		JTextArea f2 = new JTextArea("Note: Must add Alien to have Map in game.\n           Must add Boss to have Key in game.");
+		f2.setEditable(false);
+		b9.add(f2);
+	}
+		
 	public void initMonsters() {
 		Room temp = new Room("Temp room");
 		alien = new Monster(Humanoid.MAX_HEALTH, Monster.DEFAULT_LEVEL,
