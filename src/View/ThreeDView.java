@@ -233,13 +233,12 @@ public class ThreeDView extends View {
 	 *            - the y coordinate of the mouse click
 	 */
 	private void handleCoordinates(int x, int y) {
-
-		if (p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true)))
-			//if (treasure.contains(x, y))
+		if (p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true))){
 				win();
-
+		}
+				
 		if (doorEast.contains(x, y)) {
-			if (p.getCurrentRoom().getExit(Direction.EAST) != null) {
+			if (p.getCurrentRoom().getExit(Direction.EAST) != null && p.getCurrentRoom().getExit(Direction.EAST).getLocked()!= true) {
 				currentMapRoom++;
 			}
 			if ((p.getCurrentRoom().getExit(Direction.EAST).getLocked() != true)
@@ -260,7 +259,7 @@ public class ThreeDView extends View {
 			}
 
 		} else if (doorWest.contains(x, y)) {
-			if (p.getCurrentRoom().getExit(Direction.WEST) != null) {
+			if (p.getCurrentRoom().getExit(Direction.WEST) != null && p.getCurrentRoom().getExit(Direction.WEST).getLocked()!= true) {
 				currentMapRoom--;
 			}
 			if ((p.getCurrentRoom().getExit(Direction.WEST).getLocked() != true)
@@ -281,7 +280,7 @@ public class ThreeDView extends View {
 			}
 			
 		} else if (doorNorth.contains(x, y)) {
-			if (p.getCurrentRoom().getExit(Direction.NORTH)!=null){
+			if (p.getCurrentRoom().getExit(Direction.NORTH)!=null && p.getCurrentRoom().getExit(Direction.NORTH).getLocked()!= true){
 	    		currentMapRoom -= 4;
 	    	}
 			if ((p.getCurrentRoom().getExit(Direction.NORTH).getLocked() != true)
@@ -301,7 +300,7 @@ public class ThreeDView extends View {
 				p.doCommand(Command.parse(GO_NORTH));
 			}
 		} else if (doorSouth.contains(x, y)) {
-			if (p.getCurrentRoom().getExit(Direction.SOUTH)!=null){
+			if (p.getCurrentRoom().getExit(Direction.SOUTH)!=null && p.getCurrentRoom().getExit(Direction.SOUTH).getLocked()!= true){
 	    		currentMapRoom += 4;
 	    	}
 			if ((p.getCurrentRoom().getExit(Direction.SOUTH).getLocked() != true)
@@ -479,7 +478,7 @@ public class ThreeDView extends View {
 			JLabel treasureLabel = new JLabel(new ImageIcon(
 					IMAGES_TREASURE_IN_ROOM_PNG));
 			treasurePanel.add(treasureLabel);
-			treasurePanel.setBounds(75, 0, 700, 600);
+			treasurePanel.setBounds(0, 0, 850, 900);
 			consolePanel.add(treasurePanel, new Integer(1), 0);
 		}
 	}
