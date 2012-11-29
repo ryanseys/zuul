@@ -233,12 +233,14 @@ public class ThreeDView extends View {
 	 *            - the y coordinate of the mouse click
 	 */
 	private void handleCoordinates(int x, int y) {
+	  
 		if (p.getCurrentRoom().hasItem(new Item(TREASURE, 100, 0, true))){
 				win();
 		}
 				
 		if (doorEast.contains(x, y)) {
-			if (p.getCurrentRoom().getExit(Direction.EAST) != null && p.getCurrentRoom().getExit(Direction.EAST).getLocked()!= true) {
+		  if(p.getCurrentRoom().getExit(Direction.EAST) == null) return;
+			if (p.getCurrentRoom().getExit(Direction.EAST) != null && p.getCurrentRoom().getExit(Direction.EAST).getLocked() != true) {
 				currentMapRoom++;
 			}
 			if ((p.getCurrentRoom().getExit(Direction.EAST).getLocked() != true)
@@ -259,6 +261,7 @@ public class ThreeDView extends View {
 			}
 
 		} else if (doorWest.contains(x, y)) {
+		  if(p.getCurrentRoom().getExit(Direction.WEST) == null) return;
 			if (p.getCurrentRoom().getExit(Direction.WEST) != null && p.getCurrentRoom().getExit(Direction.WEST).getLocked()!= true) {
 				currentMapRoom--;
 			}
@@ -280,7 +283,8 @@ public class ThreeDView extends View {
 			}
 			
 		} else if (doorNorth.contains(x, y)) {
-			if (p.getCurrentRoom().getExit(Direction.NORTH)!=null && p.getCurrentRoom().getExit(Direction.NORTH).getLocked()!= true){
+		  if(p.getCurrentRoom().getExit(Direction.NORTH) == null) return;
+			if (p.getCurrentRoom().getExit(Direction.NORTH) != null && p.getCurrentRoom().getExit(Direction.NORTH).getLocked()!= true){
 	    		currentMapRoom -= 4;
 	    	}
 			if ((p.getCurrentRoom().getExit(Direction.NORTH).getLocked() != true)
@@ -300,6 +304,7 @@ public class ThreeDView extends View {
 				p.doCommand(Command.parse(GO_NORTH));
 			}
 		} else if (doorSouth.contains(x, y)) {
+		  if(p.getCurrentRoom().getExit(Direction.SOUTH) == null) return;
 			if (p.getCurrentRoom().getExit(Direction.SOUTH)!=null && p.getCurrentRoom().getExit(Direction.SOUTH).getLocked()!= true){
 	    		currentMapRoom += 4;
 	    	}
