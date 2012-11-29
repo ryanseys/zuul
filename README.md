@@ -3,7 +3,7 @@ zuul (Github : http://github.com/ryanseys/zuul)
 
 Authors: Ryan Seys, Vinayak Bansal, Jarred Linthorne-Shaw
 
-Milestone 3
+Milestone 4
 ===========
 
 ## Deliverables
@@ -22,6 +22,16 @@ Milestone 3
 * Player.java
 * PlayerHistory.java
 * Room.java
+
+### Builders package
+
+* AbstractBuilder.java
+* Builder.java
+* ButtonBuilder.java
+* ItemBuilder.java
+* MapBuilder.java
+* MonsterBuilder.java
+* RoomBuilder.java
 
 ### View package
 
@@ -51,15 +61,20 @@ Milestone 3
 * chest_in_room_filled.png
 * chest_in_room.png
 * claws.png
+* east_door_locked.png
 * east_door.png
 * fix.png
 * flamethrower.jpg
+* full_map.png
 * key.png
 * map.jpg
 * monster_in_room.png
+* north_door_locked.png
 * north_door.png
 * orange.png
 * pear.png
+* room_empty.png
+* room_player.png
 * rooms_eastroom.png
 * rooms_noMap.png
 * rooms_northroom1.png
@@ -68,6 +83,7 @@ Milestone 3
 * rooms_southroom.png
 * rooms_startroom.png
 * rooms_westroom.png
+* south_door_locked.png
 * south_door.png
 * sword.png
 * treasure_in_room.png
@@ -93,7 +109,6 @@ Milestone 3
 
 * ThirdMilestoneUML.png
 
-
 ## Authors and Their Roles
 
 **Ryan Seys:**
@@ -110,6 +125,7 @@ Milestone 3
   * Responsible for reporting issues/bugs to Github (https://github.com/ryanseys/zuul/issues)
   * Responsible for the GUI building and testing
   * Responsible for writing tests for their respective class files
+  * Responsbile for writing builder classes and hooking them up to the views and testing of this feature
 
 ## Changes made for Milestone 1
 
@@ -149,6 +165,18 @@ Milestone 3
 * Very large refactoring of codebase.
   * Moved all compared Strings into constants
   * Extracted many similar methods from the different views into a superclass
+
+## Changes made for Milestone 4
+
+* Added builders to allow you to create your own levels
+  * Level builder featuring a 4x4 grid of possible rooms
+  * Many different items can be placed in any of the rooms
+  * Two different monsters (Alien & Boss) can be placed in any two rooms
+  * Treasure can be placed in any one room
+    * Get the treasure to win the game
+* Can save and load games from a file
+  * Games automatically will save when you begin playing to ensure you may reset the game at any point
+* Refactored more code
 
 # User manual
 
