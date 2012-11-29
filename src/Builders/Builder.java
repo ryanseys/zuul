@@ -90,11 +90,6 @@ public class Builder extends JFrame implements Serializable {
 		return rb;
 	}
 
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
-		Builder b = new Builder();
-	}
-
 	public void setRoomBuilder() {
 		rb = null;
 	}
