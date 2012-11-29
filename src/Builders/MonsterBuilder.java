@@ -85,7 +85,6 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
 		if (e.getSource() == done) {
 			this.setVisible(false);
 			isDone = true;
-			System.out.println("Done with monster building");
 		} else {
 			int loc = ((ButtonBuilder) e.getSource()).getLoc();
 			int popup = JOptionPane.showOptionDialog(this,

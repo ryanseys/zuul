@@ -38,7 +38,6 @@ public class RoomBuilder extends AbstractBuilder implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == done) {
-			System.out.println("Done with room building");
 			MonsterBuilder monBuil = new MonsterBuilder(rooms);
 
 			isDone = true;

@@ -78,7 +78,6 @@ public class ItemBuilder extends AbstractBuilder implements ActionListener {
 		if (e.getSource() == done) {
 			this.setVisible(false);
 			isDone = true;
-			System.out.println("Done with item building");
 		} else {
 			int loc = ((ButtonBuilder) e.getSource()).getLoc();
 			int popup = JOptionPane.showOptionDialog(this,
