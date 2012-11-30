@@ -132,12 +132,12 @@ public class PlayerHistoryTest {
     assertNull(playerHistory.undo());
     assertNull(playerHistory.redo());
   }
-  
-//  @Test
-//  public void testEquals() {
-//	  assertTrue(playerHistory.equals(playerHistory));
-//	  playerHistory.addStep(undoableCommand);
-//	  assertTrue(playerHistory.equals(playerHistory));
-//	  assertFalse(playerHistory.equals(new PlayerHistory()));
-//  }
+
+  // @Test
+  // public void testEquals() {
+  // assertTrue(playerHistory.equals(playerHistory));
+  // playerHistory.addStep(undoableCommand);
+  // assertTrue(playerHistory.equals(playerHistory));
+  // assertFalse(playerHistory.equals(new PlayerHistory()));
+  // }
 }

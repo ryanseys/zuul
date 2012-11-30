@@ -2,18 +2,27 @@ package Builders;
 
 import javax.swing.JButton;
 
+/**
+ *
+ */
 @SuppressWarnings("serial")
 public class ButtonBuilder extends JButton {
-	private int location;
+  private int location;
 
-	public ButtonBuilder(int location) {
-		assert (location >= 0);
-		assert (location <= 15);
-		this.location = location;
-	}
+  /**
+   * @param location
+   */
+  public ButtonBuilder(int location) {
+    assert (location >= 0);
+    assert (location <= 15);
+    this.location = location;
+  }
 
-	public int getLoc() {
-		return location;
-	}
+  /**
+   * @return
+   */
+  public int getLoc() {
+    return location;
+  }
 
 }

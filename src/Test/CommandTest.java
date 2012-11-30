@@ -99,6 +99,27 @@ public class CommandTest {
   }
 
   @Test
+  public void testSaveRetrieve() {
+    FileOutputStream fos;
+    ObjectOutputStream oos;
+    ObjectInputStream in;
+    try {
+      fos = new FileOutputStream("myFile.txt");
+      oos = new ObjectOutputStream(fos);
+      in = new ObjectInputStream(new FileInputStream("myFile.txt"));
+      Command i = Command.parse("Go East");
+      i.save(oos);
+      oos.close();
+      Command retrieve = Command.retrieve(in);
+      assertTrue(i.equals(retrieve));
+      assertFalse(i.equals(Command.parse("Fight")));
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
   public void undoHasNoOpposite() {
     Command c = new Command(CommandWords.UNDO, null);
     assertTrue(c.getOpposite() == null);
@@ -109,24 +130,4 @@ public class CommandTest {
     Command c = new Command(null, null);
     assertTrue(c.isUnknown());
   }
-  
-  @Test
-	public void testSaveRetrieve() {
-		FileOutputStream fos;
-		ObjectOutputStream oos;
-		ObjectInputStream in;
-		try {
-			fos = new FileOutputStream("myFile.txt");
-			oos = new ObjectOutputStream(fos);
-			in = new ObjectInputStream(new FileInputStream("myFile.txt"));
-			Command i = Command.parse("Go East");
-			i.save(oos);
-			oos.close();
-			Command retrieve = Command.retrieve(in);
-			assertTrue(i.equals(retrieve));
-			assertFalse(i.equals(Command.parse("Fight")));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
