@@ -24,7 +24,11 @@ public abstract class AbstractBuilder extends JPanel implements ActionListener {
   }
 
   /**
-   * @param type
+   * It initializes the panel, and sets the text on it 
+   * according to the which stage you are in.
+   * 
+   * @param type: Which stage of the builder are you in?
+   * The 'Room', 'Monster' and 'Item' stage?
    */
   public void initButtons(String type) {
 
@@ -50,7 +54,13 @@ public abstract class AbstractBuilder extends JPanel implements ActionListener {
   }
 
   /**
-   * @param input
+   * This method sets one of its state variables to
+   * according to the input.
+   * 
+   * Also does an error check to ensure that the starting room is always
+   * set to true
+   * @param input: An array of 16 booleans where a true indicates
+   * that there is a room present at that location in the grid
    */
   public void initRooms(boolean[] input) {
     rooms[9] = true; // always true, starting room
@@ -62,7 +72,8 @@ public abstract class AbstractBuilder extends JPanel implements ActionListener {
   }
 
   /**
-   * @return
+   * @return if the current stage of the builder has been done
+   * yet or not
    */
   public boolean isDone() {
     return isDone;

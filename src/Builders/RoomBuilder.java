@@ -13,7 +13,7 @@ public class RoomBuilder extends AbstractBuilder implements ActionListener {
   boolean isDone = false;
 
   /**
-   * 
+   * Invoked when the user chooses to build his own game
    */
   public RoomBuilder() {
     setLayout(new GridLayout(4, 4));
@@ -24,7 +24,8 @@ public class RoomBuilder extends AbstractBuilder implements ActionListener {
   }
 
   /**
-   * @param defaultRooms
+   * Invoked when the user chooses to play the default version
+   * @param defaultRooms: not used, but necessary for overloading
    */
   public RoomBuilder(int defaultRooms) {
     rooms = new boolean[16];
@@ -64,32 +65,32 @@ public class RoomBuilder extends AbstractBuilder implements ActionListener {
   }
 
   /**
-   * @return
+   * getter for one of the state variables
    */
   public boolean[] getBooleanRooms() {
     return rooms;
   }
 
   /**
-   * @return
+   *getter for one of the state variables
    */
   public MapBuilder getMapBuilder() {
     return mb;
   }
 
   /**
-   * 
+   * Helper for the constructor
    */
-  public void initRooms() {
+  private void initRooms() {
     for (int x = 0; x < 16; x++)
       rooms[x] = false;
     rooms[9] = true; // always true, starting room
   }
 
   /**
-   * 
+   *  Helper for the constructor
    */
-  public void setDefaultRooms() {
+  private void setDefaultRooms() {
     initRooms();
     rooms[0] = true;
     rooms[1] = true;

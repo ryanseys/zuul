@@ -20,6 +20,7 @@ public class ItemBuilder extends AbstractBuilder implements ActionListener {
   ArrayList<Item> iArray = new ArrayList<Item>();
 
   /**
+   * Invoked when the user chooses to build his own game
    * @param b
    * @param r
    */
@@ -29,14 +30,15 @@ public class ItemBuilder extends AbstractBuilder implements ActionListener {
     rooms = new boolean[16];
     initRooms(b);
     initItems();
-    setRealRooms(r);
+    this.r = r;
   }
 
   /**
+   * Invoked when the user wants to play the default version
    * @param r
    */
   public ItemBuilder(Room[] r) {
-    setRealRooms(r);
+	  this.r = r;
     setDefaultItems();
   }
 
@@ -83,9 +85,9 @@ public class ItemBuilder extends AbstractBuilder implements ActionListener {
   }
 
   /**
-   * 
+   * Helper to set up some of the internal state variables
    */
-  public void initItems() {
+  private void initItems() {
     bread = new Item("Bread", 30, 0, false);
     sword = new Item("Sword", 50, 0, true);
     apple = new Item("Apple", 10, 0, false);
@@ -102,7 +104,8 @@ public class ItemBuilder extends AbstractBuilder implements ActionListener {
   }
 
   /**
-   * 
+   * In case the user chooses to play the default version of the game,
+   * we invoke this method
    */
   private void setDefaultItems() {
     initItems();
@@ -114,10 +117,4 @@ public class ItemBuilder extends AbstractBuilder implements ActionListener {
     r[9].addItem(sword);
   }
 
-  /**
-   * @param r
-   */
-  public void setRealRooms(Room[] r) {
-    this.r = r;
-  }
 }

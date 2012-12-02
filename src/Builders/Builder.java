@@ -19,7 +19,8 @@ public class Builder extends JFrame implements Serializable {
   private ItemBuilder ib;
 
   /**
-   * Constructor
+   * Constructor: Initializes all the builders, gets the user to choose its
+   * preferences and then calls the view to start the game
    */
   public Builder() {
     setLayout(new GridLayout(1, 1));
@@ -31,45 +32,31 @@ public class Builder extends JFrame implements Serializable {
     this.add(rb);
     setVisible(true);
 
-    while (!rb.isDone)
-      // wait for gameBuilder to be done
-      try {
-        Thread.sleep(250);
-      }
-      catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+    try {
+		while (!rb.isDone)
+			// wait for roomBuilder to be done
+		    Thread.sleep(250);
 
-    mb = new MonsterBuilder(rb.getBooleanRooms());
-    this.add(mb);
-    this.remove(rb);
-    validate();
-    while (mb.isDone == false)
-      // wait for monsterBuilder to be done
-      try {
-        Thread.sleep(250);
-      }
-      catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
+		mb = new MonsterBuilder(rb.getBooleanRooms());
+		this.add(mb);
+		this.remove(rb);
+		validate();
+		while (mb.isDone == false)
+			// wait for monsterBuilder to be done
+		    Thread.sleep(250);
 
-    ib = new ItemBuilder(rb.getBooleanRooms(), mb.getRooms());
-    this.add(ib);
-    this.remove(mb);
-    validate();
+		ib = new ItemBuilder(rb.getBooleanRooms(), mb.getRooms());
+		this.add(ib);
+		this.remove(mb);
+		validate();
 
-    while (ib.isDone() == false)
-      // wait for itemBuilder to be done
-      try {
-        Thread.sleep(250);
-      }
-      catch (InterruptedException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-    this.remove(ib);
+		while (ib.isDone() == false)
+		  // wait for itemBuilder to be done
+		    Thread.sleep(250);
+		this.remove(ib);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
 
     View view = View.getInstance(this);
     view.update();
@@ -77,7 +64,9 @@ public class Builder extends JFrame implements Serializable {
   }
 
   /**
-   * @param defaultLayout
+   * Overrided constructor to start the game in default mode
+   * @param defaultLayout : the parameter is not used, but is 
+   * still required.
    */
   public Builder(int defaultLayout) {
     rb = new RoomBuilder(1);
@@ -89,21 +78,21 @@ public class Builder extends JFrame implements Serializable {
   }
 
   /**
-   * @return
+   * Getter for ItemBuilder
    */
   public ItemBuilder getItemBuilder() {
     return ib;
   }
 
   /**
-   * @return
+   * Getter for MonsterBuilder
    */
   public MonsterBuilder getMonsterBuilder() {
     return mb;
   }
 
   /**
-   * @return
+   * Getter for RoomBuilder
    */
   public RoomBuilder getRoomBuilder() {
     return rb;

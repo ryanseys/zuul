@@ -1,5 +1,9 @@
 package Builders;
 
+/**
+ * This class is nothing but a button with an int location
+ * on the grid
+ */
 import javax.swing.JButton;
 
 /**
@@ -19,7 +23,7 @@ public class ButtonBuilder extends JButton {
   }
 
   /**
-   * @return
+   * getter for the extra state variable
    */
   public int getLoc() {
     return location;

@@ -23,7 +23,7 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
   ArrayList<Monster> mArray = new ArrayList<Monster>();
 
   /**
-   * @param b
+   * @param b the boolean array of where the rooms are
    */
   public MonsterBuilder(boolean[] b) {
     setLayout(new GridLayout(4, 4));
@@ -34,7 +34,8 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
   }
 
   /**
-   * @param defaultRooms
+   * Invoked when the user wants to play the default option
+   * @param defaultRooms: not used but necessary for overloading
    */
   public MonsterBuilder(int defaultRooms) {
     initRealRooms();
@@ -87,7 +88,8 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
   }
 
   /**
-   * 
+   * Initializing the two state variables - alien and boss
+   * Putting them in a temp room
    */
   public void initMonsters() {
     Room temp = new Room("Temp room");
@@ -105,9 +107,10 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
   }
 
   /**
-   * 
+   * MonsterBuilder is the place where the real rooms get constructed
+   * Till now we were working with an array of booleans
    */
-  public void initRealRooms() {
+  private void initRealRooms() {
     r = new Room[16];
     for (int x = 0; x < 16; x++)
       r[x] = new Room(x + "");
