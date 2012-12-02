@@ -409,7 +409,6 @@ public class ThreeDView extends View {
     }
 
     if (p.getCurrentRoom().hasItem(new Item("Treasure", true))) {
-      // consolePanel.removeAll();
       treasurePanel.removeAll();
       JLabel treasureLabel = new JLabel(new ImageIcon(
           IMAGES_TREASURE_IN_ROOM_PNG));

@@ -340,7 +340,11 @@ public abstract class View extends JFrame implements ActionListener {
   }
 
   /**
-   * TODO
+   * This method takes in a filename, opens it and tries to initialize
+   * the state variables of the game, namely the player, treasure room 
+   * locking status and where in the 4X4 grid the player is.
+   * If the file does not exist, or is  not of the appropriate type, it
+   * pops up with a message.
    */
   private void load(String fileName) {
     if (fileName == null) return;
@@ -389,15 +393,11 @@ public abstract class View extends JFrame implements ActionListener {
   }
 
   /**
-   * Reset method, used to start the game anew.
-   */
-  protected void reset() {
-    p.reset();
-    unlocked = false;
-  }
-
-  /**
-   * TODO
+   * This method takes in a filename, opens it and tries to save
+   * the state variables of the game, namely the player, treasure room 
+   * locking status and where in the 4X4 grid the player is.
+   * If the file does not exist, or is  not of the appropriate type, it
+   * pops up with a message.
    */
   private void saveGame(String fileName) {
 

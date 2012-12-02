@@ -43,6 +43,12 @@ public class Game {
 	public static final String NORTH_ROOM1 = "NorthRoom1";
 	public static final String START_ROOM = "StartRoom";
 
+	/**
+	 * Initialization method, to set up the game (default case)
+	 * Sets up the rooms, the
+	 * monsters and the items in the game.
+	 * Notice how it does not take in a builder.
+	 */
 	public static Room initialize() {
 		Room startRoom = new Room(START_ROOM);
 		Room northRoom1 = new Room(NORTH_ROOM1);
@@ -91,9 +97,6 @@ public class Game {
 	 * Initialization method, to set up the game. Sets up the rooms, the
 	 * monsters and the items in the game.
 	 * 
-	 * @param <ItemBuilder>
-	 * @param <MapBuilder>
-	 * @param <RoomBuilder>
 	 */
 	public static Room initialize(Builder b) {
 		ItemBuilder ib = b.getItemBuilder();
@@ -137,6 +140,10 @@ public class Game {
 		return startRoom;
 	}
 
+	/*
+	 * Refactored method to help the builder with determining where to set
+	 * the exits
+	 */
 	public static boolean hasNeighbour(int id, Direction d) {
 		switch (id) {
 		case 0:

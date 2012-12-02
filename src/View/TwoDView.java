@@ -1,6 +1,7 @@
 /**
  * 
  * This is the view as well as the controller.
+ * NO LONGER SUPPORTED
  * 
  * @author Joint programming between Ryan, Jarred and Vinayak
  * For more details on who made what change, please refer to the

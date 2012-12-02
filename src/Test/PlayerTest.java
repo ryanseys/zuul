@@ -124,14 +124,6 @@ public class PlayerTest {
   public void tearDown() throws Exception {
   }
 
-  // @Test
-  // public void testEquals() {
-  // assertTrue(p.equals(p));
-  // r.addItem(new Item("Gold", false));
-  // p.doCommand(Command.parse("Eat Gold"));
-  // assertFalse(p.equals(new Player(new Room("Current Room"))));
-  // }
-
   @Test
   public void testSaveRetrieve() {
     FileOutputStream fos;
