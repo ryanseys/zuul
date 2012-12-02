@@ -1,8 +1,5 @@
 package zuul;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * Direction class represents all the ways that a room can be placed relative to
@@ -28,13 +25,5 @@ public enum Direction {
     else if (equals(Direction.SOUTH)) return Direction.NORTH;
     else if (equals(Direction.WEST)) return Direction.EAST;
     else return null;
-  }
-  
-  public void save(ObjectOutputStream input) throws IOException {
-	  input.writeUTF(this.name());
-  }
-  
-  public static Direction retrieve(ObjectInputStream input) throws IOException {
-	  return Direction.valueOf(input.readUTF());
   }
 }

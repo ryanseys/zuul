@@ -1,8 +1,5 @@
 package zuul;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
@@ -37,7 +34,6 @@ public class Player extends Humanoid  implements Serializable{
    */
   public Player(int health, Room room, String name) {
     super(health, name, room);
-    //addItem(new Item("Map", 0, 0, true));
     playerHistory = new PlayerHistory();
   }
 
@@ -188,21 +184,4 @@ public class Player extends Humanoid  implements Serializable{
     playerHistory.clear();
     super.reset();
   }
-  
-  public void save(ObjectOutputStream input) throws IOException{
-	  input.writeObject(this);
-  }
-  
-  public static Player retrieve(ObjectInputStream input) throws Exception{
-	  Object o = input.readObject();
-	  return (Player)o;
-  }
-  
-//  @Override
-//  public boolean equals(Object o) {
-//	  if (!(o instanceof Player))
-//		  return false;
-//	  Player p = (Player)o;
-//	  return playerHistory.equals(p.playerHistory) && super.equals(o);
-//  }
 }

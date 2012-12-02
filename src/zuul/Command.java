@@ -1,8 +1,5 @@
 package zuul;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
@@ -159,24 +156,4 @@ public class Command implements Serializable{
     return (firstWord == null);
   }
   
-  public void save(ObjectOutputStream input) throws IOException{
-	  firstWord.save(input);
-	  if (secondWord instanceof Item) {
-		  input.writeBoolean(true);
-		  ((Item) secondWord).save(input);
-	  } else {
-		  input.writeBoolean(false);
-		  ((Direction) secondWord).save(input);
-	  }
-  }
-  
-  public static Command retrieve(ObjectInputStream input) throws IOException {
-	  CommandWords firstWord = CommandWords.retrieve(input);
-	  boolean isItem = input.readBoolean();
-	  if (isItem) {
-		  return new Command(firstWord, Item.retrieve(input));
-	  } else {
-		  return new Command(firstWord, Direction.retrieve(input));
-	  }
-	}
 }

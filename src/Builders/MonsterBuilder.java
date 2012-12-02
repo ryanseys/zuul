@@ -59,11 +59,11 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
       if ((popup == 0) || (popup == 1)) {
         if (mArray.get(popup).equals(alien)) {
           r[loc].addMonster(alien);
-          alien.setRoom(r[loc]);
+          alien.setCurrentRoom(r[loc]);
           mArray.remove(alien);
         } else {
           r[loc].addMonster(boss);
-          boss.setRoom(r[loc]);
+          boss.setCurrentRoom(r[loc]);
           mArray.remove(boss);
         }
         b[loc].setEnabled(false);
@@ -95,11 +95,11 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
         null);
     alien.addItem(new Item("Map", 0, 0, true));
     alien.addItem(new Item("Claws", 10, 0, true));
-    alien.setRoom(temp);
+    alien.setCurrentRoom(temp);
     boss = new Monster(100, 2, "Boss", null);
     boss.addItem(new Item("Flamethrower", 30, 0, true));
     boss.addItem(new Item("Key", 0, 0, true));
-    boss.setRoom(temp);
+    boss.setCurrentRoom(temp);
     mArray.add(alien);
     mArray.add(boss);
   }
@@ -128,8 +128,8 @@ public class MonsterBuilder extends AbstractBuilder implements ActionListener {
   private void setDefaultMonsters() {
     initMonsters();
     r[10].addMonster(alien);
-    alien.setRoom(r[10]);
+    alien.setCurrentRoom(r[10]);
     r[13].addMonster(boss);
-    boss.setRoom(r[13]);
+    boss.setCurrentRoom(r[13]);
   }
 }

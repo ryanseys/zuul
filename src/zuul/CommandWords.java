@@ -1,8 +1,5 @@
 package zuul;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 /**
  * This is an enum for the command words. It represents all the different
@@ -18,12 +15,4 @@ public enum CommandWords{
   //all words for firstWord in Commands
   GO, PICKUP, DROP, FIGHT, HELP, QUIT, UNDO, REDO, EAT; 
   
-  public void save(ObjectOutputStream input) throws IOException {
-	  input.writeUTF(this.toString());
-  }
-  
-  public static CommandWords retrieve(ObjectInputStream input) throws IOException {
-	  String name = input.readUTF();
-	  return CommandWords.valueOf(name);
-  }
 }

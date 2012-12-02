@@ -108,25 +108,4 @@ public class Builder extends JFrame implements Serializable {
   public RoomBuilder getRoomBuilder() {
     return rb;
   }
-
-  /**
-   * 
-   */
-  public void setItemBuilder() {
-    ib = null;
-  }
-
-  /**
-   * 
-   */
-  public void setMonsterBuilder() {
-    mb = null;
-  }
-
-  /**
-   * 
-   */
-  public void setRoomBuilder() {
-    rb = null;
-  }
 }

@@ -1,8 +1,5 @@
 package zuul;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 /**
@@ -195,17 +192,5 @@ public class Item implements Comparable<Item>, Serializable {
 	@Override
 	public String toString() {
 		return name;
-	}
-
-	public void save(ObjectOutputStream input) throws IOException {
-		input.writeUTF(name);
-		input.writeInt(value);
-		input.writeInt(weight);
-		input.writeBoolean(isWeapon);
-	}
-
-	public static Item retrieve(ObjectInputStream input) throws IOException {
-		return new Item(input.readUTF(), input.readInt(), input.readInt(),
-				input.readBoolean());
 	}
 }

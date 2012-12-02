@@ -3,11 +3,6 @@ package Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,27 +36,6 @@ public class ItemTest {
     Item i2 = new Item("Sword", 10, 10, true);
     assertTrue(i.equals(i2));
     assertFalse(i.equals(i3));
-  }
-
-  @Test
-  public void testSaveRetrieve() {
-    FileOutputStream fos;
-    ObjectOutputStream oos;
-    ObjectInputStream in;
-    try {
-      fos = new FileOutputStream("myFile.txt");
-      oos = new ObjectOutputStream(fos);
-      in = new ObjectInputStream(new FileInputStream("myFile.txt"));
-      i.save(oos);
-      oos.close();
-      Item retrieve = Item.retrieve(in);
-      assertTrue(i.equals(retrieve));
-      assertFalse(i.equals(i3));
-      in.close();
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
 }

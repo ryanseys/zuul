@@ -23,10 +23,10 @@ import Builders.Builder;
 public abstract class Humanoid implements Serializable {
 
 	/**
-   * Serial version UID
-   */
-  private static final long serialVersionUID = 1L;
-  private int health;
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = 1L;
+	private int health;
 	private String name;
 	public static final int MAX_HEALTH = 100;
 	protected ArrayList<Item> inventory;
@@ -51,7 +51,8 @@ public abstract class Humanoid implements Serializable {
 		health = maxHealth;
 		inventory = new ArrayList<Item>();
 		currentRoom = room;
-		if(currentRoom != null) b = currentRoom.getBuilder();
+		if (currentRoom != null)
+			b = currentRoom.getBuilder();
 	}
 
 	/**
@@ -224,12 +225,12 @@ public abstract class Humanoid implements Serializable {
 	 */
 	public void reset() {
 		setHealth(MAX_HEALTH);
-		if (this instanceof Player) { // you cannot chagne the current room of a
+		if (this instanceof Player) { // you cannot change the current room of a
 										// monster
 			currentRoom = Game.initialize(b);
 			inventory.clear();
 		} else {
-			// TODO error: reset makes no sense on a monster
+			// error: reset makes no sense on a monster
 		}
 
 	}
@@ -237,14 +238,8 @@ public abstract class Humanoid implements Serializable {
 	/**
 	 * Setter for the current room.
 	 */
-	// protected because we dont want to change the room of a monster
-	protected void setCurrentRoom(Room room) {
-		// you cannot chagne the current room of a monster
-		if (this instanceof Player)
-			currentRoom = room;
-		else {
-			// TODO report an error
-		}
+	public void setCurrentRoom(Room room) {
+		currentRoom = room;
 	}
 
 	/**
@@ -265,9 +260,5 @@ public abstract class Humanoid implements Serializable {
 	@Override
 	public String toString() {
 		return name;
-	}
-	
-	public void setRoom(Room r){
-		currentRoom = r;
 	}
 }

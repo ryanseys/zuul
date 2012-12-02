@@ -3,11 +3,6 @@ package Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -96,27 +91,6 @@ public class CommandTest {
 
   @After
   public void tearDown() throws Exception {
-  }
-
-  @Test
-  public void testSaveRetrieve() {
-    FileOutputStream fos;
-    ObjectOutputStream oos;
-    ObjectInputStream in;
-    try {
-      fos = new FileOutputStream("myFile.txt");
-      oos = new ObjectOutputStream(fos);
-      in = new ObjectInputStream(new FileInputStream("myFile.txt"));
-      Command i = Command.parse("Go East");
-      i.save(oos);
-      oos.close();
-      Command retrieve = Command.retrieve(in);
-      assertTrue(i.equals(retrieve));
-      assertFalse(i.equals(Command.parse("Fight")));
-    }
-    catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 
   @Test
